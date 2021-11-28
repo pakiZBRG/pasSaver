@@ -1,12 +1,103 @@
 @import url("https://fonts.googleapis.com/css2?family=Mukta&display=swap");
 body {
   background: #141414;
-  color: #eee;
+  color: #eeeeee;
   font-family: "Mukta";
 }
 
 * {
   margin: 0;
   padding: 0;
+}
+
+*:focus {
+  outline: none;
+}
+
+.flex-center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 15%;
+}
+
+.flex-center h1 {
+  color: #ffea04;
+  font-family: "Cunia";
+  font-size: 4rem;
+}
+
+.flex-center p {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+}
+
+.flex-center form {
+  position: relative;
+  margin-top: 4rem;
+}
+
+.flex-center form input {
+  background: #eeeeee;
+  border: none;
+  padding: .9rem 1.1rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+  width: 20rem;
+}
+
+.flex-center form input:hover, .flex-center form input:focus {
+  -webkit-box-shadow: 0 7px 20px 2px rgba(238, 238, 238, 0.3);
+          box-shadow: 0 7px 20px 2px rgba(238, 238, 238, 0.3);
+}
+
+.flex-center form button {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 1%;
+  background: #141414;
+  color: #eeeeee;
+  border: 0;
+  border-radius: 50%;
+  font-size: 1rem;
+  width: 41px;
+  height: 41px;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+}
+
+.flex-center form button:hover, .flex-center form button:focus {
+  -webkit-box-shadow: 0 7px 20px 2px rgba(20, 20, 20, 0.5);
+          box-shadow: 0 7px 20px 2px rgba(20, 20, 20, 0.5);
+  cursor: pointer;
+}
+
+.flex-links {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+}
+
+.flex-links a {
+  color: #eeeeee;
+  font-size: 1.2rem;
+  margin: 0.4rem;
+}
+
+.maker {
+  position: absolute;
+  top: 5px;
+  right: 15px;
 }
 /*# sourceMappingURL=style.css.map */

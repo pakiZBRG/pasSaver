@@ -1,8 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
 
+$yellow: #ffea04;
+$black: #141414;
+$white: #eeeeee;
+
 body {
-    background: #141414;
-    color: #eee;
+    background: $black;
+    color: $white;
     font-family: "Mukta";
 }
 
@@ -10,3 +14,9 @@ body {
     margin: 0;
     padding: 0;
 }
+
+*:focus{
+    outline: none;
+}
+
+@import './components/_home.scss';
