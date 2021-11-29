@@ -1,4 +1,4 @@
-const controller = require('../controllers/user');
+const controller = require('../controllers/users');
 const { validEmail, validKeyPass } = require('../helpers/validation')
 const router = require('express').Router();
 
