@@ -13,11 +13,11 @@ exports.getKeyPass = async (req, res) => {
     }
 
     try {
-        const emailExists = await User.find({ email })
+        const emailExists = await User.findOne({ email })
         if(emailExists) {
             return res.status(409).json({ error: 'This email is used. Take another one' })
-        }
-
+        }             
+        
         // Configuring token
         const token = jwt.sign(
             { email },
@@ -32,7 +32,7 @@ exports.getKeyPass = async (req, res) => {
             subject: "Setup yout unique keyPass",
             html: `
                 <h3>Please Click on Link to setup:</h3>
-                <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>
+                <p>${process.env.CLIENT_URL}/activate/${token}</p>
                 <hr/>
             `
         }
@@ -48,7 +48,7 @@ exports.getKeyPass = async (req, res) => {
 
         transporter.verify((err, success) => {
             if(err) {
-                console.log("Error");
+                console.log("Error:", EvalError);
             } else {
                 console.log("Server is ready to take messages");
             }
@@ -58,7 +58,7 @@ exports.getKeyPass = async (req, res) => {
             if(err) {
                 console.log(err);
             } else {
-                console.log(`Email send to ${info.response}`);
+                console.log(`Email send to ${info.accepted}`);
                 return res.json({
                     message: `Email has been sent to ${email}`
                 });
@@ -85,6 +85,11 @@ exports.activate = (req, res) => {
                     const firstError = errors.array().map(error => error.msg)[0]
                     return res.status(422).json({error: firstError})
                 }
+
+                const emailExists = await User.findOne({ email })
+                if(emailExists) {
+                    return res.status(409).json({ error: 'This email has keyPass. Use another one.' })
+                } 
     
                 const user = new User({ email, keyPass});
                 user.save()

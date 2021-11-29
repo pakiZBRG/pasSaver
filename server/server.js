@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors')
 const { server_start, mongoose_start } = require('./helpers/colorCLI')
 require('dotenv').config();
 const app = express();
 
 // Middleware
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 15%;
+    padding-top: 4rem;
 
     & h1 {
         color: $yellow;
@@ -11,7 +11,7 @@
     }
 
     & p {
-        margin-top: 2rem;
+        margin-top: 1rem;
         font-size: 1.1rem;
     }
 
@@ -21,13 +21,13 @@
         & input {
             background: $white;
             border: none;
-            padding: .9rem 1.1rem;
+            padding: 1rem 1.2rem;
             border-radius: 2rem;
             font-size: 1rem;
             transition: 200ms ease-in;
             width: 20rem;
             &:hover, &:focus{
-                box-shadow: 0 7px 20px 2px rgba(238, 238, 238, .3);
+                box-shadow: 0 7px 20px 3px rgba(238, 238, 238, .3);
             }
         }
 
@@ -35,17 +35,17 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            right: 1%;
+            right: 1.5%;
             background: $black;
             color: $white;
             border: 0;
             border-radius: 50%;
             font-size: 1rem;
-            width: 41px;
-            height: 41px;
+            width: 42px;
+            height: 42px;
             transition: 200ms ease-in;
             &:hover, &:focus {
-                box-shadow: 0 7px 20px 2px rgba(20, 20, 20, .5);
+                box-shadow: 0 7px 25px 5px rgba(20, 20, 20, .5);
                 cursor: pointer;
             }
         }
@@ -65,6 +65,79 @@
 
 .maker {
     position: absolute;
-    top: 5px;
+    bottom: 5px;
     right: 15px;
+}
+
+.nav-center {
+    margin-top: .5rem;
+    display: flex;
+    justify-content: center;
+    & a {
+        color: $white;
+        text-decoration: underline;
+    }
+}
+
+.flex-around {
+    width: 85%;
+    margin: 4rem auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    & .card {
+        box-sizing: border-box;
+        background: $yellow;
+        width: 350px;
+        height: 260px;
+        margin: .6rem;
+        border-radius: 2rem;
+        padding: 1.4rem;
+        color: $black;
+        position: relative;
+        & h2 {
+            font-size: 1.3rem;
+            text-align: center;
+            font-family: "Cunia";
+        }
+        &-img {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 120px;
+            width: 200px;
+            & img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+}
+
+.divider {
+    font-family: "Cunia";
+    color: $yellow;
+    font-size: .9rem;
+    margin: 1.8rem 0;
+    position: relative;
+    &::after {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: 105%;
+        height: 1px;
+        width: 75px;
+        background: $white;
+    }
+    &::before {
+        position: absolute;
+        content: '';
+        top: 50%;
+        right: 105%;
+        height: 1px;
+        width: 75px;
+        background: $white;
+    }
 }

@@ -25,7 +25,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-top: 15%;
+  padding-top: 4rem;
 }
 
 .flex-center h1 {
@@ -35,7 +35,7 @@ body {
 }
 
 .flex-center p {
-  margin-top: 2rem;
+  margin-top: 1rem;
   font-size: 1.1rem;
 }
 
@@ -47,7 +47,7 @@ body {
 .flex-center form input {
   background: #eeeeee;
   border: none;
-  padding: .9rem 1.1rem;
+  padding: 1rem 1.2rem;
   border-radius: 2rem;
   font-size: 1rem;
   -webkit-transition: 200ms ease-in;
@@ -56,8 +56,8 @@ body {
 }
 
 .flex-center form input:hover, .flex-center form input:focus {
-  -webkit-box-shadow: 0 7px 20px 2px rgba(238, 238, 238, 0.3);
-          box-shadow: 0 7px 20px 2px rgba(238, 238, 238, 0.3);
+  -webkit-box-shadow: 0 7px 20px 3px rgba(238, 238, 238, 0.3);
+          box-shadow: 0 7px 20px 3px rgba(238, 238, 238, 0.3);
 }
 
 .flex-center form button {
@@ -65,21 +65,21 @@ body {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
-  right: 1%;
+  right: 1.5%;
   background: #141414;
   color: #eeeeee;
   border: 0;
   border-radius: 50%;
   font-size: 1rem;
-  width: 41px;
-  height: 41px;
+  width: 42px;
+  height: 42px;
   -webkit-transition: 200ms ease-in;
   transition: 200ms ease-in;
 }
 
 .flex-center form button:hover, .flex-center form button:focus {
-  -webkit-box-shadow: 0 7px 20px 2px rgba(20, 20, 20, 0.5);
-          box-shadow: 0 7px 20px 2px rgba(20, 20, 20, 0.5);
+  -webkit-box-shadow: 0 7px 25px 5px rgba(20, 20, 20, 0.5);
+          box-shadow: 0 7px 25px 5px rgba(20, 20, 20, 0.5);
   cursor: pointer;
 }
 
@@ -97,7 +97,139 @@ body {
 
 .maker {
   position: absolute;
-  top: 5px;
+  bottom: 5px;
   right: 15px;
+}
+
+.nav-center {
+  margin-top: .5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.nav-center a {
+  color: #eeeeee;
+  text-decoration: underline;
+}
+
+.flex-around {
+  width: 85%;
+  margin: 4rem auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.flex-around .card {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #ffea04;
+  width: 350px;
+  height: 260px;
+  margin: .6rem;
+  border-radius: 2rem;
+  padding: 1.4rem;
+  color: #141414;
+  position: relative;
+}
+
+.flex-around .card h2 {
+  font-size: 1.3rem;
+  text-align: center;
+  font-family: "Cunia";
+}
+
+.flex-around .card-img {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  height: 120px;
+  width: 200px;
+}
+
+.flex-around .card-img img {
+  height: 100%;
+  width: 100%;
+}
+
+.divider {
+  font-family: "Cunia";
+  color: #ffea04;
+  font-size: .9rem;
+  margin: 1.8rem 0;
+  position: relative;
+}
+
+.divider::after {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 105%;
+  height: 1px;
+  width: 75px;
+  background: #eeeeee;
+}
+
+.divider::before {
+  position: absolute;
+  content: '';
+  top: 50%;
+  right: 105%;
+  height: 1px;
+  width: 75px;
+  background: #eeeeee;
+}
+
+.collection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.collection h1 {
+  color: #ffea04;
+  font-family: "Cunia";
+  font-size: 3rem;
+  margin: 4rem 0;
+}
+
+.collection-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 85%;
+}
+
+.collection-flex__collections {
+  background: red;
+  -ms-flex-preferred-size: 33%;
+      flex-basis: 33%;
+}
+
+.collection-flex__passwords {
+  background: green;
+  -ms-flex-preferred-size: 67%;
+      flex-basis: 67%;
 }
 /*# sourceMappingURL=style.css.map */
