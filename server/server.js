@@ -43,6 +43,7 @@ mongoose.connect(
 // Routes
 app.use('/auth', require('./routes/user.routes'))
 app.use('/collection', require('./routes/collection.routes'))
+app.use('/password', require('./routes/password.routes'))
 
 // Server
 const PORT = process.env.PORT || 5000;

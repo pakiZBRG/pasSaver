@@ -14,5 +14,13 @@ exports.validKeyPass = [
 exports.validCollection = [
     check('name', 'Name is required')
         .isLength({ min: 1, max: 32 }).withMessage('Name can have between 1 and 32 characters.'),
-    check('website', 'Website is require')
+    check('website', 'Website is require'),
+    check('color', 'Color is require')
+]
+
+exports.validPassword = [
+    check('email', 'Email is required')
+        .isEmail().withMessage('Must be a valid email address'),
+    check('password', 'Password is required'),
+    check('collector', 'Pick a collection')
 ]

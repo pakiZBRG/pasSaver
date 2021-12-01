@@ -83,6 +83,28 @@ body {
   cursor: pointer;
 }
 
+.flex-center .logged-user {
+  background: #ffea04;
+  color: #141414;
+  text-decoration: none;
+  margin-top: 3rem;
+  padding: 0.6rem 3rem;
+  font-family: "Cunia";
+  border-radius: 2rem;
+  font-size: 1.1rem;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+}
+
+.flex-center .logged-user:hover, .flex-center .logged-user:focus {
+  -webkit-box-shadow: 0 3px 20px 3px rgba(255, 234, 4, 0.4);
+          box-shadow: 0 3px 20px 3px rgba(255, 234, 4, 0.4);
+}
+
+.flex-center .logged-user i {
+  margin-left: 1rem;
+}
+
 .flex-links {
   position: absolute;
   bottom: 10px;
@@ -222,14 +244,104 @@ body {
 }
 
 .collection-flex__collections {
-  background: red;
-  -ms-flex-preferred-size: 33%;
-      flex-basis: 33%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-preferred-size: 30rem;
+      flex-basis: 30rem;
+  padding: 2rem 0;
+  border-radius: 2rem;
+  -webkit-box-shadow: 0 0 30px 5px rgba(238, 238, 238, 0.1);
+          box-shadow: 0 0 30px 5px rgba(238, 238, 238, 0.1);
+}
+
+.collection-flex__collections h2 {
+  font-family: 'Cunia';
+  margin-bottom: 1.5rem;
+}
+
+.collection-flex__collections form .form-input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.collection-flex__collections form .form-input label {
+  font-size: .9rem;
+}
+
+.collection-flex__collections form .form-input input[type=text] {
+  border: none;
+  padding: 0.6rem;
+  font-size: .9rem;
+  background: #eeeeee;
+  margin-bottom: 0.7rem;
+  width: 20rem;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+}
+
+.collection-flex__collections form .form-input input[type=text]:focus {
+  -webkit-box-shadow: 0 3px 20px 5px rgba(238, 238, 238, 0.3);
+          box-shadow: 0 3px 20px 5px rgba(238, 238, 238, 0.3);
+}
+
+.collection-flex__collections form .buttons > * {
+  margin: 0.5rem;
+}
+
+.collection-flex__collections form input[type=submit] {
+  font-family: 'Cunia';
+  background: #eeeeee;
+  border: none;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  border-radius: 2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+}
+
+.collection-flex__collections form input[type=submit]:hover {
+  -webkit-box-shadow: 0 3px 10px 2px rgba(238, 238, 238, 0.3);
+          box-shadow: 0 3px 10px 2px rgba(238, 238, 238, 0.3);
 }
 
 .collection-flex__passwords {
-  background: green;
-  -ms-flex-preferred-size: 67%;
-      flex-basis: 67%;
+  -ms-flex-preferred-size: 70%;
+      flex-basis: 70%;
+}
+
+.file-input {
+  display: inline-block;
+  position: relative;
+  color: #ececec;
+  margin: 1rem 0 !important;
+}
+
+.file-input input {
+  display: none;
+}
+
+.file-input::before {
+  content: 'Choose an image';
+  font-family: 'Cunia';
+  background: #ffea04;
+  color: #141414;
+  border-radius: 1rem;
+  padding: 9px 1.4rem 7px 1.4rem;
+  cursor: pointer;
 }
 /*# sourceMappingURL=style.css.map */

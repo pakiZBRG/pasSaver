@@ -50,6 +50,24 @@
             }
         }
     }
+
+    .logged-user {
+        background: $yellow;
+        color: $black;
+        text-decoration: none;
+        margin-top: 3rem;
+        padding: 0.6rem 3rem;
+        font-family: "Cunia";
+        border-radius: 2rem;
+        font-size: 1.1rem;
+        transition: 200ms ease-in;
+        &:hover, &:focus {
+            box-shadow: 0 3px 20px 3px rgba(255, 234, 4, .4);
+        }
+        & i {
+            margin-left: 1rem;
+        }
+    }
 }
 
 .flex-links {
