@@ -1,27 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { isAuth } from '../helpers/auth';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import NewPasswords from './NewPasswords';
+import NewCollection from './NewCollection';
+import GetCollectionsAndPasswords from './GetCollectionsAndPasswords';
 
 export default function Collections() {
-    const [collection, setCollection] = useState({})
+    const [data, setData] = useState({});
+    const [collections, setCollection] = useState([]);
+    const [passwords, setPasswords] = useState([]);
+    const [isOpen, setIsOpen] = useState({
+        collection: false,
+        password: false
+    });
 
     if(!isAuth()) {
         window.location.href = '/';
     }
 
-    const handleChange = text => e => setCollection({ ...collection, [text]: e.target.value });
+    const getCollections = async () => {
+        try {
+            const collectionData = await axios.get('http://localhost:5000/collection');
+            setCollection(collectionData.data.collections);
+        } catch(err) {
+            toast.error(err.message)
+        }
+    }
+
+    const getPasswords = async () => {
+        try {
+            const passwordData = await axios.get('http://localhost:5000/password');
+            setPasswords(passwordData.data.passwords);
+        } catch (err) {
+            toast.error(err.message)
+        }
+    }
+
+    useEffect(() => {
+        getCollections()
+        getPasswords()
+    }, [])
+
+    const handleChange = text => e => setData({ ...data, [text]: e.target.value });
+    const handleSelect = e => setData({...data, collector: e.target.value});
 
     /* FILE SELECTION */
     const onImageChange = e => {
         if (e.target.files && e.target.files[0]) {
-            setCollection({ ...collection, imageUrl: e.target.files[0] })
+            setData({ ...data, imageUrl: e.target.files[0] })
             toast.success('Image has been selected!')
         }
     }
 
-
-    const { name, website, color, imageUrl } = collection;
+    const { name, website, color, imageUrl } = data;
     const handleCollectionCreation = e => {
         e.preventDefault();
         if(name && website && color && imageUrl.name){
@@ -32,71 +64,69 @@ export default function Collections() {
             form.append("myImage", imageUrl);
             axios.post('http://localhost:5000/collection/new', form)
                 .then(res => {
-                    setCollection({})
+                    setCollection([...collections, res.data.collection])
+                    setData({})
+                    handleChange({})
                     toast.success(res.data.message);
                 })
                 .catch(err => toast.error(err.response.data.error));
         } else {
-            toast.error('Please fill all fields');
+            toast.error('Collection: please fill all fields');
         }
-        console.log(collection)
     }
+
+    const { email, password, collector } = data;
+    const handlePasswordCreation = e => {
+        e.preventDefault();
+        try {
+            if(email && password && collector){
+                axios.post('http://localhost:5000/password/new', { email, password, collector })
+                    .then(res => {
+                        console.log(res)
+                        setPasswords([...passwords, res.data.password])
+                        setData({})
+                        handleChange({})
+                        toast.success(res.data.message);
+                    })
+                    .catch(err => toast.error(err.response.data.error));
+            } else {
+                toast.warning('Password: please, fill all fields');
+            }
+        } catch(err) {
+            toast.error(err.message);
+        }
+    }
+
+    console.log(isOpen)
 
     return (
         <>
             <div className='collection'>
-                <ToastContainer/>
+                <ToastContainer theme='colored'/>
                 <h1>Collections</h1>
                 <div className='collection-flex'>
-                    <div className='collection-flex__collections'>
-                        <h2>Create New Collection</h2>
-                        <form
-                            method='POST'
-                            encType='multipart/form-data'
-                            onSubmit={handleCollectionCreation}
-                        >
-                            <div className='form-input'>
-                                <label htmlFor='name'>Name</label>
-                                <input
-                                    type='text'
-                                    name='name'
-                                    placeholder='Facebook'
-                                    onChange={handleChange('name')}
-                                />
-                            </div>
-                            <div className='form-input'>
-                                <label htmlFor='website'>Website</label>
-                                <input
-                                    type='text'
-                                    name='website'
-                                    placeholder='https://facebook.com'
-                                    onChange={handleChange('website')}
-                                />
-                            </div>
-                            <div className='form-input'>
-                                <label htmlFor='website'>Color</label>
-                                <input
-                                    type='text'
-                                    name='color'
-                                    placeholder='#ffea20'
-                                    onChange={handleChange('color')}
-                                />
-                            </div>
-                            <div className='buttons'>
-                                <label className='file-input'>
-                                    <input
-                                        type='file'
-                                        name='myImage'
-                                        onChange={onImageChange}
-                                    />
-                                </label>
-                                <input type='submit' value='create'/>
-                            </div>
-                        </form>
-                    </div>
-                    <div className='collection-flex__passwords'>Passwords</div>
+                    <NewCollection
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        createCollection={handleCollectionCreation}
+                        handleChange={handleChange}
+                        onImageChange={onImageChange}
+                    />
+                    <NewPasswords 
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        createPassword={handlePasswordCreation}
+                        handleChange={handleChange}
+                        handleSelect={handleSelect}
+                        collections={collections}
+                    />
                 </div>
+                
             </div>
+            <GetCollectionsAndPasswords
+                collections={collections}
+                passwords={passwords}
+            />
         </>
     )
 }

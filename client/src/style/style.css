@@ -241,9 +241,54 @@ body {
   display: -ms-flexbox;
   display: flex;
   width: 85%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
-.collection-flex__collections {
+.collection-flex__collections, .collection-flex__passwords {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-preferred-size: 30rem;
+      flex-basis: 30rem;
+  border-radius: 2rem;
+  -webkit-box-shadow: 0 0 20px 5px rgba(238, 238, 238, 0.1);
+          box-shadow: 0 0 20px 5px rgba(238, 238, 238, 0.1);
+}
+
+.collection-flex__collections-navigate, .collection-flex__passwords-navigate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  padding: 2rem 0;
+}
+
+.collection-flex__collections-navigate i, .collection-flex__passwords-navigate i {
+  opacity: .8;
+  font-size: 1.2rem;
+}
+
+.collection-flex__collections h2, .collection-flex__passwords h2 {
+  font-size: 1.2rem;
+  font-family: 'Cunia';
+}
+
+.collection-flex__collections form, .collection-flex__passwords form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -254,20 +299,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-preferred-size: 30rem;
-      flex-basis: 30rem;
-  padding: 2rem 0;
-  border-radius: 2rem;
-  -webkit-box-shadow: 0 0 30px 5px rgba(238, 238, 238, 0.1);
-          box-shadow: 0 0 30px 5px rgba(238, 238, 238, 0.1);
+  height: 19rem;
 }
 
-.collection-flex__collections h2 {
-  font-family: 'Cunia';
-  margin-bottom: 1.5rem;
-}
-
-.collection-flex__collections form .form-input {
+.collection-flex__collections form .form-input, .collection-flex__passwords form .form-input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -277,11 +312,17 @@ body {
           flex-direction: column;
 }
 
-.collection-flex__collections form .form-input label {
+.collection-flex__collections form .form-input label, .collection-flex__passwords form .form-input label {
   font-size: .9rem;
 }
 
-.collection-flex__collections form .form-input input[type=text] {
+.collection-flex__collections form .form-input input[type=text],
+.collection-flex__collections form .form-input input[type=password],
+.collection-flex__collections form .form-input input[type=email],
+.collection-flex__collections form .form-input select, .collection-flex__passwords form .form-input input[type=text],
+.collection-flex__passwords form .form-input input[type=password],
+.collection-flex__passwords form .form-input input[type=email],
+.collection-flex__passwords form .form-input select {
   border: none;
   padding: 0.6rem;
   font-size: .9rem;
@@ -292,16 +333,28 @@ body {
   transition: 200ms ease-in;
 }
 
-.collection-flex__collections form .form-input input[type=text]:focus {
+.collection-flex__collections form .form-input input[type=text]:focus,
+.collection-flex__collections form .form-input input[type=password]:focus,
+.collection-flex__collections form .form-input input[type=email]:focus,
+.collection-flex__collections form .form-input select:focus, .collection-flex__passwords form .form-input input[type=text]:focus,
+.collection-flex__passwords form .form-input input[type=password]:focus,
+.collection-flex__passwords form .form-input input[type=email]:focus,
+.collection-flex__passwords form .form-input select:focus {
   -webkit-box-shadow: 0 3px 20px 5px rgba(238, 238, 238, 0.3);
           box-shadow: 0 3px 20px 5px rgba(238, 238, 238, 0.3);
 }
 
-.collection-flex__collections form .buttons > * {
+.collection-flex__collections form .form-input select, .collection-flex__passwords form .form-input select {
+  background: #eeeeee;
+  width: 21.3rem;
+  color: #141414;
+}
+
+.collection-flex__collections form .buttons > *, .collection-flex__passwords form .buttons > * {
   margin: 0.5rem;
 }
 
-.collection-flex__collections form input[type=submit] {
+.collection-flex__collections form input[type=submit], .collection-flex__passwords form input[type=submit] {
   font-family: 'Cunia';
   background: #eeeeee;
   border: none;
@@ -314,14 +367,9 @@ body {
   transition: 200ms ease-in;
 }
 
-.collection-flex__collections form input[type=submit]:hover {
-  -webkit-box-shadow: 0 3px 10px 2px rgba(238, 238, 238, 0.3);
-          box-shadow: 0 3px 10px 2px rgba(238, 238, 238, 0.3);
-}
-
-.collection-flex__passwords {
-  -ms-flex-preferred-size: 70%;
-      flex-basis: 70%;
+.collection-flex__collections form input[type=submit]:hover, .collection-flex__passwords form input[type=submit]:hover {
+  -webkit-box-shadow: 0 3px 15px 2px rgba(238, 238, 238, 0.3);
+          box-shadow: 0 3px 15px 2px rgba(238, 238, 238, 0.3);
 }
 
 .file-input {
@@ -343,5 +391,139 @@ body {
   border-radius: 1rem;
   padding: 9px 1.4rem 7px 1.4rem;
   cursor: pointer;
+}
+
+.list-collections {
+  width: 80%;
+  margin: 3rem auto;
+}
+
+.list-collections__minimize {
+  background: #eeeeee;
+  color: #141414;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem 0.15rem 0.5rem;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+
+.list-collections__single {
+  margin: .6rem;
+  border-radius: 1rem;
+  background: #0d0d0d;
+}
+
+.list-collections__single-collection {
+  cursor: pointer;
+  background: #212121;
+  padding: .8rem 2rem;
+  border-radius: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+}
+
+.list-collections__single-collection:hover {
+  background: #1b1b1b;
+}
+
+.list-collections__single-collection a {
+  margin: 0 1.5rem;
+  padding: 0.1rem 1rem;
+  border-radius: 1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.list-collections__single-collection img {
+  height: 2.5rem;
+  width: 2.5rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.list-collections__single-passwords {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: .5rem 3rem;
+  position: relative;
+}
+
+.list-collections__single-passwords:not(.list-collections__single-passwords:first-child)::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  content: '';
+  background: #eeeeee;
+  width: 95%;
+  height: 1px;
+  opacity: 0.1;
+}
+
+.list-collections__single-passwords:hover .actions {
+  opacity: 1;
+}
+
+.list-collections__single-passwords input {
+  background: none;
+  border: none;
+  color: #eeeeee;
+  cursor: default;
+}
+
+.list-collections__single-passwords .actions {
+  -webkit-transition: 100ms ease-in;
+  transition: 100ms ease-in;
+  opacity: 0;
+}
+
+.list-collections__single-passwords .actions-edit {
+  border: 1px solid dodgerblue;
+  color: dodgerblue;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  margin: .3rem;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+  cursor: pointer;
+}
+
+.list-collections__single-passwords .actions-edit:hover {
+  color: #141414;
+  background: dodgerblue;
+}
+
+.list-collections__single-passwords .actions-remove {
+  border: 1px solid crimson;
+  color: crimson;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  margin: .3rem;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+  cursor: pointer;
+}
+
+.list-collections__single-passwords .actions-remove:hover {
+  color: #141414;
+  background: crimson;
 }
 /*# sourceMappingURL=style.css.map */

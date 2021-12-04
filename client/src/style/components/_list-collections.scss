@@ -1,0 +1,103 @@
+.list-collections {
+    width: 80%;
+    margin: 3rem auto;
+    &__minimize {
+        background: $white;
+        color: $black;
+        font-size: 0.9rem;
+        padding: 0.25rem 0.5rem 0.15rem 0.5rem;
+        border-radius: .3rem;
+        cursor: pointer;
+    }
+
+    &__single {
+        margin: .6rem;
+        border-radius: 1rem;
+        background: rgb(13, 13, 13);
+        
+        &-collection {
+            cursor: pointer;
+            background: rgb(33, 33, 33);
+            padding: .8rem 2rem;
+            border-radius: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 200ms ease-in;
+            &:hover {
+                background: rgb(27, 27, 27);
+            }
+            & a {
+                margin: 0 1.5rem;
+                padding: 0.1rem 1rem;
+                border-radius: 1rem;
+                user-select: none;
+                text-decoration: none;
+                font-size: 0.9rem;
+            }
+    
+            & img {
+                height: 2.5rem;
+                width: 2.5rem;
+                object-fit: contain;
+            }
+        }
+
+        &-passwords {
+            display: flex;
+            justify-content: space-between;
+            padding: .5rem 3rem;
+            position: relative;
+            &:not(.list-collections__single-passwords:first-child)::before {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                content: '';
+                background: $white;
+                width: 95%;
+                height: 1px;
+                opacity: 0.1;
+            }
+            &:hover .actions{
+                opacity: 1;
+            }
+            & input {
+                background: none;
+                border: none;
+                color: $white;
+                cursor: default;
+            }
+            & .actions {
+                transition: 100ms ease-in;
+                opacity: 0;
+                &-edit {
+                    border: 1px solid dodgerblue;
+                    color: dodgerblue;
+                    border-radius: 1rem;
+                    padding: 0 1rem;
+                    margin: .3rem;
+                    transition: 200ms ease-in;
+                    cursor: pointer;
+                    &:hover {
+                        color: $black;
+                        background: dodgerblue;
+                    }
+                }
+                &-remove {
+                    border: 1px solid crimson;
+                    color: crimson;
+                    border-radius: 1rem;
+                    padding: 0 1rem;
+                    margin: .3rem;
+                    transition: 200ms ease-in;
+                    cursor: pointer;
+                    &:hover {
+                        color: $black;
+                        background: crimson;
+                    }
+                }
+            }
+        }
+    }
+}

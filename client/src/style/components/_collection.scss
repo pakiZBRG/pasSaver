@@ -13,28 +13,49 @@
     &-flex {
         display: flex;
         width: 85%;
-        &__collections {
+        justify-content: space-around;
+        &__collections,
+        &__passwords {
             display: flex;
             flex-direction: column;
-            align-items: center;
             flex-basis: 30rem;
-            padding: 2rem 0;
             border-radius: 2rem;
-            box-shadow: 0 0 30px 5px rgba(238, 238, 238, .1);
+            box-shadow: 0 0 20px 5px rgba(238, 238, 238, .1);
+
+            &-navigate {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                cursor: pointer;
+                user-select: none;
+                padding: 2rem 0;
+                & i {
+                    opacity: .8;
+                    font-size: 1.2rem;
+                }
+            }
 
             & h2 {
+                font-size: 1.2rem;
                 font-family: 'Cunia';
-                margin-bottom: 1.5rem;
             }
 
             & form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                height: 19rem;
+
                 & .form-input {
                     display: flex;
                     flex-direction: column;
                     & label {
                         font-size: .9rem;
                     }
-                    & input[type=text] {
+                    & input[type=text], 
+                    & input[type=password],
+                    & input[type=email],
+                    select {
                         border: none;
                         padding: 0.6rem;
                         font-size: .9rem;
@@ -45,6 +66,11 @@
                         &:focus{
                             box-shadow: 0 3px 20px 5px rgba(238, 238, 238, .3);
                         }
+                    }
+                    & select {
+                        background: $white;
+                        width: 21.3rem;
+                        color: $black;
                     }
                 }
 
@@ -63,14 +89,10 @@
                     cursor: pointer;
                     transition: 200ms ease-in;
                     &:hover{
-                        box-shadow: 0 3px 10px 2px rgba(238, 238, 238, .3);
+                        box-shadow: 0 3px 15px 2px rgba(238, 238, 238, .3);
                     }
                 }
             }
-        }
-
-        &__passwords {
-            flex-basis: 70%;
         }
     }
 }

@@ -21,8 +21,6 @@ export default function Home() {
         }
     }
 
-    console.log(isAuth())
-
     const handleLoginSubmit = e => {
         e.preventDefault();
         if(keyPass.trim() === '' ) {

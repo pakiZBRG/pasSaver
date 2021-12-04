@@ -6,7 +6,8 @@ const collectionSchema = new Schema({
     name: { type: String, required: true },
     website: { type: String, required: true },
     color: { type: String, required: true },
-    imageUrl: { type: String, required: true }
+    imageUrl: { type: String, required: true },
+    passwords: [{ type: mongoose.Schema.Types.ObjectId, ref: "Password", required: true }]
 }, { timestamps: true },
 );
 

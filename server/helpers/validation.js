@@ -13,7 +13,7 @@ exports.validKeyPass = [
 
 exports.validCollection = [
     check('name', 'Name is required')
-        .isLength({ min: 1, max: 32 }).withMessage('Name can have between 1 and 32 characters.'),
+        .isLength({ min: 1, max: 32 }).withMessage('Name can have between 1 and 50 characters.'),
     check('website', 'Website is require'),
     check('color', 'Color is require')
 ]
