@@ -289,9 +289,7 @@ body {
 }
 
 .collection-flex__collections form, .collection-flex__passwords form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -300,6 +298,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   height: 19rem;
+  overflow: hidden;
 }
 
 .collection-flex__collections form .form-input, .collection-flex__passwords form .form-input {
@@ -391,6 +390,43 @@ body {
   border-radius: 1rem;
   padding: 9px 1.4rem 7px 1.4rem;
   cursor: pointer;
+}
+
+.add-enter {
+  height: 87px;
+}
+
+.add-enter-active {
+  height: calc(19rem + 87px);
+  -webkit-transition: 300ms ease-out 100ms;
+  transition: 300ms ease-out 100ms;
+}
+
+.add-enter-done {
+  height: calc(19rem + 87px);
+}
+
+.add-exit {
+  height: calc(19rem + 87px);
+}
+
+.add-exit-active {
+  height: 87px;
+  -webkit-transition: 300ms ease-out 100ms;
+  transition: 300ms ease-out 100ms;
+}
+
+.add-exit-done {
+  height: 87px;
+}
+
+.form-enter,
+.form-enter-done,
+.form-exit,
+.form-exit-done {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 
 .list-collections {
@@ -496,8 +532,8 @@ body {
 }
 
 .list-collections__single-passwords .actions-edit {
-  border: 1px solid dodgerblue;
-  color: dodgerblue;
+  border: 1px solid #1e90ff;
+  color: #1e90ff;
   border-radius: 1rem;
   padding: 0 1rem;
   margin: .3rem;
@@ -508,12 +544,12 @@ body {
 
 .list-collections__single-passwords .actions-edit:hover {
   color: #141414;
-  background: dodgerblue;
+  background: #1e90ff;
 }
 
 .list-collections__single-passwords .actions-remove {
-  border: 1px solid crimson;
-  color: crimson;
+  border: 1px solid #dc143c;
+  color: #dc143c;
   border-radius: 1rem;
   padding: 0 1rem;
   margin: .3rem;
@@ -524,6 +560,22 @@ body {
 
 .list-collections__single-passwords .actions-remove:hover {
   color: #141414;
-  background: crimson;
+  background: #dc143c;
+}
+
+.list-collections__single-passwords .actions-copy {
+  border: 1px solid #ffea04;
+  color: #ffea04;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  margin: .3rem;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+  cursor: pointer;
+}
+
+.list-collections__single-passwords .actions-copy:hover {
+  color: #141414;
+  background: #ffea04;
 }
 /*# sourceMappingURL=style.css.map */

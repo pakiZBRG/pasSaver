@@ -72,8 +72,8 @@
                 transition: 100ms ease-in;
                 opacity: 0;
                 &-edit {
-                    border: 1px solid dodgerblue;
-                    color: dodgerblue;
+                    border: 1px solid $blue;
+                    color: $blue;
                     border-radius: 1rem;
                     padding: 0 1rem;
                     margin: .3rem;
@@ -81,12 +81,12 @@
                     cursor: pointer;
                     &:hover {
                         color: $black;
-                        background: dodgerblue;
+                        background: $blue;
                     }
                 }
                 &-remove {
-                    border: 1px solid crimson;
-                    color: crimson;
+                    border: 1px solid $crimson;
+                    color: $crimson;
                     border-radius: 1rem;
                     padding: 0 1rem;
                     margin: .3rem;
@@ -94,7 +94,20 @@
                     cursor: pointer;
                     &:hover {
                         color: $black;
-                        background: crimson;
+                        background: $crimson;
+                    }
+                }
+                &-copy {
+                    border: 1px solid $yellow;
+                    color: $yellow;
+                    border-radius: 1rem;
+                    padding: 0 1rem;
+                    margin: .3rem;
+                    transition: 200ms ease-in;
+                    cursor: pointer;
+                    &:hover {
+                        color: $black;
+                        background: $yellow;
                     }
                 }
             }

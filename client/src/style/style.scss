@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
 
 $yellow: #ffea04;
+$crimson: #dc143c;
+$blue: #1e90ff;
 $black: #141414;
 $white: #eeeeee;
 
@@ -20,5 +22,5 @@ body {
 }
 
 @import './components/_home.scss';
-@import './components/_collection.scss';
+@import './components/_new-collection.scss';
 @import './components/_list-collections.scss';

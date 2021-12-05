@@ -4,7 +4,9 @@ const { deleteImage } = require('../helpers/deleteImage');
 const { validationResult } = require('express-validator');
 
 exports.getCollections = (req, res) => {
-    Collection.find()
+    Collection
+        .find()
+        .populate('passwords')
         .then(coll => {
             res.status(200).json({
                 count: coll.length,

@@ -52,33 +52,30 @@ exports.newPassword = async (req, res) => {
         const hash = prefix + stringPass.join('') + sufix;
 
         const { email, collector } = req.body;
-        let passId;
-
         const savedPassword = new Password({
             email,
             password: hash,
             collector
         });
 
-        savedPassword.save()
-            .then(pass => {
-                passId = pass._id;
-                res.status(201).json({ 
-                    message: "Password successfully added!",
-                    password: pass
-                })
-            })
-            .then(() => {
-                Collection.findById(collector)
-                    .then(coll => {
-                        const updatedPasswords = [...coll.passwords];
-                        updatedPasswords.push(passId);
+        try {
+            const savePassword = await savedPassword.save();
+            if(savePassword) {
+                const collection = await Collection.findById(collector);
+                const updatedPasswords = [...collection.passwords];
+                updatedPasswords.push(savePassword._id);
+                collection.passwords = updatedPasswords;
+                await collection.save();
     
-                        coll.passwords = updatedPasswords;
-                        return coll.save();
-                    })
-            })
-            .catch(err => res.status(500).json({ error: err.message }))
+                const collections = await Collection.find().populate('passwords')
+                return res.status(201).json({ 
+                    message: "Password successfully added!",
+                    collections
+                })
+            }
+        } catch(err) {
+            res.status(400).json({ error: err.message })
+        }
     } catch(err) {
         res.status(400).json({ error: err.message })
     }
@@ -114,8 +111,15 @@ exports.removePassword = async(req, res) => {
     try {
         const findPassword = await Password.findById(id);
         if(findPassword) {
+            const updateColl = await Collection.updateOne(
+                { _id: findPassword.collector },
+                { $pull: { passwords: findPassword._id } }
+                );
             const deletePassword = await Password.findByIdAndRemove(findPassword._id);
-            deletePassword && res.status(200).json({ message: "Password is deleted" });
+            if(deletePassword && updateColl) {
+                const collections = await Collection.find().populate('passwords');
+                return res.status(200).json({ message: "Password is deleted.", collections });
+            }
         } else {
             return res.status(500).json({ error: 'This password doesn\'t exist' });
         }

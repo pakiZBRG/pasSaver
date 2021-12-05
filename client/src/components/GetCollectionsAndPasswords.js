@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { ToastContainer, toast } from 'react-toastify';
 
-export default function GetCollectionsAndPasswords({ collections, passwords }) {
+
+export default function GetCollectionsAndPasswords({
+    collections,
+    removePassword
+}) {
     const [openedColl, setOpenedColl] = useState([]);
     let isBlack = false;
 
@@ -21,43 +27,37 @@ export default function GetCollectionsAndPasswords({ collections, passwords }) {
         return `rgba(${r}, ${g}, ${b}, .4)`;
     }
 
-    // const showPassword = e => {
-    //     const prefix = process.env.REACT_APP_PREFIX;
-    //     const sufix = process.env.REACT_APP_SUFIX;
-    //     const M = process.env.REACT_APP_MOVE_M;
-    //     const N = process.env.REACT_APP_MOVE_N;
-    //     const pass = e.target.parentNode.previousSibling.firstChild;
-    //     const hash = pass.value.substring(prefix, pass.value.length - sufix);
+    const hashPassword = pass => {
+        const prefix = process.env.REACT_APP_PREFIX;
+        const sufix = process.env.REACT_APP_SUFIX;
+        const M = process.env.REACT_APP_MOVE_M;
+        const N = process.env.REACT_APP_MOVE_N;
+        const hash = pass.substring(prefix, pass.length - sufix);
 
-    //     const password = hash.split('');
-    //     let i = password.length - 1;
-    //     let asciiPass = [];
-    //     // If the length is even
-    //     if(i % 2 == 0){
-    //         while(i > -1){
-    //             const asciiChar = password[i].charCodeAt(0);
-    //             i % 2 === 0 ? asciiPass.push(asciiChar - M) : asciiPass.push(asciiChar - N);
-    //             i--;
-    //         }
-    //     // If the length is odd
-    //     } else {
-    //         while(i > -1){
-    //             const asciiChar = password[i].charCodeAt(0);
-    //             i % 2 === 0 ? asciiPass.push(asciiChar - N) : asciiPass.push(asciiChar - M);
-    //             i--;
-    //         }
-    //     }
+        const password = hash.split('');
+        let i = password.length - 1;
+        let asciiPass = [];
+        if(i % 2 === 0){
+            while(i > -1){
+                const asciiChar = password[i].charCodeAt(0);
+                i % 2 === 0 ? asciiPass.push(asciiChar - M) : asciiPass.push(asciiChar - N);
+                i--;
+            }
+        } else {
+            while(i > -1){
+                const asciiChar = password[i].charCodeAt(0);
+                i % 2 === 0 ? asciiPass.push(asciiChar - N) : asciiPass.push(asciiChar - M);
+                i--;
+            }
+        }
         
-    //     let stringPass = [];
-    //     asciiPass.forEach(p => stringPass.push(String.fromCharCode(p)));
-    //     setHash(stringPass.join(''));
-    //     setVisible(!visible);
-
-    //     pass.type === "password" ? pass.type = "text" : pass.type = "password";
-    // }
+        let stringPass = [];
+        asciiPass.forEach(p => stringPass.push(String.fromCharCode(p)));
+        return stringPass.join('');
+    }
 
     const openCollection = e => {
-        if(e.target.attributes[0].nodeValue === 'list-collections__single-collection') {
+        if(e.target.attributes[0]?.nodeValue === 'list-collections__single-collection') {
             const toOpen = e.target.nextElementSibling.attributes.id.value;
             const openDiv = e.target.parentElement.attributes.id.value;
             const isOpened = openedColl.find(coll => coll === toOpen);
@@ -74,13 +74,10 @@ export default function GetCollectionsAndPasswords({ collections, passwords }) {
     const editPassword = pass => {
         console.log('edited', pass)
     }
-
-    const removePassword = pass => {
-        console.log('remove', pass)
-    }
     
     return (
         <div className='list-collections'>
+            <ToastContainer theme='colored'/>
             {/* <i className='fa fa-minus list-collections__minimize' onClick={() => setOpenedColl([])}></i> */}
             {collections?.map(coll => (
                 <div className='list-collections__single' id={coll._id} key={coll._id} onClick={openCollection}>
@@ -110,24 +107,23 @@ export default function GetCollectionsAndPasswords({ collections, passwords }) {
                         }
                     </div>
                     <div id={coll._id} style={{display: `${shouldOpen(coll._id) ? 'block' : 'none'}`}}>
-                        {passwords?.map(pass => {
-                            if(coll._id === pass.collector){
-                                return (
-                                    <div key={pass._id} className='list-collections__single-passwords'>
-                                        <input type='email' defaultValue={pass.email}/>
-                                        <input type='password' defaultValue={pass.password}/>
-                                        <div className='actions'>
-                                            <span className='actions-edit' onClick={() => editPassword(pass._id)}>
-                                                edit
-                                            </span>
-                                            <span className='actions-remove' onClick={() => removePassword(pass._id)}>
-                                                remove
-                                            </span>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        })}
+                        {coll.passwords.map(pass => (
+                            <div key={pass._id} className='list-collections__single-passwords'>
+                                <input type='email' defaultValue={pass.email}/>
+                                <input type='password' defaultValue={pass.password}/>
+                                <div className='actions'>
+                                    <CopyToClipboard onCopy={() => toast.success("Copied to clipboard")} text={hashPassword(pass.password)}>
+                                        <span className='actions-copy'>copy</span>
+                                    </CopyToClipboard>
+                                    <span className='actions-edit' onClick={() => editPassword(pass._id)}>
+                                        edit
+                                    </span>
+                                    <span className='actions-remove' onClick={() => removePassword(pass._id)}>
+                                        remove
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             ))}

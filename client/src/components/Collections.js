@@ -82,8 +82,7 @@ export default function Collections() {
             if(email && password && collector){
                 axios.post('http://localhost:5000/password/new', { email, password, collector })
                     .then(res => {
-                        console.log(res)
-                        setPasswords([...passwords, res.data.password])
+                        setCollection(res.data.collections)
                         setData({})
                         handleChange({})
                         toast.success(res.data.message);
@@ -97,7 +96,17 @@ export default function Collections() {
         }
     }
 
-    console.log(isOpen)
+    const removePassword = async pass => {
+        try {
+            const remove = await axios.delete(`http://localhost:5000/password/${pass}`);
+            if(remove) {
+                setCollection(remove.data.collections)
+                toast.success("Password removed")
+            }
+        } catch(error) {
+            toast.error(error.message)
+        }
+    }
 
     return (
         <>
@@ -125,7 +134,7 @@ export default function Collections() {
             </div>
             <GetCollectionsAndPasswords
                 collections={collections}
-                passwords={passwords}
+                removePassword={removePassword}
             />
         </>
     )
