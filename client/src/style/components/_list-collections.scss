@@ -62,11 +62,16 @@
             &:hover .actions{
                 opacity: 1;
             }
-            & input {
+            & .readOnly {
                 background: none;
                 border: none;
                 color: $white;
                 cursor: default;
+            }
+            & .writeMode {
+                background: $yellow;
+                border: none;
+                padding: 0 0.5rem;
             }
             & .actions {
                 transition: 100ms ease-in;

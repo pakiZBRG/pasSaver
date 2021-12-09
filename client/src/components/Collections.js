@@ -6,10 +6,11 @@ import NewPasswords from './NewPasswords';
 import NewCollection from './NewCollection';
 import GetCollectionsAndPasswords from './GetCollectionsAndPasswords';
 
+
 export default function Collections() {
     const [data, setData] = useState({});
+    const [updatePass, setUpdatePass] = useState();
     const [collections, setCollection] = useState([]);
-    const [passwords, setPasswords] = useState([]);
     const [isOpen, setIsOpen] = useState({
         collection: false,
         password: false
@@ -28,18 +29,8 @@ export default function Collections() {
         }
     }
 
-    const getPasswords = async () => {
-        try {
-            const passwordData = await axios.get('http://localhost:5000/password');
-            setPasswords(passwordData.data.passwords);
-        } catch (err) {
-            toast.error(err.message)
-        }
-    }
-
     useEffect(() => {
         getCollections()
-        getPasswords()
     }, [])
 
     const handleChange = text => e => setData({ ...data, [text]: e.target.value });
@@ -49,7 +40,7 @@ export default function Collections() {
     const onImageChange = e => {
         if (e.target.files && e.target.files[0]) {
             setData({ ...data, imageUrl: e.target.files[0] })
-            toast.success('Image has been selected!')
+            toast.info('Image has been selected!')
         }
     }
 
@@ -71,7 +62,7 @@ export default function Collections() {
                 })
                 .catch(err => toast.error(err.response.data.error));
         } else {
-            toast.error('Collection: please fill all fields');
+            toast.warn('Collection: please fill all fields');
         }
     }
 
@@ -108,6 +99,23 @@ export default function Collections() {
         }
     }
 
+    const handlePasswordUpdate = async e => {
+        e.preventDefault();
+        const id = e.target.offsetParent.attributes[0].value;
+        try {
+            if(password || email) {
+                const update = await axios.put(`http://localhost:5000/password/${id}`, { email, password, collector });
+                setUpdatePass([])
+                setCollection(update.data.collection);
+                toast.success(update.data.message);
+            } else {
+                toast.warn('Please insert both email and password')
+            }
+        } catch(err) {
+            toast.error(err.message);
+        }
+    }
+
     return (
         <>
             <div className='collection'>
@@ -135,6 +143,11 @@ export default function Collections() {
             <GetCollectionsAndPasswords
                 collections={collections}
                 removePassword={removePassword}
+                handleChange={handleChange}
+                handlePasswordUpdate={handlePasswordUpdate}
+                setData={setData}
+                setUpdatePass={setUpdatePass}
+                updatePass={updatePass}
             />
         </>
     )

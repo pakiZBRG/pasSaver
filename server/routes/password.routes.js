@@ -6,7 +6,7 @@ router.get('/', controller.getPasswords)
 
 router.post('/new', validPassword, controller.newPassword);
 
-router.put('/:id', validPassword, controller.editPassword);
+router.put('/:id', controller.editPassword);
 
 router.delete('/:id', controller.removePassword);
 

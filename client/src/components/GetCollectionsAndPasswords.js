@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContainer, toast } from 'react-toastify';
+import hashPassword from '../helpers/Hashing'
 
 
 export default function GetCollectionsAndPasswords({
     collections,
-    removePassword
+    removePassword,
+    handleChange,
+    handlePasswordUpdate,
+    setData,
+    setUpdatePass,
+    updatePass
 }) {
     const [openedColl, setOpenedColl] = useState([]);
+    const [edit, setEdit] = useState(false)
     let isBlack = false;
 
     const hex2rgb = color => {
@@ -27,35 +34,6 @@ export default function GetCollectionsAndPasswords({
         return `rgba(${r}, ${g}, ${b}, .4)`;
     }
 
-    const hashPassword = pass => {
-        const prefix = process.env.REACT_APP_PREFIX;
-        const sufix = process.env.REACT_APP_SUFIX;
-        const M = process.env.REACT_APP_MOVE_M;
-        const N = process.env.REACT_APP_MOVE_N;
-        const hash = pass.substring(prefix, pass.length - sufix);
-
-        const password = hash.split('');
-        let i = password.length - 1;
-        let asciiPass = [];
-        if(i % 2 === 0){
-            while(i > -1){
-                const asciiChar = password[i].charCodeAt(0);
-                i % 2 === 0 ? asciiPass.push(asciiChar - M) : asciiPass.push(asciiChar - N);
-                i--;
-            }
-        } else {
-            while(i > -1){
-                const asciiChar = password[i].charCodeAt(0);
-                i % 2 === 0 ? asciiPass.push(asciiChar - N) : asciiPass.push(asciiChar - M);
-                i--;
-            }
-        }
-        
-        let stringPass = [];
-        asciiPass.forEach(p => stringPass.push(String.fromCharCode(p)));
-        return stringPass.join('');
-    }
-
     const openCollection = e => {
         if(e.target.attributes[0]?.nodeValue === 'list-collections__single-collection') {
             const toOpen = e.target.nextElementSibling.attributes.id.value;
@@ -71,10 +49,19 @@ export default function GetCollectionsAndPasswords({
 
     const shouldOpen = id => openedColl.find(col => col === id);
 
-    const editPassword = pass => {
-        console.log('edited', pass)
+    const switchUpdate = e => {
+        const toUpdate = e.target.attributes[0].value;
+        const updateDiv = e.target.closest('article').attributes[0].value;
+        if(toUpdate === updateDiv){
+            setUpdatePass(toUpdate)
+            setEdit(!edit)
+            setData({
+                email: e.target.offsetParent.children[0].value,
+                password: hashPassword(e.target.offsetParent.children[1].value)
+            })
+        }
     }
-    
+
     return (
         <div className='list-collections'>
             <ToastContainer theme='colored'/>
@@ -107,23 +94,42 @@ export default function GetCollectionsAndPasswords({
                         }
                     </div>
                     <div id={coll._id} style={{display: `${shouldOpen(coll._id) ? 'block' : 'none'}`}}>
-                        {coll.passwords.map(pass => (
-                            <div key={pass._id} className='list-collections__single-passwords'>
-                                <input type='email' defaultValue={pass.email}/>
-                                <input type='password' defaultValue={pass.password}/>
-                                <div className='actions'>
-                                    <CopyToClipboard onCopy={() => toast.success("Copied to clipboard")} text={hashPassword(pass.password)}>
-                                        <span className='actions-copy'>copy</span>
-                                    </CopyToClipboard>
-                                    <span className='actions-edit' onClick={() => editPassword(pass._id)}>
-                                        edit
-                                    </span>
-                                    <span className='actions-remove' onClick={() => removePassword(pass._id)}>
-                                        remove
-                                    </span>
-                                </div>
-                            </div>
-                        ))}
+                        {coll.passwords.map(pass => {
+                            if(pass._id !== updatePass) {
+                                return (
+                                    <article id={pass._id} key={pass._id} className='list-collections__single-passwords'>
+                                        <input type='email' className='readOnly' defaultValue={pass.email}/>
+                                        <input type='password' className='readOnly' defaultValue={pass.password}/>
+                                        <div className='actions'>
+                                            <CopyToClipboard onCopy={() => toast.info("Copied to clipboard")} text={hashPassword(pass.password)}>
+                                                <span className='actions-copy'>copy</span>
+                                            </CopyToClipboard>
+                                            <span id={pass._id} className='actions-edit' onClick={switchUpdate}>
+                                                edit
+                                            </span>
+                                            <span className='actions-remove' onClick={() => removePassword(pass._id)}>
+                                                remove
+                                            </span>
+                                        </div>
+                                    </article>
+                                )
+                            } else {
+                                return  (
+                                    <form id={pass._id} method="PUT" key={pass._id}className='list-collections__single-passwords'>
+                                        <input type='email' className='writeMode' onChange={handleChange('email')} defaultValue={pass.email}/>
+                                        <input type='password' className='writeMode' onChange={handleChange('password')} defaultValue={hashPassword(pass.password)}/>
+                                        <div className='actions' style={{marginLeft: '65px'}}>
+                                            <span className='actions-edit' onClick={handlePasswordUpdate}>
+                                                accept
+                                            </span>
+                                            <span className='actions-remove' onClick={() => setUpdatePass()}>
+                                                decline
+                                            </span>
+                                        </div>
+                                    </form> 
+                                )
+                            }
+                        })}
                     </div>
                 </div>
             ))}

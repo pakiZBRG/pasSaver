@@ -518,11 +518,17 @@ body {
   opacity: 1;
 }
 
-.list-collections__single-passwords input {
+.list-collections__single-passwords .readOnly {
   background: none;
   border: none;
   color: #eeeeee;
   cursor: default;
+}
+
+.list-collections__single-passwords .writeMode {
+  background: #ffea04;
+  border: none;
+  padding: 0 0.5rem;
 }
 
 .list-collections__single-passwords .actions {

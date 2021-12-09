@@ -62,7 +62,7 @@ exports.editCollection = (req, res) => {
             }
             
             coll.save()
-                .then(() => res.status(200).json({ message: "Product updated" }))
+                .then(() => res.status(200).json({ message: "Collection updated" }))
                 .catch(err => res.status(500).json({ error: err.message }))
         })
         .catch(err => res.status(500).json({ error: err.message }))
