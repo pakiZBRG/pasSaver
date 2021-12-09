@@ -66,6 +66,18 @@ export default function Collections() {
         }
     }
 
+    const deleteCollection = async id => {
+        try {
+            const collection = await axios.delete(`http://localhost:5000/collection/${id}`)
+            if(collection) {
+                setCollection(collection.data.collection)
+                toast.success(collection.data.message)
+            }
+        } catch(error) {
+            toast.error(error.message)
+        }
+    }
+
     const { email, password, collector } = data;
     const handlePasswordCreation = e => {
         e.preventDefault();
@@ -148,6 +160,7 @@ export default function Collections() {
                 setData={setData}
                 setUpdatePass={setUpdatePass}
                 updatePass={updatePass}
+                deleteCollection={deleteCollection}
             />
         </>
     )

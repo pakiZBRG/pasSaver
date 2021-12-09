@@ -450,7 +450,6 @@ body {
 }
 
 .list-collections__single-collection {
-  cursor: pointer;
   background: #212121;
   padding: .8rem 2rem;
   border-radius: 1rem;
@@ -469,6 +468,10 @@ body {
 
 .list-collections__single-collection:hover {
   background: #1b1b1b;
+}
+
+.list-collections__single-collection:hover .remove-collection {
+  opacity: 1;
 }
 
 .list-collections__single-collection a {
@@ -583,5 +586,15 @@ body {
 .list-collections__single-passwords .actions-copy:hover {
   color: #141414;
   background: #ffea04;
+}
+
+.remove-collection {
+  background: transparent;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-transition: 100ms ease-in;
+  transition: 100ms ease-in;
 }
 /*# sourceMappingURL=style.css.map */

@@ -79,7 +79,8 @@ exports.removeCollection = async (req, res) => {
             deleteImage(findCollection.imageUrl)
             const deleteCollection = await Collection.findByIdAndRemove(findCollection._id)
             if(deleteItsPasswords && deleteCollection) {
-                return res.status(200).json({ message: `Collection and ${passwordCount.length} password(s) are deleted!` })
+                const collection = await Collection.find().populate('passwords')
+                return res.status(200).json({ message: `Collection and ${passwordCount.length} password(s) are deleted!`, collection })
             }
         } else {
             return res.status(500).json({ error: "This colletion doesn\'t exist" })

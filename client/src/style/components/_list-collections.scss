@@ -16,7 +16,6 @@
         background: rgb(13, 13, 13);
         
         &-collection {
-            cursor: pointer;
             background: rgb(33, 33, 33);
             padding: .8rem 2rem;
             border-radius: 1rem;
@@ -26,6 +25,9 @@
             transition: 200ms ease-in;
             &:hover {
                 background: rgb(27, 27, 27);
+                & .remove-collection {
+                    opacity: 1
+                }
             }
             & a {
                 margin: 0 1.5rem;
@@ -118,4 +120,13 @@
             }
         }
     }
+}
+
+.remove-collection{
+    background: transparent;
+    border-radius: 1rem;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: 100ms ease-in;
 }

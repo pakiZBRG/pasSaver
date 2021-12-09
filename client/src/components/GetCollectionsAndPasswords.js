@@ -11,7 +11,8 @@ export default function GetCollectionsAndPasswords({
     handlePasswordUpdate,
     setData,
     setUpdatePass,
-    updatePass
+    updatePass,
+    deleteCollection
 }) {
     const [openedColl, setOpenedColl] = useState([]);
     const [edit, setEdit] = useState(false)
@@ -82,6 +83,13 @@ export default function GetCollectionsAndPasswords({
                             >
                                 {coll.name}
                             </a>
+                            <button
+                                style={{color: `#${coll.color}`}} 
+                                className='remove-collection'
+                                onClick={() => deleteCollection(coll._id)}
+                            >
+                                delete
+                            </button>
                         </div>
                         {coll.passwords.length > 0 &&
                             <div>
