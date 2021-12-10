@@ -1,34 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CSSTransition } from "react-transition-group";
 
 export default function NewPasswords({
-    isOpen,
-    setIsOpen,
     createPassword,
     handleChange,
     handleSelect,
-    collections
+    collections,
 }) {
+    const [open, setOpen] = useState(false);
+
     return (
-        <CSSTransition in={isOpen.password} classNames='add' timeout={100}>
+        <CSSTransition in={open} classNames='add' timeout={100}>
             <div className='collection-flex__passwords'>
-                <span className='collection-flex__passwords-navigate' onClick={() => setIsOpen({ ...isOpen, password: !isOpen.password })}>
+                <span className='collection-flex__passwords-navigate' onClick={() => setOpen(!open)}>
                     <h2>Create New Password</h2>
-                    <i className="fa fa-chevron-down" style={{ transform: `${isOpen.password ? 'rotateX(180deg)' : ""}`, transition: '200ms ease-out' }}></i>
+                    <i className="fa fa-chevron-down" style={{ transform: `${open ? 'rotateX(180deg)' : ""}`, transition: '200ms ease-out' }}></i>
                 </span>
-                <CSSTransition in={isOpen.password} classNames='form' timeout={100}>
+                <CSSTransition in={open} classNames='form' timeout={100}>
                     <form
                         method='POST'
                         encType='multipart/form-data'
                         onSubmit={createPassword}
                     >
-                            <div className='form-input'>
+                        <div className='form-input'>
                             <label htmlFor='email'>Email</label>
                             <input
                                 autoComplete={'off'}
                                 type='email'
                                 name='email'
-                                placeholder='someone@gmail.com'
                                 onChange={handleChange('email')}
                             />
                         </div>
@@ -37,14 +36,12 @@ export default function NewPasswords({
                             <input
                                 type='password'
                                 name='password'
-                                placeholder='********'
                                 onChange={handleChange('password')}
                             />
                         </div>
                         <div className='form-input'>
-                            <label htmlFor='collector'>Collections</label>
+                            <label htmlFor='collector'>Pick a collection</label>
                             <select onChange={handleSelect}>
-                                <option value="">Choose your collection</option>
                                 {collections?.map(coll => (
                                     <option key={coll._id} value={coll._id}>{coll.name}</option>
                                 ))}

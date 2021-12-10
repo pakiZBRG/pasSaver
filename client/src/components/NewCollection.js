@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CSSTransition } from "react-transition-group";
 
 export default function NewCollection({
-    isOpen,
-    setIsOpen,
     createCollection,
     handleChange,
     onImageChange
 }) {
+    const [open, setOpen] = useState(false)
+
     return (
-        <CSSTransition in={isOpen.collection} classNames='add' timeout={100}>
+        <CSSTransition in={open} classNames='add' timeout={100}>
             <div className='collection-flex__collections'>
-                <span className='collection-flex__collections-navigate' onClick={() => setIsOpen({...isOpen, collection: !isOpen.collection})}>
+                <span className='collection-flex__collections-navigate' onClick={() => setOpen(!open)}>
                     <h2>Create New Collection</h2>
-                    <i className="fa fa-chevron-down" style={{ transform: `${isOpen.collection ? 'rotateX(180deg)' : ""}`, transition: '200ms ease-out' }}></i>
+                    <i className="fa fa-chevron-down" style={{ transform: `${open ? 'rotateX(180deg)' : ""}`, transition: '200ms ease-out' }}></i>
                 </span>
-                <CSSTransition in={isOpen.collection} classNames='form' timeout={100}>
+                <CSSTransition in={open} classNames='form' timeout={100}>
                     <form
                         method='POST'
                         encType='multipart/form-data'
@@ -26,7 +26,6 @@ export default function NewCollection({
                             <input
                                 type='text'
                                 name='name'
-                                placeholder='Facebook'
                                 onChange={handleChange('name')}
                             />
                         </div>
@@ -35,7 +34,6 @@ export default function NewCollection({
                             <input
                                 type='text'
                                 name='website'
-                                placeholder='https://facebook.com'
                                 onChange={handleChange('website')}
                             />
                         </div>
@@ -44,7 +42,6 @@ export default function NewCollection({
                             <input
                                 type='text'
                                 name='color'
-                                placeholder='#ffea20'
                                 onChange={handleChange('color')}
                             />
                         </div>

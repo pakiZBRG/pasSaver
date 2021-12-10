@@ -16,6 +16,6 @@ export const isAuth = () => {
 }
 
 export const signout = next => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('keyPass');
     next();
 }

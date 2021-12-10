@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 
 exports.getKeyPass = async (req, res) => {
@@ -76,7 +77,6 @@ exports.activate = (req, res) => {
         
         try {
             if(email) {
-                const keyPass = req.body.keyPass;
                 const errors = validationResult(req);
                 if(!errors.isEmpty()){
                     const firstError = errors.array().map(error => error.msg)[0]
@@ -87,8 +87,10 @@ exports.activate = (req, res) => {
                 if(emailExists) {
                     return res.status(409).json({ error: 'This email has keyPass. Use another email.' })
                 } 
+
+                const keyPass = await bcrypt.hash(req.body.keyPass, 10)
     
-                const user = new User({ email, keyPass});
+                const user = new User({ email, keyPass });
                 user.save()
                     .then(() => res.status(201).json({ message: "User created" }))
                     .catch(err => res.status(400).json({ error: err.message }))
@@ -107,6 +109,8 @@ exports.login = async (req, res) => {
     }
 
     const keyPass = req.body.keyPass;
+    // const yes = await bcrypt.hash(req.body.keyPass, 10);
+    // console.log(yes)
 
     try {
         const findKeyPass = await User.findOne({ keyPass });

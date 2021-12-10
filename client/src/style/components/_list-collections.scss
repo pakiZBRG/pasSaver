@@ -39,8 +39,8 @@
             }
     
             & img {
-                height: 2.5rem;
-                width: 2.5rem;
+                height: 1.7rem;
+                width: 1.7rem;
                 object-fit: contain;
             }
         }
@@ -129,4 +129,7 @@
     cursor: pointer;
     opacity: 0;
     transition: 100ms ease-in;
+    &:hover {
+        text-decoration: underline;
+    }
 }

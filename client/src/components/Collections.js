@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import NewPasswords from './NewPasswords';
 import NewCollection from './NewCollection';
+import NavBar from './NavBar';
 import GetCollectionsAndPasswords from './GetCollectionsAndPasswords';
 
 
@@ -11,10 +12,6 @@ export default function Collections() {
     const [data, setData] = useState({});
     const [updatePass, setUpdatePass] = useState();
     const [collections, setCollection] = useState([]);
-    const [isOpen, setIsOpen] = useState({
-        collection: false,
-        password: false
-    });
 
     if(!isAuth()) {
         window.location.href = '/';
@@ -56,8 +53,7 @@ export default function Collections() {
             axios.post('http://localhost:5000/collection/new', form)
                 .then(res => {
                     setCollection([...collections, res.data.collection])
-                    setData({})
-                    handleChange({})
+                    e.target.reset();
                     toast.success(res.data.message);
                 })
                 .catch(err => toast.error(err.response.data.error));
@@ -86,11 +82,10 @@ export default function Collections() {
                 axios.post('http://localhost:5000/password/new', { email, password, collector })
                     .then(res => {
                         setCollection(res.data.collections)
-                        setData({})
-                        handleChange({})
+                        e.target.reset();
                         toast.success(res.data.message);
                     })
-                    .catch(err => toast.error(err.response.data.error));
+                    .catch(err => toast.error(err?.response.data.error));
             } else {
                 toast.warning('Password: please, fill all fields');
             }
@@ -130,20 +125,17 @@ export default function Collections() {
 
     return (
         <>
+            <NavBar />
             <div className='collection'>
                 <ToastContainer theme='colored'/>
                 <h1>Collections</h1>
                 <div className='collection-flex'>
                     <NewCollection
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
                         createCollection={handleCollectionCreation}
                         handleChange={handleChange}
                         onImageChange={onImageChange}
                     />
                     <NewPasswords 
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
                         createPassword={handlePasswordCreation}
                         handleChange={handleChange}
                         handleSelect={handleSelect}

@@ -111,7 +111,7 @@ body {
   left: 15px;
 }
 
-.flex-links a {
+.flex-links a, .flex-links .nav-center button, .nav-center .flex-links button {
   color: #eeeeee;
   font-size: 1.2rem;
   margin: 0.4rem;
@@ -133,9 +133,15 @@ body {
           justify-content: center;
 }
 
-.nav-center a {
+.nav-center a, .nav-center button {
   color: #eeeeee;
   text-decoration: underline;
+}
+
+.nav-center button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .flex-around {
@@ -386,10 +392,19 @@ body {
   content: 'Choose an image';
   font-family: 'Cunia';
   background: #ffea04;
+  -webkit-transition: -webkit-box-shadow 200ms ease-in;
+  transition: -webkit-box-shadow 200ms ease-in;
+  transition: box-shadow 200ms ease-in;
+  transition: box-shadow 200ms ease-in, -webkit-box-shadow 200ms ease-in;
   color: #141414;
   border-radius: 1rem;
   padding: 9px 1.4rem 7px 1.4rem;
   cursor: pointer;
+}
+
+.file-input:hover::before {
+  -webkit-box-shadow: 0 3px 15px 2px rgba(255, 234, 4, 0.4);
+          box-shadow: 0 3px 15px 2px rgba(255, 234, 4, 0.4);
 }
 
 .add-enter {
@@ -474,7 +489,7 @@ body {
   opacity: 1;
 }
 
-.list-collections__single-collection a {
+.list-collections__single-collection a, .list-collections__single-collection .nav-center button, .nav-center .list-collections__single-collection button {
   margin: 0 1.5rem;
   padding: 0.1rem 1rem;
   border-radius: 1rem;
@@ -487,8 +502,8 @@ body {
 }
 
 .list-collections__single-collection img {
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 1.7rem;
+  width: 1.7rem;
   -o-object-fit: contain;
      object-fit: contain;
 }
@@ -596,5 +611,9 @@ body {
   opacity: 0;
   -webkit-transition: 100ms ease-in;
   transition: 100ms ease-in;
+}
+
+.remove-collection:hover {
+  text-decoration: underline;
 }
 /*# sourceMappingURL=style.css.map */
