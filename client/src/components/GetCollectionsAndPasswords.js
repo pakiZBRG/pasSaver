@@ -63,11 +63,13 @@ export default function GetCollectionsAndPasswords({
         }
     }
 
+    console.log(collections.length)
+
     return (
         <div className='list-collections'>
             <ToastContainer theme='colored'/>
             {/* <i className='fa fa-minus list-collections__minimize' onClick={() => setOpenedColl([])}></i> */}
-            {collections?.map(coll => (
+            {collections.length ? collections?.map(coll => (
                 <div className='list-collections__single' id={coll._id} key={coll._id} onClick={openCollection}>
                     <div className='list-collections__single-collection'>
                         <div style={{display: 'flex', alignItems: 'center'}}>
@@ -140,7 +142,7 @@ export default function GetCollectionsAndPasswords({
                         })}
                     </div>
                 </div>
-            ))}
+            )) : <h2 className='no-password'>No password found</h2>}
         </div>
     )
 }

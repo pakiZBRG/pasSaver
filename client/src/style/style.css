@@ -459,7 +459,7 @@ body {
 }
 
 .list-collections__single {
-  margin: .6rem;
+  margin: .6rem 0;
   border-radius: 1rem;
   background: #0d0d0d;
 }
@@ -615,5 +615,56 @@ body {
 
 .remove-collection:hover {
   text-decoration: underline;
+}
+
+.filter {
+  width: 80%;
+  margin: 2.5rem auto;
+}
+
+.filter-input {
+  position: relative;
+}
+
+.filter-input input {
+  border-radius: 1rem;
+  padding: 0.7rem;
+  border: none;
+  background: #222;
+  color: #eeeeee;
+  text-indent: 1.7rem;
+  width: 20rem;
+}
+
+.filter-input input::-webkit-input-placeholder {
+  color: #666;
+}
+
+.filter-input input:-ms-input-placeholder {
+  color: #666;
+}
+
+.filter-input input::-ms-input-placeholder {
+  color: #666;
+}
+
+.filter-input input::placeholder {
+  color: #666;
+}
+
+.filter-input i {
+  position: absolute;
+  top: 50%;
+  left: 1.2rem;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: #666;
+}
+
+.no-password {
+  color: #666;
+  text-align: center;
+  font-family: 'Cunia';
+  font-weight: 100;
 }
 /*# sourceMappingURL=style.css.map */

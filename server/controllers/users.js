@@ -63,7 +63,7 @@ exports.getKeyPass = async (req, res) => {
             }
         });
     } catch(err) {
-        return res.status(400).json({ error: err.message });
+        return res.status(500).json({ error: err.message });
     }
 }
 
@@ -93,10 +93,10 @@ exports.activate = (req, res) => {
                 const user = new User({ email, keyPass });
                 user.save()
                     .then(() => res.status(201).json({ message: "User created" }))
-                    .catch(err => res.status(400).json({ error: err.message }))
+                    .catch(err => res.status(500).json({ error: err.message }))
             }
         } catch(err) {
-            return res.status(400).json({ error: err.message })
+            return res.status(500).json({ error: err.message })
         }
     })
 }
@@ -125,6 +125,6 @@ exports.login = async (req, res) => {
             token
         })
     } catch(err) {
-        return res.status(400).json({ error: err.message })
+        return res.status(500).json({ error: err.message })
     }
 }

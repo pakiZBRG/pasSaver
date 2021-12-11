@@ -11,7 +11,7 @@
     }
 
     &__single {
-        margin: .6rem;
+        margin: .6rem 0;
         border-radius: 1rem;
         background: rgb(13, 13, 13);
         
@@ -132,4 +132,38 @@
     &:hover {
         text-decoration: underline;
     }
+}
+
+.filter {
+    width: 80%;
+    margin: 2.5rem auto;
+    &-input {
+        position: relative;
+        & input {
+            border-radius: 1rem;
+            padding: 0.7rem;
+            border: none;
+            background: #222;
+            color: $white;
+            text-indent: 1.7rem;
+            width: 20rem;
+            &::placeholder {
+                color: #666;
+            }
+        }
+        & i {
+            position: absolute;
+            top: 50%;
+            left: 1.2rem;
+            transform: translate(-50%, -50%);
+            color: #666;
+        }
+    }
+}
+
+.no-password {
+    color: #666;
+    text-align: center;
+    font-family: 'Cunia';
+    font-weight: 100;
 }

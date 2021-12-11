@@ -21,7 +21,7 @@ export default function NewCollection({
                         encType='multipart/form-data'
                         onSubmit={createCollection}
                     >
-                            <div className='form-input'>
+                        <div className='form-input'>
                             <label htmlFor='name'>Name</label>
                             <input
                                 type='text'
@@ -53,7 +53,7 @@ export default function NewCollection({
                                     onChange={onImageChange}
                                 />
                             </label>
-                            <input type='submit' value='create'/>
+                            <input type='submit' value='create' />
                         </div>
                     </form>
                 </CSSTransition>

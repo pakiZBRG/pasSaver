@@ -13,7 +13,7 @@ exports.getCollections = (req, res) => {
                 collections: coll
             })
         })
-        .catch(err => res.status(400).json({ error: err.message }))
+        .catch(err => res.status(500).json({ error: err.message }))
 }
 
 exports.newCollection = (req, res) => {
@@ -43,7 +43,7 @@ exports.newCollection = (req, res) => {
 
     collection.save()
         .then(() => res.status(201).json({ message: "Collection created", collection }))
-        .catch(err => res.status(400).json({ error: err.message }))
+        .catch(err => res.status(500).json({ error: err.message }))
 }
 
 exports.editCollection = (req, res) => {

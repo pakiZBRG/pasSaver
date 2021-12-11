@@ -6,32 +6,39 @@ import NewPasswords from './NewPasswords';
 import NewCollection from './NewCollection';
 import NavBar from './NavBar';
 import GetCollectionsAndPasswords from './GetCollectionsAndPasswords';
+import Filter from './Filter';
 
 
 export default function Collections() {
     const [data, setData] = useState({});
     const [updatePass, setUpdatePass] = useState();
     const [collections, setCollection] = useState([]);
+    const [search, setSearch] = useState('');
 
-    if(!isAuth()) {
+    if (!isAuth()) {
         window.location.href = '/';
     }
 
     const getCollections = async () => {
         try {
-            const collectionData = await axios.get('http://localhost:5000/collection');
-            setCollection(collectionData.data.collections);
-        } catch(err) {
+            if(search.trim() === '') {
+                const collectionData = await axios.get('http://localhost:5000/collection');
+                setCollection(collectionData.data.collections);
+            } else {
+                const searchCollection = await axios.get(`http://localhost:5000/password/${search}`);
+                setCollection(searchCollection.data.collections);
+            }
+        } catch (err) {
             toast.error(err.message)
         }
     }
 
     useEffect(() => {
         getCollections()
-    }, [])
+    }, [search])
 
     const handleChange = text => e => setData({ ...data, [text]: e.target.value });
-    const handleSelect = e => setData({...data, collector: e.target.value});
+    const handleSelect = e => setData({ ...data, collector: e.target.value });
 
     /* FILE SELECTION */
     const onImageChange = e => {
@@ -44,7 +51,7 @@ export default function Collections() {
     const { name, website, color, imageUrl } = data;
     const handleCollectionCreation = e => {
         e.preventDefault();
-        if(name && website && color && imageUrl.name){
+        if (name && website && color && imageUrl.name) {
             const form = new FormData();
             form.append("name", name);
             form.append("website", website);
@@ -65,11 +72,11 @@ export default function Collections() {
     const deleteCollection = async id => {
         try {
             const collection = await axios.delete(`http://localhost:5000/collection/${id}`)
-            if(collection) {
+            if (collection) {
                 setCollection(collection.data.collection)
                 toast.success(collection.data.message)
             }
-        } catch(error) {
+        } catch (error) {
             toast.error(error.message)
         }
     }
@@ -78,7 +85,7 @@ export default function Collections() {
     const handlePasswordCreation = e => {
         e.preventDefault();
         try {
-            if(email && password && collector){
+            if (email && password && collector) {
                 axios.post('http://localhost:5000/password/new', { email, password, collector })
                     .then(res => {
                         setCollection(res.data.collections)
@@ -89,7 +96,7 @@ export default function Collections() {
             } else {
                 toast.warning('Password: please, fill all fields');
             }
-        } catch(err) {
+        } catch (err) {
             toast.error(err.message);
         }
     }
@@ -97,11 +104,11 @@ export default function Collections() {
     const removePassword = async pass => {
         try {
             const remove = await axios.delete(`http://localhost:5000/password/${pass}`);
-            if(remove) {
+            if (remove) {
                 setCollection(remove.data.collections)
                 toast.success("Password removed")
             }
-        } catch(error) {
+        } catch (error) {
             toast.error(error.message)
         }
     }
@@ -110,7 +117,7 @@ export default function Collections() {
         e.preventDefault();
         const id = e.target.offsetParent.attributes[0].value;
         try {
-            if(password || email) {
+            if (password || email) {
                 const update = await axios.put(`http://localhost:5000/password/${id}`, { email, password, collector });
                 setUpdatePass([])
                 setCollection(update.data.collection);
@@ -118,7 +125,7 @@ export default function Collections() {
             } else {
                 toast.warn('Please insert both email and password')
             }
-        } catch(err) {
+        } catch (err) {
             toast.error(err.message);
         }
     }
@@ -127,7 +134,7 @@ export default function Collections() {
         <>
             <NavBar />
             <div className='collection'>
-                <ToastContainer theme='colored'/>
+                <ToastContainer theme='colored' />
                 <h1>Collections</h1>
                 <div className='collection-flex'>
                     <NewCollection
@@ -135,15 +142,15 @@ export default function Collections() {
                         handleChange={handleChange}
                         onImageChange={onImageChange}
                     />
-                    <NewPasswords 
+                    <NewPasswords
                         createPassword={handlePasswordCreation}
                         handleChange={handleChange}
                         handleSelect={handleSelect}
                         collections={collections}
                     />
                 </div>
-                
             </div>
+            <Filter setSearch={setSearch} />
             <GetCollectionsAndPasswords
                 collections={collections}
                 removePassword={removePassword}
