@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
 
 export const authenticate = (res) => {
-    const email = jwt.decode(res.data.token).email;
-    localStorage.setItem('keyPass', JSON.stringify(email));
+    const id = jwt.decode(res.data.token).id;
+    localStorage.setItem('id', JSON.stringify(id));
 }
 
 
 export const isAuth = () => {
-    const loggedUser = localStorage.getItem('keyPass');
+    const loggedUser = localStorage.getItem('id');
     if(loggedUser){
         return JSON.parse(loggedUser);
     } else {
@@ -16,6 +16,6 @@ export const isAuth = () => {
 }
 
 export const signout = next => {
-    localStorage.removeItem('keyPass');
+    localStorage.removeItem('id');
     next();
 }

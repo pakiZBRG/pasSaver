@@ -7,7 +7,8 @@ const collectionSchema = new Schema({
     website: { type: String, required: true },
     color: { type: String, required: true },
     imageUrl: { type: String, required: true },
-    passwords: [{ type: mongoose.Schema.Types.ObjectId, ref: "Password", required: true }]
+    passwords: [{ type: mongoose.Schema.Types.ObjectId, ref: "Password", required: true }],
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 }, { timestamps: true },
 );
 

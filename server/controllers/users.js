@@ -83,18 +83,20 @@ exports.login = async (req, res) => {
         const findKeyPass = await User.findOne({ email });
 
         if (!findKeyPass) {
-            return res.status(404).json({ error: 'Invalid credentails.' });
+            return res.status(403).json({ error: 'Invalid credentails.' });
         }
 
         const hashPwd = await bcrypt.compare(keyPass, findKeyPass.keyPass);
 
         if (hashPwd) {
-            const token = jwt.sign({ _id: findKeyPass._id, email: findKeyPass.email }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '1d' })
+            const token = jwt.sign({ id: findKeyPass._id, email: findKeyPass.email }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '1d' })
 
             return res.json({
                 message: "Successful login",
                 token
             })
+        } else {
+            return res.status(403).json({ error: 'Invalid credentails.' });
         }
     } catch (err) {
         return res.status(500).json({ error: err.message })

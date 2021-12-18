@@ -2,7 +2,7 @@ const controller = require('../controllers/collections');
 const { validCollection } = require('../helpers/validation')
 const router = require('express').Router();
 
-router.get('/', controller.getCollections)
+router.get('/:user', controller.getCollections)
 
 router.post('/new', validCollection, controller.newCollection);
 
