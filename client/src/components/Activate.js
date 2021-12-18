@@ -9,19 +9,19 @@ export default function Activate() {
     const token = useParams().token;
     const [keyPass, setKeyPass] = useState('');
 
-    const now = new Date()  
+    const now = new Date()
     const seconds = Math.round(now.getTime() / 1000)
 
-    if(jwt.decode(token).exp < seconds) {
+    if (jwt.decode(token).exp < seconds) {
         window.location.href = '/?token=expired'
     }
 
     const handleForm = e => {
         e.preventDefault();
-        if(keyPass.trim() === '') {
+        if (keyPass.trim() === '') {
             toast.warning('Input your keyPass, please.')
         } else {
-            axios.post(`http://localhost:5000/auth/activate/${token}`, { keyPass: keyPass })
+            axios.post(`http://localhost:5000/auth/activate/keypass/${token}`, { keyPass: keyPass })
                 .then(res => toast.success(res.data.message))
                 .catch(err => toast.error(err?.response.data.error));
         }
@@ -29,13 +29,17 @@ export default function Activate() {
 
     return (
         <>
-            <ToastContainer/>
-            <NavBar/>
+            <ToastContainer theme='colored'/>
+            <NavBar />
             <div className='flex-center'>
                 <h1>Password Saver</h1>
                 <p>Set your unique keyPass. With it you can access all your passwords. It has to have at least 10 characters and both numbers and letters.</p>
                 <form method='POST' onSubmit={handleForm}>
-                    <input type='text' placeholder='Your keyPass' onChange={e => setKeyPass(e.target.value)}/>
+                    <input
+                        type='password'
+                        placeholder='Your keyPass'
+                        onChange={e => setKeyPass(e.target.value)}
+                    />
                     <button type='submit'>
                         <i className='fa fa-arrow-right'></i>
                     </button>

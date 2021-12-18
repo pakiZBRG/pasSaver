@@ -12,16 +12,17 @@ export default function GetCollectionsAndPasswords({
     setData,
     setUpdatePass,
     updatePass,
-    deleteCollection
+    deleteCollection,
+    loading
 }) {
     const [openedColl, setOpenedColl] = useState([]);
-    const [edit, setEdit] = useState(false)
+    const [edit, setEdit] = useState(false);
     let isBlack = false;
 
     const hex2rgb = color => {
         let r, g, b;
         if (color.length === 3) {
-            color = color.substr(0,1) + color.substr(0,1) + color.substr(1,2) + color.substr(1,2) + color.substr(2,3) + color.substr(2,3);
+            color = color.substr(0, 1) + color.substr(0, 1) + color.substr(1, 2) + color.substr(1, 2) + color.substr(2, 3) + color.substr(2, 3);
         }
         r = color.charAt(0) + '' + color.charAt(1);
         g = color.charAt(2) + '' + color.charAt(3);
@@ -29,18 +30,18 @@ export default function GetCollectionsAndPasswords({
         r = parseInt(r, 16);
         g = parseInt(g, 16);
         b = parseInt(b, 16);
-        if(r > 190 && g > 190 && b > 190) {
+        if (r > 190 && g > 190 && b > 190) {
             isBlack = true;
         }
         return `rgba(${r}, ${g}, ${b}, .4)`;
     }
 
     const openCollection = e => {
-        if(e.target.attributes[0]?.nodeValue === 'list-collections__single-collection') {
+        if (e.target.attributes[0]?.nodeValue === 'list-collections__single-collection') {
             const toOpen = e.target.nextElementSibling.attributes.id.value;
             const openDiv = e.target.parentElement.attributes.id.value;
             const isOpened = openedColl.find(coll => coll === toOpen);
-            if(toOpen === openDiv && isOpened === undefined) {
+            if (toOpen === openDiv && isOpened === undefined) {
                 setOpenedColl([...openedColl, toOpen]);
             } else {
                 setOpenedColl(openedColl.filter(coll => coll !== toOpen))
@@ -53,7 +54,7 @@ export default function GetCollectionsAndPasswords({
     const switchUpdate = e => {
         const toUpdate = e.target.attributes[0].value;
         const updateDiv = e.target.closest('article').attributes[0].value;
-        if(toUpdate === updateDiv){
+        if (toUpdate === updateDiv) {
             setUpdatePass(toUpdate)
             setEdit(!edit)
             setData({
@@ -63,86 +64,86 @@ export default function GetCollectionsAndPasswords({
         }
     }
 
-    console.log(collections.length)
-
     return (
         <div className='list-collections'>
-            <ToastContainer theme='colored'/>
+            <ToastContainer theme='colored' />
             {/* <i className='fa fa-minus list-collections__minimize' onClick={() => setOpenedColl([])}></i> */}
-            {collections.length ? collections?.map(coll => (
-                <div className='list-collections__single' id={coll._id} key={coll._id} onClick={openCollection}>
-                    <div className='list-collections__single-collection'>
-                        <div style={{display: 'flex', alignItems: 'center'}}>
-                            <img src={coll.imageUrl} alt={coll.name}/>
-                            <a 
-                                target='_blanc'
-                                href={coll.website}
-                                style={{ 
-                                    boxShadow: `0 0 10px 3px ${hex2rgb(coll.color)}`, 
-                                    background: `#${coll.color}`, 
-                                    color: `${isBlack ? 'black' : 'whitesmoke'}`
-                                }}
-                            >
-                                {coll.name}
-                            </a>
-                            <button
-                                style={{color: `#${coll.color}`}} 
-                                className='remove-collection'
-                                onClick={() => deleteCollection(coll._id)}
-                            >
-                                delete
-                            </button>
-                        </div>
-                        {coll.passwords.length > 0 &&
-                            <div>
-                                <span style={{color: `#${coll.color}`}}>
-                                    {coll.passwords.length}
-                                </span>
-                                <small> passwords</small>
-                                <input type='hidden' value={coll._id}/>
+            {!loading ?
+                collections.length ? collections?.map(coll => (
+                    <div className='list-collections__single' id={coll._id} key={coll._id} onClick={openCollection}>
+                        <div className='list-collections__single-collection'>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <img src={coll.imageUrl} alt={coll.name} />
+                                <a
+                                    target='_blanc'
+                                    href={coll.website}
+                                    style={{
+                                        boxShadow: `0 0 11px 4px ${hex2rgb(coll.color)}`,
+                                        background: `#${coll.color}`,
+                                        color: `${isBlack ? 'black' : 'whitesmoke'}`
+                                    }}
+                                >
+                                    {coll.name}
+                                </a>
+                                <button
+                                    style={{ color: `#${coll.color}` }}
+                                    className='remove-collection'
+                                    onClick={() => deleteCollection(coll._id)}
+                                >
+                                    delete
+                                </button>
                             </div>
-                        }
-                    </div>
-                    <div id={coll._id} style={{display: `${shouldOpen(coll._id) ? 'block' : 'none'}`}}>
-                        {coll.passwords.map(pass => {
-                            if(pass._id !== updatePass) {
-                                return (
-                                    <article id={pass._id} key={pass._id} className='list-collections__single-passwords'>
-                                        <input type='email' className='readOnly' defaultValue={pass.email}/>
-                                        <input type='password' className='readOnly' defaultValue={pass.password}/>
-                                        <div className='actions'>
-                                            <CopyToClipboard onCopy={() => toast.info("Copied to clipboard")} text={hashPassword(pass.password)}>
-                                                <span className='actions-copy'>copy</span>
-                                            </CopyToClipboard>
-                                            <span id={pass._id} className='actions-edit' onClick={switchUpdate}>
-                                                edit
-                                            </span>
-                                            <span className='actions-remove' onClick={() => removePassword(pass._id)}>
-                                                remove
-                                            </span>
-                                        </div>
-                                    </article>
-                                )
-                            } else {
-                                return  (
-                                    <form id={pass._id} method="PUT" key={pass._id}className='list-collections__single-passwords'>
-                                        <input type='email' className='writeMode' onChange={handleChange('email')} defaultValue={pass.email}/>
-                                        <input type='password' className='writeMode' onChange={handleChange('password')} defaultValue={hashPassword(pass.password)}/>
-                                        <div className='actions' style={{marginLeft: '65px'}}>
-                                            <span className='actions-edit' onClick={handlePasswordUpdate}>
-                                                accept
-                                            </span>
-                                            <span className='actions-remove' onClick={() => setUpdatePass()}>
-                                                decline
-                                            </span>
-                                        </div>
-                                    </form> 
-                                )
+                            {coll.passwords.length > 0 &&
+                                <div>
+                                    <span style={{ color: `#${coll.color}` }}>
+                                        {coll.passwords.length}
+                                    </span>
+                                    <small> passwords</small>
+                                    <input type='hidden' value={coll._id} />
+                                </div>
                             }
-                        })}
+                        </div>
+                        <div id={coll._id} style={{ display: `${shouldOpen(coll._id) ? 'block' : 'none'}` }}>
+                            {coll.passwords.map(pass => {
+                                if (pass._id !== updatePass) {
+                                    return (
+                                        <article id={pass._id} key={pass._id} className='list-collections__single-passwords'>
+                                            <input type='email' className='readOnly' defaultValue={pass.email} />
+                                            <input type='password' className='readOnly' defaultValue={pass.password} />
+                                            <div className='actions'>
+                                                <CopyToClipboard onCopy={() => toast.info("Copied to clipboard")} text={hashPassword(pass.password)}>
+                                                    <span className='actions-copy'>copy</span>
+                                                </CopyToClipboard>
+                                                <span id={pass._id} className='actions-edit' onClick={switchUpdate}>
+                                                    edit
+                                                </span>
+                                                <span className='actions-remove' onClick={() => removePassword(pass._id)}>
+                                                    remove
+                                                </span>
+                                            </div>
+                                        </article>
+                                    )
+                                } else {
+                                    return (
+                                        <form id={pass._id} method="PUT" key={pass._id} className='list-collections__single-passwords'>
+                                            <input type='email' className='writeMode' onChange={handleChange('email')} defaultValue={pass.email} />
+                                            <input type='password' className='writeMode' onChange={handleChange('password')} defaultValue={hashPassword(pass.password)} />
+                                            <div className='actions' style={{ marginLeft: '65px' }}>
+                                                <span className='actions-edit' onClick={handlePasswordUpdate}>
+                                                    accept
+                                                </span>
+                                                <span className='actions-remove' onClick={() => setUpdatePass()}>
+                                                    decline
+                                                </span>
+                                            </div>
+                                        </form>
+                                    )
+                                }
+                            })}
+                        </div>
                     </div>
-                </div>
-            )) : <h2 className='no-password'>No password found</h2>}
+                )) : <h2 className='no-password'>No password found</h2>
+            : <h2 className='no-password'>Loading ...</h2>}
         </div>
     )
 }

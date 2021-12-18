@@ -209,7 +209,7 @@ body {
   left: 105%;
   height: 1px;
   width: 75px;
-  background: #eeeeee;
+  background: #ffea04;
 }
 
 .divider::before {
@@ -219,7 +219,7 @@ body {
   right: 105%;
   height: 1px;
   width: 75px;
-  background: #eeeeee;
+  background: #ffea04;
 }
 
 .collection {
@@ -454,19 +454,19 @@ body {
   color: #141414;
   font-size: 0.9rem;
   padding: 0.25rem 0.5rem 0.15rem 0.5rem;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   cursor: pointer;
 }
 
 .list-collections__single {
-  margin: .6rem 0;
+  margin: 0.6rem 0;
   border-radius: 1rem;
   background: #0d0d0d;
 }
 
 .list-collections__single-collection {
   background: #212121;
-  padding: .8rem 2rem;
+  padding: 0.8rem 2rem;
   border-radius: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -515,7 +515,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: .5rem 3rem;
+  padding: 0.5rem 3rem;
   position: relative;
 }
 
@@ -525,7 +525,7 @@ body {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  content: '';
+  content: "";
   background: #eeeeee;
   width: 95%;
   height: 1px;
@@ -560,7 +560,7 @@ body {
   color: #1e90ff;
   border-radius: 1rem;
   padding: 0 1rem;
-  margin: .3rem;
+  margin: 0.3rem;
   -webkit-transition: 200ms ease-in;
   transition: 200ms ease-in;
   cursor: pointer;
@@ -576,7 +576,7 @@ body {
   color: #dc143c;
   border-radius: 1rem;
   padding: 0 1rem;
-  margin: .3rem;
+  margin: 0.3rem;
   -webkit-transition: 200ms ease-in;
   transition: 200ms ease-in;
   cursor: pointer;
@@ -592,7 +592,7 @@ body {
   color: #ffea04;
   border-radius: 1rem;
   padding: 0 1rem;
-  margin: .3rem;
+  margin: 0.3rem;
   -webkit-transition: 200ms ease-in;
   transition: 200ms ease-in;
   cursor: pointer;
@@ -620,6 +620,11 @@ body {
 .filter {
   width: 80%;
   margin: 2.5rem auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .filter-input {
@@ -661,10 +666,28 @@ body {
   color: #666;
 }
 
+.filter-button button {
+  background: #ffea04;
+  color: #141414;
+  padding: 0.5rem 3rem;
+  font-family: "Cunia";
+  border-radius: 2rem;
+  font-size: 1.1rem;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-button button:hover {
+  -webkit-box-shadow: 0 3px 20px 3px rgba(255, 234, 4, 0.4);
+          box-shadow: 0 3px 20px 3px rgba(255, 234, 4, 0.4);
+}
+
 .no-password {
   color: #666;
   text-align: center;
-  font-family: 'Cunia';
+  font-family: "Cunia";
   font-weight: 100;
 }
 /*# sourceMappingURL=style.css.map */

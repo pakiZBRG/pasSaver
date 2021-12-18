@@ -14,6 +14,7 @@ export default function Collections() {
     const [updatePass, setUpdatePass] = useState();
     const [collections, setCollection] = useState([]);
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(true);
 
     if (!isAuth()) {
         window.location.href = '/';
@@ -24,9 +25,11 @@ export default function Collections() {
             if(search.trim() === '') {
                 const collectionData = await axios.get('http://localhost:5000/collection');
                 setCollection(collectionData.data.collections);
+                setLoading(false)
             } else {
                 const searchCollection = await axios.get(`http://localhost:5000/password/${search}`);
                 setCollection(searchCollection.data.collections);
+                setLoading(false)
             }
         } catch (err) {
             toast.error(err.message)
@@ -160,6 +163,7 @@ export default function Collections() {
                 setUpdatePass={setUpdatePass}
                 updatePass={updatePass}
                 deleteCollection={deleteCollection}
+                loading={loading}
             />
         </>
     )

@@ -7,15 +7,16 @@ import { authenticate, isAuth } from '../helpers/auth';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
-    const [email, setEmail] = useState('');
-    const [keyPass, setKeyPass] = useState('');
+    const [login, setLogin] = useState('');
+
+    const handleChange = text => e => setLogin({ ...login, [text]: e.target.value });
 
     const handleEmailSubmit = e => {
         e.preventDefault();
-        if(email.trim() === '' ) {
+        if (login.email.trim() === '') {
             toast.warning('Input your email, please.')
         } else {
-            axios.post('http://localhost:5000/auth/keypass', { email })
+            axios.post('http://localhost:5000/auth/keypass', { email: login.email })
                 .then(res => toast.info(res.data.message))
                 .catch(err => toast.error(err.response.data.error))
         }
@@ -23,13 +24,13 @@ export default function Home() {
 
     const handleLoginSubmit = e => {
         e.preventDefault();
-        if(keyPass.trim() === '' ) {
-            toast.warning('Input your keyPass, please.')
+        if (!login.email && !login.keyPass) {
+            toast.warning('Input your email and keyPass, please.')
         } else {
-            axios.post('http://localhost:5000/auth/login', { keyPass })
+            axios.post('http://localhost:5000/auth/login', { login })
                 .then(res => {
                     authenticate(res);
-                    if(isAuth()){
+                    if (isAuth()) {
                         window.location.href = '/collections';
                     }
                 })
@@ -39,16 +40,16 @@ export default function Home() {
 
     return (
         <>
-            <ToastContainer/>
+            <ToastContainer theme='colored'/>
             <NavBar />
             <div className='flex-center'>
                 <h1>Password Saver</h1>
                 <p>Store all your passwords in one place, and access them using one phrase: keyPass. Get your own keyPass now</p>
-                {!isAuth() 
-                        ?
+                {!isAuth()
+                    ?
                     <>
                         <form method='POST' onSubmit={handleEmailSubmit}>
-                            <input type='email' placeholder='Your email' onChange={e => setEmail(e.target.value)}/>
+                            <input type='email' placeholder='Your email' onChange={handleChange('email')} />
                             <button type='submit'>
                                 <i className="fa fa-envelope"></i>
                             </button>
@@ -56,14 +57,14 @@ export default function Home() {
 
                         <span className='divider'>or login with keypass</span>
 
-                        <form method='POST' onSubmit={handleLoginSubmit} style={{margin: 0}}>
-                            <input type='password' placeholder='Your keyPass' onChange={e => setKeyPass(e.target.value)}/>
+                        <form method='POST' onSubmit={handleLoginSubmit} style={{ margin: 0 }}>
+                            <input type='password' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
                             <button type='submit'>
                                 <i className='fa fa-sign-in'></i>
                             </button>
                         </form>
                     </>
-                        :
+                    :
                     <Link className='logged-user' to='/collections'>
                         My Collections
                         <i className='fa fa-arrow-right'></i>
