@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     email: { type: String, required: true },
     keyPass: { type: String, default: '' },
-    editModeKey: { type: String }
+    editKey: { type: String }
 }, { timestamps: true },
 );
 

@@ -17,8 +17,6 @@ export default function Collections() {
     const [loading, setLoading] = useState(true);
     const loggedUser = JSON.parse(localStorage.getItem('id'));
 
-    console.log()
-
     if (!isAuth()) {
         window.location.href = '/';
     }
@@ -64,7 +62,6 @@ export default function Collections() {
             form.append("color", color);
             form.append('user', loggedUser)
             form.append("myImage", imageUrl);
-            console.log(form)
             axios.post('http://localhost:5000/collection/new', form)
                 .then(res => {
                     setCollection([...collections, res.data.collection])

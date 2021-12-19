@@ -20,7 +20,7 @@ export default function Filter({ setSearch }) {
     }, [])
 
     const sendEditKey = async () => {
-        axios.post(`http://localhost:5000/auth/edit-mode`, { email: isAuth() })
+        axios.post(`http://localhost:5000/auth/edit-mode`, { id: isAuth() })
             .then(res => toast.info(res.data.message))
             .catch(err => toast.warn(err.message))
     }

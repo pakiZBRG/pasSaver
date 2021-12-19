@@ -5,7 +5,6 @@ export const authenticate = (res) => {
     localStorage.setItem('id', JSON.stringify(id));
 }
 
-
 export const isAuth = () => {
     const loggedUser = localStorage.getItem('id');
     if(loggedUser){
