@@ -50,7 +50,7 @@ export default function Home() {
                     <>
                         <form method='POST' onSubmit={handleEmailSubmit}>
                             <input type='email' placeholder='Your email' onChange={handleChange('email')} />
-                            <button type='submit'>
+                            <button type='submit' className='submit'>
                                 <i className="fa fa-envelope"></i>
                             </button>
                         </form>
@@ -59,7 +59,7 @@ export default function Home() {
 
                         <form method='POST' onSubmit={handleLoginSubmit} style={{ margin: 0 }}>
                             <input type='password' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
-                            <button type='submit'>
+                            <button type='submit' className='submit'>
                                 <i className='fa fa-sign-in'></i>
                             </button>
                         </form>

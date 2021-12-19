@@ -44,6 +44,7 @@ body {
   margin-top: 4rem;
 }
 
+.flex-center form input[type='email'],
 .flex-center form input[type='password'] {
   background: #eeeeee;
   border: none;
@@ -55,7 +56,9 @@ body {
   width: 20rem;
 }
 
-.flex-center form input[type='password']:hover, .flex-center form input[type='password']:focus {
+.flex-center form input[type='email']:hover, .flex-center form input[type='email']:focus,
+.flex-center form input[type='password']:hover,
+.flex-center form input[type='password']:focus {
   -webkit-box-shadow: 0 7px 20px 3px rgba(238, 238, 238, 0.3);
           box-shadow: 0 7px 20px 3px rgba(238, 238, 238, 0.3);
 }

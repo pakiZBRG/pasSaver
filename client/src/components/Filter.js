@@ -5,10 +5,12 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export default function Filter({ setSearch }) {
     const [editMode, setEditMode] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const doesEditModeExists = async () => {
         try {
-            const doesExist = await axios.get(`http://localhost:5000/auth/find/edit-mode`, { email: isAuth() });
+            const doesExist = await axios.get(`http://localhost:5000/auth/find/edit-mode/${isAuth()}`);
+            setLoading(false);
             setEditMode(doesExist.data.exists)
         } catch (err) {
             console.log(err.message)
@@ -33,10 +35,15 @@ export default function Filter({ setSearch }) {
                     <input type='text' onChange={e => setSearch(e.target.value)} placeholder='Search Passwords' />
                     <i className='fa fa-search'></i>
                 </div>
-                {!editMode &&
-                    <div className='filter-button'>
-                        <button onClick={sendEditKey}>Send EditKey</button>
-                    </div>
+                {!loading ?
+                    editMode ?
+                        <div className='filter-button'>
+                            <button onClick={sendEditKey}>Send EditKey</button>
+                        </div>
+                        :
+                        <p>da</p>
+                    :
+                    <h3 className='no-password'>Loading ...</h3>
                 }
             </div>
         </>

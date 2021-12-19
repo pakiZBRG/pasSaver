@@ -18,6 +18,7 @@
     & form {
         position: relative;
         margin-top: 4rem;
+        & input[type='email'],
         & input[type='password'] {
             background: $white;
             border: none;

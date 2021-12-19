@@ -114,13 +114,12 @@ exports.login = async (req, res) => {
 
 exports.findEditModeKey = async (req, res) => {
     try {
-        const email = req.body.email;
-        const emailExists = await User.find({ email });
+        const emailExists = await User.findById(req.params.id);
 
-        if (!emailExists.editModeKey) {
-            return res.status(200).json({ exists: false })
-        } else {
+        if (emailExists.hasOwnProperty('editKey')) {
             return res.status(200).json({ exists: true })
+        } else {
+            return res.status(200).json({ exists: false })
         }
     } catch (err) {
         return res.status(500).json({ error: err.message })

@@ -8,7 +8,7 @@ router.post('/activate/keypass/:token', validKeyPass, controller.activateKeyPass
 
 router.post('/login', controller.login);
 
-router.get('/find/edit-mode', controller.findEditModeKey);
+router.get('/find/edit-mode/:id', controller.findEditModeKey);
 
 router.post('/edit-mode', controller.getEditModeKey);
 
