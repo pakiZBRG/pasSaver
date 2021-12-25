@@ -70,7 +70,7 @@
 
         & .submit-right {
             @extend .submit;
-            right: -4rem;
+            right: -3.5rem;
             background: $white;
             color: $black;
             &:hover, &:focus {
@@ -100,24 +100,21 @@
 }
 
 .flex-links {
-    position: absolute;
-    bottom: 10px;
-    left: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     & a {
         color: $white;
         font-size: 1.2rem;
-        margin: 0.4rem;
+        margin: 0 0.5rem 0.6rem 0.5rem;
+    }
+    & p {
+        margin-right: .5rem;
     }
 }
 
-.maker {
-    position: absolute;
-    bottom: 5px;
-    right: 15px;
-}
-
 .nav-center {
-    margin-top: .5rem;
+    padding-top: .5rem;
     display: flex;
     justify-content: center;
     & a {

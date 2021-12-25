@@ -15,7 +15,9 @@ export default function Collections() {
     const [collections, setCollection] = useState([]);
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
+    const [modal, setModal] = useState(false);
     const loggedUser = JSON.parse(localStorage.getItem('id'));
+    const editable = localStorage.getItem('editable');
 
     if (!isAuth()) {
         window.location.href = '/';
@@ -23,7 +25,7 @@ export default function Collections() {
 
     const getCollections = async () => {
         try {
-            if(search.trim() === '') {
+            if (search.trim() === '') {
                 const collectionData = await axios.get(`http://localhost:5000/collection/${loggedUser}`);
                 setCollection(collectionData.data.collections);
                 setLoading(false)
@@ -39,7 +41,7 @@ export default function Collections() {
 
     useEffect(() => {
         getCollections()
-    }, [search])
+    }, [search, editable])
 
     const handleChange = text => e => setData({ ...data, [text]: e.target.value });
     const handleSelect = e => setData({ ...data, collector: e.target.value });
@@ -90,6 +92,7 @@ export default function Collections() {
     const handlePasswordCreation = e => {
         e.preventDefault();
         try {
+            console.log(data)
             if (email && password && collector) {
                 axios.post('http://localhost:5000/password/new', { email, password, collector })
                     .then(res => {
@@ -99,7 +102,7 @@ export default function Collections() {
                     })
                     .catch(err => toast.error(err?.response.data.error));
             } else {
-                toast.warning('Password: please, fill all fields');
+                toast.warning('Password: please fill all fields');
             }
         } catch (err) {
             toast.error(err.message);
@@ -137,25 +140,34 @@ export default function Collections() {
 
     return (
         <>
+            {modal && <div className='overlay'></div>}
             <NavBar />
             <div className='collection'>
                 <ToastContainer theme='colored' />
                 <h1>Collections</h1>
                 <div className='collection-flex'>
-                    <NewCollection
-                        createCollection={handleCollectionCreation}
-                        handleChange={handleChange}
-                        onImageChange={onImageChange}
-                    />
-                    <NewPasswords
-                        createPassword={handlePasswordCreation}
-                        handleChange={handleChange}
-                        handleSelect={handleSelect}
-                        collections={collections}
-                    />
+                    {editable &&
+                        <>
+                            <NewCollection
+                                createCollection={handleCollectionCreation}
+                                handleChange={handleChange}
+                                onImageChange={onImageChange}
+                            />
+                            <NewPasswords
+                                createPassword={handlePasswordCreation}
+                                handleChange={handleChange}
+                                handleSelect={handleSelect}
+                                collections={collections}
+                            />
+                        </>
+                    }
                 </div>
             </div>
-            <Filter setSearch={setSearch} />
+            <Filter
+                setSearch={setSearch}
+                modal={modal}
+                setModal={setModal}
+            />
             <GetCollectionsAndPasswords
                 collections={collections}
                 removePassword={removePassword}

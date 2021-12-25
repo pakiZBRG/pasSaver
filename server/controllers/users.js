@@ -116,7 +116,7 @@ exports.findEditModeKey = async (req, res) => {
     try {
         const emailExists = await User.findById(req.params.id);
 
-        if (emailExists.hasOwnProperty('editKey')) {
+        if ('editKey' in emailExists) {
             return res.status(200).json({ exists: true })
         } else {
             return res.status(200).json({ exists: false })
@@ -148,7 +148,7 @@ exports.getEditModeKey = async (req, res) => {
                     </div>
                     <div className='black-card-content'>
                         <p>Click on the link below to continue with setting up you editKeyPass, in order to create, update and remove passwords and collections.</p>
-                        <a href='${process.env.CLIENT_URL}/activate/${token}'>Setup keyPass</a>
+                        <a href='${process.env.CLIENT_URL}/activate/${token}'>Setup EditKey</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
@@ -188,4 +188,20 @@ exports.activateEditMode = async (req, res) => {
             return res.status(500).json({ error: err.message })
         }
     })
+}
+
+exports.turnOnEditMode = async (req, res) => {
+    try {
+        const findEditMode = await User.findById(req.params.id);
+
+        const hashKey = await bcrypt.compare(req.body.key, findEditMode.editKey);
+
+        if (hashKey) {
+            return res.status(200).json({ message: "Successful activation", editable: findEditMode.editKey })
+        } else {
+            return res.status(403).json({ error: 'Wrong key.' });
+        }
+    } catch(err) {
+        return res.status(500).json({ error: err.message })
+    }
 }

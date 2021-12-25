@@ -1,0 +1,34 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: $black;
+    opacity: 0.8;
+    z-index: 10;
+}
+
+.modal {
+    z-index: 20;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $black;
+    padding: 2rem;
+    color: $white;
+    box-shadow: 0 5px 20px 1px rgba(240, 240, 240, .2);
+
+    & span {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        font-size: 1.3rem;
+        cursor: pointer;
+    }
+
+    & h2 {
+        margin-right: auto;
+    }
+}

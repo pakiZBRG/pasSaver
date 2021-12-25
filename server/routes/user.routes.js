@@ -14,4 +14,6 @@ router.post('/edit-mode', controller.getEditModeKey);
 
 router.post('/activate/edit-mode/:token', controller.activateEditMode);
 
+router.post('/edit-mode/:id', controller.turnOnEditMode)
+
 module.exports = router;

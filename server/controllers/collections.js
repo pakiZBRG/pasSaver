@@ -36,6 +36,10 @@ exports.newCollection = (req, res) => {
         return res.status(415).json({ error: "Image size too big. 1MB is limit." });
     }
 
+    if(!color.includes('#')) {
+        return res.status(406).json({ error: "Color must include # at the beginning" });
+    }
+
     const collection = new Collection({
         name,
         website,

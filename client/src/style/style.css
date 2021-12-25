@@ -107,7 +107,7 @@ body {
 }
 
 .flex-center form .submit-right {
-  right: -4rem;
+  right: -3.5rem;
   background: #eeeeee;
   color: #141414;
 }
@@ -141,25 +141,30 @@ body {
 }
 
 .flex-links {
-  position: absolute;
-  bottom: 10px;
-  left: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .flex-links a, .flex-links .nav-center button, .nav-center .flex-links button {
   color: #eeeeee;
   font-size: 1.2rem;
-  margin: 0.4rem;
+  margin: 0 0.5rem 0.6rem 0.5rem;
 }
 
-.maker {
-  position: absolute;
-  bottom: 5px;
-  right: 15px;
+.flex-links p {
+  margin-right: .5rem;
 }
 
 .nav-center {
-  margin-top: .5rem;
+  padding-top: .5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -576,6 +581,7 @@ body {
   border: none;
   color: #eeeeee;
   cursor: default;
+  width: 16rem;
 }
 
 .list-collections__single-passwords .writeMode {
@@ -660,6 +666,9 @@ body {
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .filter-input {
@@ -719,11 +728,26 @@ body {
           box-shadow: 0 3px 20px 3px rgba(255, 234, 4, 0.4);
 }
 
+.filter .activated {
+  color: #666;
+  text-align: center;
+  font-family: "Cunia";
+  font-weight: 100;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 .no-password {
   color: #666;
   text-align: center;
   font-family: "Cunia";
   font-weight: 100;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .center {
@@ -778,5 +802,42 @@ body {
   transition: 200ms ease-in;
   -webkit-box-shadow: 0 3px 3px 2px rgba(20, 20, 20, 0.5);
           box-shadow: 0 3px 3px 2px rgba(20, 20, 20, 0.5);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: #141414;
+  opacity: 0.8;
+  z-index: 10;
+}
+
+.modal {
+  z-index: 20;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: #141414;
+  padding: 2rem;
+  color: #eeeeee;
+  -webkit-box-shadow: 0 5px 20px 1px rgba(240, 240, 240, 0.2);
+          box-shadow: 0 5px 20px 1px rgba(240, 240, 240, 0.2);
+}
+
+.modal span {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.modal h2 {
+  margin-right: auto;
 }
 /*# sourceMappingURL=style.css.map */

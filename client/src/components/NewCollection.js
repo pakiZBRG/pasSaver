@@ -27,6 +27,7 @@ export default function NewCollection({
                                 type='text'
                                 name='name'
                                 onChange={handleChange('name')}
+                                autoComplete='off'
                             />
                         </div>
                         <div className='form-input'>
@@ -43,6 +44,7 @@ export default function NewCollection({
                                 type='text'
                                 name='color'
                                 onChange={handleChange('color')}
+                                autoComplete='off'
                             />
                         </div>
                         <div className='buttons'>

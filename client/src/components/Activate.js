@@ -87,12 +87,12 @@ export default function Activate() {
                 <p>Set your unique keyPass. With it you can access all your passwords. It has to have at least 10 characters and both numbers and letters.</p>
                 {jwt.decode(token).mode ?
                     <form method='POST' id='editMode' onSubmit={handleEditKey}>
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
 
                         <button type='submit' className='submit-right'>
                             <i className='fa fa-arrow-right'></i>

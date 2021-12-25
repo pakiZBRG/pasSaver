@@ -14,8 +14,9 @@ exports.validKeyPass = [
 exports.validCollection = [
     check('name', 'Name is required')
         .isLength({ min: 1, max: 32 }).withMessage('Name can have between 1 and 50 characters.'),
-    check('website', 'Website is require'),
-    check('color', 'Color is require')
+    check('website', 'Website is required'),
+    check('color', 'Color is required')
+        .isHexColor().withMessage('Color must be in hex - #A123BC')
 ]
 
 exports.validPassword = [

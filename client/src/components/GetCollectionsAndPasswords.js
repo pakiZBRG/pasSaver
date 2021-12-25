@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ToastContainer, toast } from 'react-toastify';
 import hashPassword from '../helpers/Hashing'
@@ -17,11 +17,14 @@ export default function GetCollectionsAndPasswords({
 }) {
     const [openedColl, setOpenedColl] = useState([]);
     const [edit, setEdit] = useState(false);
+    const editable = localStorage.getItem('editable')
     let isBlack = false;
+
+    useEffect(() => {}, [editable])
 
     const hex2rgb = color => {
         let r, g, b;
-        if (color.length === 3) {
+        if (color.length === 6) {
             color = color.substr(0, 1) + color.substr(0, 1) + color.substr(1, 2) + color.substr(1, 2) + color.substr(2, 3) + color.substr(2, 3);
         }
         r = color.charAt(0) + '' + color.charAt(1);
@@ -78,24 +81,26 @@ export default function GetCollectionsAndPasswords({
                                     target='_blanc'
                                     href={coll.website}
                                     style={{
-                                        boxShadow: `0 0 11px 4px ${hex2rgb(coll.color)}`,
-                                        background: `#${coll.color}`,
+                                        boxShadow: `0 0 11px 4px ${hex2rgb(coll.color.slice(1))}`,
+                                        background: `${coll.color}`,
                                         color: `${isBlack ? 'black' : 'whitesmoke'}`
                                     }}
                                 >
                                     {coll.name}
                                 </a>
-                                <button
-                                    style={{ color: `#${coll.color}` }}
-                                    className='remove-collection'
-                                    onClick={() => deleteCollection(coll._id)}
-                                >
-                                    delete
-                                </button>
+                                {editable &&
+                                    <button
+                                        style={{ color: `${coll.color}` }}
+                                        className='remove-collection'
+                                        onClick={() => deleteCollection(coll._id)}
+                                    >
+                                        delete
+                                    </button>
+                                }
                             </div>
                             {coll.passwords.length > 0 &&
                                 <div>
-                                    <span style={{ color: `#${coll.color}` }}>
+                                    <span style={{ color: `${coll.color}` }}>
                                         {coll.passwords.length}
                                     </span>
                                     <small> passwords</small>
@@ -114,12 +119,16 @@ export default function GetCollectionsAndPasswords({
                                                 <CopyToClipboard onCopy={() => toast.info("Copied to clipboard")} text={hashPassword(pass.password)}>
                                                     <span className='actions-copy'>copy</span>
                                                 </CopyToClipboard>
-                                                <span id={pass._id} className='actions-edit' onClick={switchUpdate}>
-                                                    edit
-                                                </span>
-                                                <span className='actions-remove' onClick={() => removePassword(pass._id)}>
-                                                    remove
-                                                </span>
+                                                {editable &&
+                                                    <>
+                                                        <span id={pass._id} className='actions-edit' onClick={switchUpdate}>
+                                                            edit
+                                                        </span>
+                                                        <span className='actions-remove' onClick={() => removePassword(pass._id)}>
+                                                            remove
+                                                        </span>
+                                                    </>
+                                                }
                                             </div>
                                         </article>
                                     )
@@ -143,7 +152,7 @@ export default function GetCollectionsAndPasswords({
                         </div>
                     </div>
                 )) : <h2 className='no-password'>No password found</h2>
-            : <h2 className='no-password'>Loading ...</h2>}
+                : <h2 className='no-password'>Loading ...</h2>}
         </div>
     )
 }

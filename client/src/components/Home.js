@@ -40,7 +40,7 @@ export default function Home() {
 
     return (
         <>
-            <ToastContainer theme='colored'/>
+            <ToastContainer theme='colored' />
             <NavBar />
             <div className='flex-center'>
                 <h1>Password Saver</h1>
@@ -58,7 +58,7 @@ export default function Home() {
                         <span className='divider'>or login with keypass</span>
 
                         <form method='POST' onSubmit={handleLoginSubmit} style={{ margin: 0 }}>
-                            <input type='password' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
+                            <input type='password' className='key' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
                             <button type='submit' className='submit'>
                                 <i className='fa fa-sign-in'></i>
                             </button>
@@ -73,14 +73,16 @@ export default function Home() {
             </div>
             <UseCase />
             <div className='flex-links'>
-                <a target='_blanc' href='https://github.com/pakiZBRG'>
-                    <i className='fa fa-github'></i>
-                </a>
-                <a target='_blanc' href='https://github.com/pakiZBRG/pasSaver'>
-                    <i className='fa fa-code'></i>
-                </a>
+                <div>
+                    <a target='_blanc' href='https://github.com/pakiZBRG'>
+                        <i className='fa fa-github'></i>
+                    </a>
+                    <a target='_blanc' href='https://github.com/pakiZBRG/pasSaver'>
+                        <i className='fa fa-code'></i>
+                    </a>
+                </div>
+                <p className='maker'>pakiZBRG</p>
             </div>
-            <p className='maker'>pakiZBRG</p>
         </>
     )
 }

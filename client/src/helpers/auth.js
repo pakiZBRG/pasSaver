@@ -16,5 +16,6 @@ export const isAuth = () => {
 
 export const signout = next => {
     localStorage.removeItem('id');
+    localStorage.removeItem('editable');
     next();
 }

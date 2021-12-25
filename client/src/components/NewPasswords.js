@@ -25,7 +25,6 @@ export default function NewPasswords({
                         <div className='form-input'>
                             <label htmlFor='email'>Email</label>
                             <input
-                                autoComplete={'off'}
                                 type='email'
                                 name='email'
                                 onChange={handleChange('email')}
@@ -40,8 +39,9 @@ export default function NewPasswords({
                             />
                         </div>
                         <div className='form-input'>
-                            <label htmlFor='collector'>Pick a collection</label>
-                            <select onChange={handleSelect}>
+                            <label htmlFor='collector'>Collection</label>
+                            <select onChange={handleSelect} >
+                                <option selected hidden>Pick a collection</option>
                                 {collections?.map(coll => (
                                     <option key={coll._id} value={coll._id}>{coll.name}</option>
                                 ))}
