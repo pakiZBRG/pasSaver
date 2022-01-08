@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { isAuth } from '../helpers/auth';
+import { isAuth, deactivate } from '../helpers/auth';
 import { ToastContainer, toast } from 'react-toastify';
 
-export default function Filter({ setSearch, modal, setModal }) {
+export default function Filter({ setSearch, modal, setModal, editable, setEditable }) {
     const [editMode, setEditMode] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [isEditable, setEditable] = useState(localStorage.getItem('editable') || false);
 
     const doesEditModeExists = async () => {
         try {
@@ -114,8 +113,10 @@ export default function Filter({ setSearch, modal, setModal }) {
                             <button onClick={sendEditKey}>Send EditKey</button>
                         </div>
                         :
-                        isEditable ?
-                            <h3 class='activated'>Activated editkey</h3>
+                        editable ?
+                            <button class='activated' onClick={() => deactivate(() => setEditable(false))}>
+                                <h3>deactivate</h3>
+                            </button>
                             :
                             <div className='filter-button'>
                                 <button onClick={() => setModal(!modal)}>Activate EditKey</button>

@@ -16,8 +16,8 @@ export default function Collections() {
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
     const [modal, setModal] = useState(false);
+    const [editable, setEditable] = useState(localStorage.getItem('editable') || false)
     const loggedUser = JSON.parse(localStorage.getItem('id'));
-    const editable = localStorage.getItem('editable');
 
     if (!isAuth()) {
         window.location.href = '/';
@@ -167,6 +167,8 @@ export default function Collections() {
                 setSearch={setSearch}
                 modal={modal}
                 setModal={setModal}
+                editable={editable}
+                setEditable={setEditable}
             />
             <GetCollectionsAndPasswords
                 collections={collections}

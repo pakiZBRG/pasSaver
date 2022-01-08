@@ -1,29 +1,32 @@
 const hashPassword = pass => {
-    const prefix = process.env.REACT_APP_PREFIX;
-    const sufix = process.env.REACT_APP_SUFIX;
-    const M = process.env.REACT_APP_MOVE_M;
-    const N = process.env.REACT_APP_MOVE_N;
-    const hash = pass.substring(prefix, pass.length - sufix);
+    const M = +process.env.REACT_APP_MOVE_M;
+    const N = +process.env.REACT_APP_MOVE_N;
+    const place = process.env.REACT_APP_PLACE;
 
-    const password = hash.split('');
+    const length = parseInt(pass.substring(place, place + 2));
+
+    const hash = pass.length - length - 2;
+    const aa = pass.slice(Math.ceil(hash - hash / 3 + 2), hash);
+
+    const bb = aa.slice(0, length)
+
+    const password = bb.split('');
     let i = password.length - 1;
+    let j = 0;
     let asciiPass = [];
-    if(i % 2 === 0){
-        while(i > -1){
-            const asciiChar = password[i].charCodeAt(0);
-            i % 2 === 0 ? asciiPass.push(asciiChar - M) : asciiPass.push(asciiChar - N);
-            i--;
+    while (i > -1) {
+        const asciiChar = password[j].charCodeAt(0);
+        if (i % 2 === 0) {
+            asciiPass.push(asciiChar - M + i);
+        } else {
+            asciiPass.push(asciiChar - N + i);
         }
-    } else {
-        while(i > -1){
-            const asciiChar = password[i].charCodeAt(0);
-            i % 2 === 0 ? asciiPass.push(asciiChar - N) : asciiPass.push(asciiChar - M);
-            i--;
-        }
+        i--;
+        j++;
     }
-    
+
     let stringPass = [];
-    asciiPass.forEach(p => stringPass.push(String.fromCharCode(p)));
+    asciiPass.reverse().forEach(p => stringPass.push(String.fromCharCode(p)));
     return stringPass.join('');
 }
 

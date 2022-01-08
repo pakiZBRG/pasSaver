@@ -72,7 +72,7 @@
                 width: 16rem;
             }
             & .writeMode {
-                background: $yellow;
+                background: $white;
                 border: none;
                 padding: 0 0.5rem;
             }
@@ -181,11 +181,14 @@
         }
     }
     & .activated {
-        color: #666;
+        color: $yellow;
+        border: 1px solid $yellow;
+        background: transparent;
+        padding: 0.4rem 2rem;
+        border-radius: 2rem;
         text-align: center;
         font-family: "Cunia";
-        font-weight: 100;
-        user-select: none;
+        cursor: pointer;
     }
 }
 

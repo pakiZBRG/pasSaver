@@ -24,17 +24,18 @@ export default function GetCollectionsAndPasswords({
 
     const hex2rgb = color => {
         let r, g, b;
-        if (color.length === 6) {
-            color = color.substr(0, 1) + color.substr(0, 1) + color.substr(1, 2) + color.substr(1, 2) + color.substr(2, 3) + color.substr(2, 3);
-        }
         r = color.charAt(0) + '' + color.charAt(1);
         g = color.charAt(2) + '' + color.charAt(3);
         b = color.charAt(4) + '' + color.charAt(5);
         r = parseInt(r, 16);
         g = parseInt(g, 16);
         b = parseInt(b, 16);
+        console.log(r, g, b)
         if (r > 190 && g > 190 && b > 190) {
             isBlack = true;
+        }
+        if(r < 45 && g < 45 && b < 45) {
+            isBlack = false;
         }
         return `rgba(${r}, ${g}, ${b}, .4)`;
     }
@@ -81,7 +82,7 @@ export default function GetCollectionsAndPasswords({
                                     target='_blanc'
                                     href={coll.website}
                                     style={{
-                                        boxShadow: `0 0 11px 4px ${hex2rgb(coll.color.slice(1))}`,
+                                        boxShadow: `0 0 8px 4px ${hex2rgb(coll.color.slice(1))}`,
                                         background: `${coll.color}`,
                                         color: `${isBlack ? 'black' : 'whitesmoke'}`
                                     }}
@@ -90,10 +91,11 @@ export default function GetCollectionsAndPasswords({
                                 </a>
                                 {editable &&
                                     <button
-                                        style={{ color: `${coll.color}` }}
+                                        style={{ color: `${isBlack ? 'whitemsoke' : coll.color}` }}
                                         className='remove-collection'
                                         onClick={() => deleteCollection(coll._id)}
                                     >
+                                        {console.log(coll.name, isBlack)}
                                         delete
                                     </button>
                                 }
@@ -114,7 +116,7 @@ export default function GetCollectionsAndPasswords({
                                     return (
                                         <article id={pass._id} key={pass._id} className='list-collections__single-passwords'>
                                             <input type='email' className='readOnly' defaultValue={pass.email} />
-                                            <input type='password' className='readOnly' defaultValue={pass.password} />
+                                            <input type='password' className='readOnly' defaultValue={'BITCH_YOU_GUESSED_IT'} />
                                             <div className='actions'>
                                                 <CopyToClipboard onCopy={() => toast.info("Copied to clipboard")} text={hashPassword(pass.password)}>
                                                     <span className='actions-copy'>copy</span>
