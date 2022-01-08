@@ -30,7 +30,6 @@ export default function GetCollectionsAndPasswords({
         r = parseInt(r, 16);
         g = parseInt(g, 16);
         b = parseInt(b, 16);
-        console.log(r, g, b)
         if (r > 190 && g > 190 && b > 190) {
             isBlack = true;
         }

@@ -14,6 +14,10 @@ router.post('/edit-mode', controller.getEditModeKey);
 
 router.post('/activate/edit-mode/:token', controller.activateEditMode);
 
-router.post('/edit-mode/:id', controller.turnOnEditMode)
+router.post('/edit-mode/:id', controller.turnOnEditMode);
+
+router.post('/forgot-password', controller.forgotPassword);
+
+router.post('/reset-password', controller.resetPassword);
 
 module.exports = router;

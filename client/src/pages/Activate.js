@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import NavBar from './NavBar';
+import NavBar from '../components/NavBar';
 import jwt from 'jsonwebtoken';
 
 export default function Activate() {

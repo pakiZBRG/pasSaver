@@ -1,8 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from "./components/Home";
-import Activate from "./components/Activate";
-import Collections from "./components/Collections";
+import Home from "./pages/Home";
+import Activate from "./pages/Activate";
+import Collections from "./pages/Collections";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Route path='/' element={<Home />}/>
         <Route path='/activate/:token' element={<Activate />}/>
         <Route path='/collections' element={<Collections />}/>
+        <Route path='/recovery' element={<ForgotPassword />}/>
+        <Route path='/reset/:token' element={<ResetPassword />}/>
       </Routes>
     </BrowserRouter>
   );

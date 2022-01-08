@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { isAuth } from '../helpers/auth';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import NewPasswords from './NewPasswords';
-import NewCollection from './NewCollection';
-import NavBar from './NavBar';
-import GetCollectionsAndPasswords from './GetCollectionsAndPasswords';
-import Filter from './Filter';
+import NewPasswords from '../components/NewPasswords';
+import NewCollection from '../components/NewCollection';
+import NavBar from '../components/NavBar';
+import GetCollectionsAndPasswords from '../components/GetCollectionsAndPasswords';
+import Filter from '../components/Filter';
 
 
 export default function Collections() {
