@@ -94,7 +94,6 @@ export default function GetCollectionsAndPasswords({
                                         className='remove-collection'
                                         onClick={() => deleteCollection(coll._id)}
                                     >
-                                        {console.log(coll.name, isBlack)}
                                         delete
                                     </button>
                                 }

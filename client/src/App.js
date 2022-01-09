@@ -5,6 +5,7 @@ import Activate from "./pages/Activate";
 import Collections from "./pages/Collections";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import RecoverEditKey from "./pages/RecoverEditKey";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/collections' element={<Collections />}/>
         <Route path='/recovery' element={<ForgotPassword />}/>
         <Route path='/reset/:token' element={<ResetPassword />}/>
+        <Route path='/recover/:token' element={<RecoverEditKey />}/>
       </Routes>
     </BrowserRouter>
   );

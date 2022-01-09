@@ -78,28 +78,38 @@ export default function Filter({ setSearch, modal, setModal, editable, setEditab
             .catch(err => toast.warn(err.message))
     }
 
+    const sendRecoveryEmail = async () => {
+        try {
+            const sendEmail = await axios.post('http://localhost:5000/auth/recover/edit-mode', { id: isAuth() })
+            toast.info(sendEmail.data.message)
+        } catch(error) {
+            toast.error(error.message)
+        }
+    }
+
     return (
         <>
             <ToastContainer theme='colored' />
             {modal &&
                 <div className='modal flex-center'>
                     <span onClick={() => setModal(false)}>
-                        <i class='fa fa-close'></i>
+                        <i className='fa fa-close'></i>
                     </span>
                     <h2>Enter your EditKey</h2>
                     <p>With it you can edit, remove and copy your passwords and collections.</p>
                     <form method='POST' id='editMode' onSubmit={handleEditKey} style={{ marginTop: '3rem' }}>
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
-                        <input type='text' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' placeholder='0' maxLength={1} />
 
                         <button type='submit' className='submit-right'>
                             <i className='fa fa-arrow-right'></i>
                         </button>
                     </form>
+                    <div className='recovery' onClick={sendRecoveryEmail}>Forgot editKey? Send recovery email</div>
                 </div>
             }
             <div className='filter'>
@@ -114,7 +124,7 @@ export default function Filter({ setSearch, modal, setModal, editable, setEditab
                         </div>
                         :
                         editable ?
-                            <button class='activated' onClick={() => deactivate(() => setEditable(false))}>
+                            <button className='activated' onClick={() => deactivate(() => setEditable(false))}>
                                 <h3>deactivate</h3>
                             </button>
                             :

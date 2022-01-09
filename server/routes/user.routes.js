@@ -6,8 +6,6 @@ router.post('/keypass', validEmail, controller.getKeyPass);
 
 router.post('/activate/keypass/:token', validKeyPass, controller.activateKeyPass);
 
-router.post('/login', controller.login);
-
 router.get('/find/edit-mode/:id', controller.findEditModeKey);
 
 router.post('/edit-mode', controller.getEditModeKey);
@@ -15,6 +13,12 @@ router.post('/edit-mode', controller.getEditModeKey);
 router.post('/activate/edit-mode/:token', controller.activateEditMode);
 
 router.post('/edit-mode/:id', controller.turnOnEditMode);
+
+router.post('/recover/edit-mode', controller.recoverEditKey)
+
+router.post('/reset/edit-mode', controller.resetEditKey);
+
+router.post('/login', controller.login);
 
 router.post('/forgot-password', controller.forgotPassword);
 

@@ -63,7 +63,8 @@ body {
           box-shadow: 0 7px 20px 3px rgba(238, 238, 238, 0.3);
 }
 
-.flex-center form input[type='text'] {
+.flex-center form input[type='text'],
+.flex-center form input[type='password'] {
   border: none;
   background: #333;
   color: #eeeeee;
@@ -78,7 +79,8 @@ body {
   transition: 200ms ease-in;
 }
 
-.flex-center form input[type='text']:focus {
+.flex-center form input[type='text']:focus,
+.flex-center form input[type='password']:focus {
   -webkit-box-shadow: 0 0 0 2px rgba(238, 238, 238, 0.3);
           box-shadow: 0 0 0 2px rgba(238, 238, 238, 0.3);
 }
@@ -145,6 +147,11 @@ body {
   margin-top: .9rem;
   text-decoration: none;
   opacity: 0.7;
+  cursor: pointer;
+}
+
+.flex-center .recovery:hover {
+  text-decoration: underline;
 }
 
 .flex-links {

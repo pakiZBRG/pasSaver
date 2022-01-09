@@ -100,7 +100,7 @@ exports.login = async (req, res) => {
 
 
         if (hashPwd) {
-            const token = jwt.sign({ id: findKeyPass._id, email: findKeyPass.email }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '1d' })
+            const token = jwt.sign({ id: findKeyPass._id, email: findKeyPass.email }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '30d' })
 
             return res.json({
                 message: "Successful login",
@@ -198,6 +198,8 @@ exports.turnOnEditMode = async (req, res) => {
 
         const hashKey = await bcrypt.compare(req.body.key, findEditMode.editKey);
 
+        console.log(req.body.key)
+
         if (hashKey) {
             return res.status(200).json({ message: "Successful activation", editable: findEditMode.editKey })
         } else {
@@ -254,6 +256,58 @@ exports.resetPassword = async (req, res) => {
         );
 
         return res.status(200).json({ message: "Password successfully reseted!" })
+    } catch (error) {
+        return res.status(500).json({ error: error.message })
+    }
+}
+
+exports.recoverEditKey = async (req, res) => {
+    try {
+        const emailExists = await User.findById(req.body.id)
+
+        if (!emailExists) {
+            return res.status(409).json({ error: 'This email doesn\'t exist. Please, take another one.' })
+        }
+
+        const token = jwt.sign(
+            { email: emailExists.email },
+            process.env.JWT_ACCOUNT_ACTIVATION,
+            { expiresIn: 900 }
+        )
+
+        const html = `
+            <div className='center'>
+                <div className='black-card'>
+                    <div className='black-card-header'>
+                        <h3>Recover your editKey</h3>
+                    </div>
+                    <div className='black-card-content'>
+                        <p>Click on the link below to proceed with reseting your editKey.</p>
+                        <a href='${process.env.CLIENT_URL}/recover/${token}'>Recover editKey</a>
+                        <small>Password Collector</small>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        sendEmail(emailExists.email, html, res)
+    } catch (err) {
+        return res.status(500).json({ error: err.message })
+    }
+}
+
+exports.resetEditKey = async (req, res) => {
+    const { email, editKey } = req.body;
+
+    try {
+        const hashEditKey = await bcrypt.hash(editKey, 10);
+
+        await User.updateOne(
+            { email },
+            { $set: { editKey: hashEditKey } }
+        );
+
+        return res.status(200).json({ message: "EditKey successfully reseted!" })
     } catch (error) {
         return res.status(500).json({ error: error.message })
     }
