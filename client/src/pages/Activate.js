@@ -60,7 +60,7 @@ export default function Activate() {
                 <p>Set your unique keyPass. With it you can access all your passwords. It has to have at least 10 characters and both numbers and letters.</p>
                 {jwt.decode(token).mode ?
                     <form method='POST' id='editMode' onSubmit={handleEditKey}>
-                        <input type='password' className='hide' placeholder='0' maxLength={1} />
+                        <input type='password' autoFocus className='hide' placeholder='0' maxLength={1} />
                         <input type='password' className='hide' placeholder='0' maxLength={1} />
                         <input type='password' className='hide' placeholder='0' maxLength={1} />
                         <input type='password' className='hide' placeholder='0' maxLength={1} />

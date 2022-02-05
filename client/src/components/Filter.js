@@ -70,7 +70,7 @@ export default function Filter({ setSearch, modal, setModal, editable, setEditab
                     <h2>Enter your EditKey</h2>
                     <p>With it you can edit, remove and add your passwords and collections.</p>
                     <form method='POST' id='editMode' onSubmit={handleEditKey}>
-                        <input className='hide' type='password' placeholder='0' maxLength={1} />
+                        <input className='hide' autoFocus type='password' placeholder='0' maxLength={1} />
                         <input className='hide' type='password' placeholder='0' maxLength={1} />
                         <input className='hide' type='password' placeholder='0' maxLength={1} />
                         <input className='hide' type='password' placeholder='0' maxLength={1} />

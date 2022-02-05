@@ -47,7 +47,7 @@ export default function RecoverEditKey() {
                 <h1>Password Saver</h1>
                 <p>Reset your unique editKey. With it you can access all your passwords. It can contain either numbers and letters.</p>
                 <form method='POST' id='editMode' onSubmit={resetEditKey}>
-                    <input className='hide' type='password' placeholder='0' maxLength={1} />
+                    <input className='hide' autoFocus type='password' placeholder='0' maxLength={1} />
                     <input className='hide' type='password' placeholder='0' maxLength={1} />
                     <input className='hide' type='password' placeholder='0' maxLength={1} />
                     <input className='hide' type='password' placeholder='0' maxLength={1} />

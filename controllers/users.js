@@ -92,8 +92,6 @@ exports.login = async (req, res) => {
         const findKeyPass = await User.findOne({ email });
         const hashPwd = await bcrypt.compare(keyPass, findKeyPass.keyPass);
         
-        console.log(findKeyPass, hashPwd, keyPass, findKeyPass.keyPass)
-
         if (!findKeyPass || !hashPwd) {
             return res.status(403).json({ error: 'Invalid credentails.' });
         }
@@ -197,8 +195,6 @@ exports.turnOnEditMode = async (req, res) => {
         const findEditMode = await User.findById(req.params.id);
 
         const hashKey = await bcrypt.compare(req.body.key, findEditMode.editKey);
-
-        console.log(req.body.key)
 
         if (hashKey) {
             return res.status(200).json({ message: "Successful activation", editable: findEditMode.editKey })

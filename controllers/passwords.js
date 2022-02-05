@@ -90,7 +90,6 @@ exports.editPassword = async (req, res) => {
             pass.save()
                 .then(async () => {
                     const collection = await Collection.find({ user: loggedUser }).populate('passwords');
-                    console.log(collection)
                     return res.status(200).json({ message: "Password updated", collection })
                 })
                 .catch(err => res.status(500).json({ error: err.message }))
