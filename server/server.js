@@ -44,6 +44,14 @@ mongoose.connect(
 app.use('/auth', require('./routes/user.routes'))
 app.use('/collection', require('./routes/collection.routes'))
 app.use('/password', require('./routes/password.routes'))
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
+});
+
+// Production Ready
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static("client/build"));
+}
 
 // Server
 const PORT = process.env.PORT || 5000;

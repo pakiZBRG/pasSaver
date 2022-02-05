@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import OTPInput from '../helpers/OTPInput';
 import jwt from 'jsonwebtoken';
 
 export default function Activate() {
@@ -21,42 +22,15 @@ export default function Activate() {
         if (data.trim() === '') {
             toast.warning('Input your keyPass, please.')
         } else {
-            axios.post(`http://localhost:5000/auth/activate/keypass/${token}`, { keyPass: data })
+            axios.post(`/auth/activate/keypass/${token}`, { keyPass: data })
                 .then(res => toast.success(res.data.message))
                 .catch(err => toast.error(err?.response.data.error));
         }
     }
 
-    const OTPInput = () => {
-        const inputs = document.querySelectorAll('#editMode > input');
-        for (let i = 0; i < inputs.length; i++) {
-            inputs[i].addEventListener('keydown', function (event) {
-                if (event.key === "Backspace") {
-                    inputs[i].value = '';
-                    if (i !== 0)
-                        inputs[i - 1].focus();
-                } else {
-                    if (i === inputs.length - 1 && inputs[i].value !== '') {
-                        return true;
-                    } else if (event.keyCode > 47 && event.keyCode < 58) {
-                        inputs[i].value = event.key;
-                        if (i !== inputs.length - 1)
-                            inputs[i + 1].focus();
-                        event.preventDefault();
-                    } else if (event.keyCode > 64 && event.keyCode < 91) {
-                        inputs[i].value = String.fromCharCode(event.keyCode);
-                        if (i !== inputs.length - 1)
-                            inputs[i + 1].focus();
-                        event.preventDefault();
-                    }
-                }
-            });
-        }
-    }
-
     useEffect(() => {
         OTPInput();
-    }, [data])
+    }, [])
 
     const handleEditKey = e => {
         e.preventDefault();
@@ -67,7 +41,7 @@ export default function Activate() {
         if (data.join('').length !== 6) {
             toast.warn('Please input all 6 fields')
         } else {
-            axios.post(`http://localhost:5000/auth/activate/edit-mode/${token}`, { editKey: data.join('') })
+            axios.post(`/auth/activate/edit-mode/${token}`, { editKey: data.join('') })
                 .then(res => {
                     toast.success(res.data.message)
                     setTimeout(() => {
@@ -81,7 +55,7 @@ export default function Activate() {
     return (
         <>
             <NavBar />
-            <div className='flex-center'>
+            <div className='flex-center' style={{ minHeight: '86vh' }}>
                 <h1>Password Saver</h1>
                 <p>Set your unique keyPass. With it you can access all your passwords. It has to have at least 10 characters and both numbers and letters.</p>
                 {jwt.decode(token).mode ?
@@ -112,14 +86,16 @@ export default function Activate() {
                 }
             </div>
             <div className='flex-links'>
-                <a target='_blanc' href='https://github.com/pakiZBRG'>
-                    <i className='fa fa-github'></i>
-                </a>
-                <a target='_blanc' href='https://github.com/pakiZBRG/pasSaver'>
-                    <i className='fa fa-code'></i>
-                </a>
+                <div>
+                    <a target='_blanc' href='https://github.com/pakiZBRG'>
+                        <i className='fa fa-github'></i>
+                    </a>
+                    <a target='_blanc' href='https://github.com/pakiZBRG/pasSaver'>
+                        <i className='fa fa-code'></i>
+                    </a>
+                </div>
+                <p className='maker'>pakiZBRG</p>
             </div>
-            <p className='maker'>pakiZBRG</p>
         </>
     )
 }

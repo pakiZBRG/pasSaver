@@ -26,11 +26,11 @@ export default function Collections() {
     const getCollections = async () => {
         try {
             if (search.trim() === '') {
-                const collectionData = await axios.get(`http://localhost:5000/collection/${loggedUser}`);
+                const collectionData = await axios.get(`/collection/${loggedUser}`);
                 setCollection(collectionData.data.collections);
                 setLoading(false)
             } else {
-                const searchCollection = await axios.get(`http://localhost:5000/password/${search}`);
+                const searchCollection = await axios.get(`/password/${search}`);
                 setCollection(searchCollection.data.collections);
                 setLoading(false)
             }
@@ -64,7 +64,7 @@ export default function Collections() {
             form.append("color", color);
             form.append('user', loggedUser)
             form.append("myImage", imageUrl);
-            axios.post('http://localhost:5000/collection/new', form)
+            axios.post('/collection/new', form)
                 .then(res => {
                     setCollection([...collections, res.data.collection])
                     e.target.reset();
@@ -78,7 +78,7 @@ export default function Collections() {
 
     const deleteCollection = async id => {
         try {
-            const collection = await axios.delete(`http://localhost:5000/collection/${id}?user=${loggedUser}`)
+            const collection = await axios.delete(`/collection/${id}?user=${loggedUser}`)
             if (collection) {
                 console.log(collection)
                 setCollection(collection.data.collection)
@@ -94,7 +94,7 @@ export default function Collections() {
         e.preventDefault();
         try {
             if (email && password && collector) {
-                axios.post('http://localhost:5000/password/new', { email, password, collector, loggedUser })
+                axios.post('/password/new', { email, password, collector, loggedUser })
                     .then(res => {
                         setCollection(res.data.collections)
                         e.target.reset();
@@ -111,7 +111,7 @@ export default function Collections() {
 
     const removePassword = async pass => {
         try {
-            const remove = await axios.delete(`http://localhost:5000/password/${pass}?user=${loggedUser}`);
+            const remove = await axios.delete(`/password/${pass}?user=${loggedUser}`);
             if (remove) {
                 setCollection(remove.data.collections)
                 toast.success("Password removed")
@@ -126,7 +126,7 @@ export default function Collections() {
         const id = e.target.offsetParent.attributes[0].value;
         try {
             if (password && email) {
-                await axios.put(`http://localhost:5000/password/${id}`, { email, password, collector, loggedUser });
+                await axios.put(`/password/${id}`, { email, password, collector, loggedUser });
                 setTimeout(() => window.location.reload(), 200)
             } else {
                 toast.warn('Please insert both email and password')

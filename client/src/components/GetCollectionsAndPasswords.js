@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 import hashPassword from '../helpers/Hashing'
@@ -57,7 +57,7 @@ export default function GetCollectionsAndPasswords({
         if (toUpdate === updateDiv) {
             setUpdatePass(toUpdate)
             setEdit(!edit)
-            collections?.forEach(coll => coll.passwords.find(pass => pass._id === toUpdate &&  setData({ email: pass.email, password: hashPassword(pass.password)})));
+            collections?.forEach(coll => coll.passwords.find(pass => pass._id === toUpdate && setData({ email: pass.email, password: hashPassword(pass.password)})));
         }
     }
 

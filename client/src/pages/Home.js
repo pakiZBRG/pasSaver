@@ -21,7 +21,7 @@ export default function Home() {
         if (login.email.trim() === '') {
             toast.warning('Input your email, please.')
         } else {
-            axios.post('http://localhost:5000/auth/keypass', { email: login.email })
+            axios.post('/auth/keypass', { email: login.email })
                 .then(res => toast.info(res.data.message))
                 .catch(err => toast.error(err.response.data.error))
         }
@@ -32,7 +32,7 @@ export default function Home() {
         if (!login.email && !login.keyPass) {
             toast.warning('Input your email and keyPass, please.')
         } else {
-            axios.post('http://localhost:5000/auth/login', { login })
+            axios.post('/auth/login', { login })
                 .then(res => {
                     authenticate(res);
                     if (isAuth()) {

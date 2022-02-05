@@ -25,7 +25,7 @@ export default function ResetPassword() {
         } else if (data.password !== data.confirmPassword) {
             toast.warning('Password need to match')
         } else {
-            axios.post('http://localhost:5000/auth/reset-password', { password: data.password, email: jwt.decode(token).email })
+            axios.post('/auth/reset-password', { password: data.password, email: jwt.decode(token).email })
                 .then(res => toast.success(res.data.message))
                 .catch(err => toast.error(err.response.data.error))
         }
