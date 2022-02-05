@@ -70,7 +70,7 @@ exports.activateKeyPass = (req, res) => {
 
                 const user = new User({ email, keyPass });
                 user.save()
-                    .then(() => res.status(201).json({ message: "User created" }))
+                    .then(() => res.status(201).json({ message: "User registered" }))
                     .catch(err => res.status(500).json({ error: err.message }))
             }
         } catch (err) {

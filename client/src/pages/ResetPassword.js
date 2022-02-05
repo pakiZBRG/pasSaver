@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
 import { useParams } from 'react-router-dom';
@@ -33,7 +33,6 @@ export default function ResetPassword() {
 
     return (
         <>
-            <ToastContainer theme='colored' />
             <NavBar />
             <div style={{ minHeight: '93vh' }}>
                 <div className='flex-center'>

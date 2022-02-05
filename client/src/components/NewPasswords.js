@@ -7,16 +7,16 @@ export default function NewPasswords({
     handleSelect,
     collections,
 }) {
-    const [open, setOpen] = useState(false);
+    const [openPassword, setOpenPassword] = useState(false);
 
     return (
-        <CSSTransition in={open} classNames='add' timeout={100}>
+        <CSSTransition in={openPassword} classNames='pass' timeout={100}>
             <div className='collection-flex__passwords'>
-                <span className='collection-flex__passwords-navigate' onClick={() => setOpen(!open)}>
+                <span className='collection-flex__passwords-navigate' onClick={() => setOpenPassword(!openPassword)}>
                     <h2>Create New Password</h2>
-                    <i className="fa fa-chevron-down" style={{ transform: `${open ? 'rotateX(180deg)' : ""}`, transition: '200ms ease-out' }}></i>
+                    <i className="fa fa-chevron-down" style={{ transform: `${openPassword ? 'rotateX(180deg)' : ""}`, transition: '200ms ease-out' }}></i>
                 </span>
-                <CSSTransition in={open} classNames='form' timeout={100}>
+                <CSSTransition in={openPassword} classNames='form' timeout={100}>
                     <form
                         method='POST'
                         encType='multipart/form-data'
@@ -47,7 +47,7 @@ export default function NewPasswords({
                                 ))}
                             </select>
                         </div>
-                        <input type='submit' value='create'/>
+                        <input type='submit' value='create' />
                     </form>
                 </CSSTransition>
             </div>

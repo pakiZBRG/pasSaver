@@ -44,8 +44,28 @@ body {
   margin-top: 4rem;
 }
 
-.flex-center form input[type='email'],
-.flex-center form input[type='password'] {
+.flex-center form .hide {
+  border: none;
+  background: #333;
+  color: #eeeeee;
+  font-size: 2rem;
+  font-family: "Cunia";
+  width: 2rem;
+  text-align: center;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border-radius: 0.5rem;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+}
+
+.flex-center form .hide:focus {
+  -webkit-box-shadow: 0 0 0 2px rgba(238, 238, 238, 0.3);
+          box-shadow: 0 0 0 2px rgba(238, 238, 238, 0.3);
+}
+
+.flex-center form .email,
+.flex-center form .keyPass {
   background: #eeeeee;
   border: none;
   padding: 1rem 1.2rem;
@@ -56,33 +76,11 @@ body {
   width: 20rem;
 }
 
-.flex-center form input[type='email']:hover, .flex-center form input[type='email']:focus,
-.flex-center form input[type='password']:hover,
-.flex-center form input[type='password']:focus {
+.flex-center form .email:hover, .flex-center form .email:focus,
+.flex-center form .keyPass:hover,
+.flex-center form .keyPass:focus {
   -webkit-box-shadow: 0 7px 20px 3px rgba(238, 238, 238, 0.3);
           box-shadow: 0 7px 20px 3px rgba(238, 238, 238, 0.3);
-}
-
-.flex-center form input[type='text'],
-.flex-center form input[type='password'] {
-  border: none;
-  background: #333;
-  color: #eeeeee;
-  font-size: 2rem;
-  font-family: 'Cunia';
-  width: 2rem;
-  text-align: center;
-  padding: .5rem;
-  margin: 0 0.5rem;
-  border-radius: .5rem;
-  -webkit-transition: 200ms ease-in;
-  transition: 200ms ease-in;
-}
-
-.flex-center form input[type='text']:focus,
-.flex-center form input[type='password']:focus {
-  -webkit-box-shadow: 0 0 0 2px rgba(238, 238, 238, 0.3);
-          box-shadow: 0 0 0 2px rgba(238, 238, 238, 0.3);
 }
 
 .flex-center form .submit, .flex-center form .submit-right {
@@ -144,7 +142,7 @@ body {
 
 .flex-center .recovery {
   color: #eeeeee;
-  margin-top: .9rem;
+  margin-top: 0.9rem;
   text-decoration: none;
   opacity: 0.7;
   cursor: pointer;
@@ -174,11 +172,11 @@ body {
 }
 
 .flex-links p {
-  margin-right: .5rem;
+  margin-right: 0.5rem;
 }
 
 .nav-center {
-  padding-top: .5rem;
+  padding-top: 0.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -220,7 +218,7 @@ body {
   background: #ffea04;
   width: 350px;
   height: 260px;
-  margin: .6rem;
+  margin: 0.6rem;
   border-radius: 2rem;
   padding: 1.4rem;
   color: #141414;
@@ -251,14 +249,14 @@ body {
 .divider {
   font-family: "Cunia";
   color: #ffea04;
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin: 1.8rem 0;
   position: relative;
 }
 
 .divider::after {
   position: absolute;
-  content: '';
+  content: "";
   top: 50%;
   left: 105%;
   height: 1px;
@@ -268,7 +266,7 @@ body {
 
 .divider::before {
   position: absolute;
-  content: '';
+  content: "";
   top: 50%;
   right: 105%;
   height: 1px;
@@ -461,31 +459,37 @@ body {
           box-shadow: 0 3px 15px 2px rgba(255, 234, 4, 0.4);
 }
 
-.add-enter {
+.coll-enter,
+.pass-enter {
   height: 87px;
 }
 
-.add-enter-active {
+.coll-enter-active,
+.pass-enter-active {
   height: calc(19rem + 87px);
   -webkit-transition: 300ms ease-out 100ms;
   transition: 300ms ease-out 100ms;
 }
 
-.add-enter-done {
+.coll-enter-done,
+.pass-enter-done {
   height: calc(19rem + 87px);
 }
 
-.add-exit {
+.coll-exit,
+.pass-exit {
   height: calc(19rem + 87px);
 }
 
-.add-exit-active {
+.coll-exit-active,
+.pass-exit-active {
   height: 87px;
   -webkit-transition: 300ms ease-out 100ms;
   transition: 300ms ease-out 100ms;
 }
 
-.add-exit-done {
+.coll-exit-done,
+.pass-exit-done {
   height: 87px;
 }
 
@@ -569,7 +573,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 0.5rem 3rem;
+  padding: .9rem 3rem;
   position: relative;
 }
 
@@ -582,8 +586,8 @@ body {
   content: "";
   background: #eeeeee;
   width: 95%;
-  height: 1px;
-  opacity: 0.1;
+  height: 2px;
+  opacity: 0.05;
 }
 
 .list-collections__single-passwords:hover .actions {
@@ -596,6 +600,7 @@ body {
   color: #eeeeee;
   cursor: default;
   width: 16rem;
+  font-size: .9rem;
 }
 
 .list-collections__single-passwords .writeMode {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
 import UseCase from '../components/UseCase';
@@ -45,7 +45,6 @@ export default function Home() {
 
     return (
         <>
-            <ToastContainer theme='colored' />
             <NavBar />
             <div style={{ minHeight: '93vh' }}>
                 <div className='flex-center'>
@@ -55,7 +54,7 @@ export default function Home() {
                         ?
                         <>
                             <form method='POST' onSubmit={handleEmailSubmit}>
-                                <input type='email' placeholder='Your email' onChange={handleChange('email')} />
+                                <input className='email' type='email' placeholder='Your email' onChange={handleChange('email')} />
                                 <button type='submit' className='submit'>
                                     <i className="fa fa-envelope"></i>
                                 </button>
@@ -64,7 +63,7 @@ export default function Home() {
                             <span className='divider'>or login with keypass</span>
 
                             <form method='POST' onSubmit={handleLoginSubmit} style={{ margin: 0 }}>
-                                <input type='password' className='key' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
+                                <input className='keyPass' type='password' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
                                 <button type='submit' className='submit'>
                                     <i className='fa fa-sign-in'></i>
                                 </button>

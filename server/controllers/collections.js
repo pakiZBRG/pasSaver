@@ -36,7 +36,7 @@ exports.newCollection = (req, res) => {
         return res.status(415).json({ error: "Image size too big. 1MB is limit." });
     }
 
-    if(!color.includes('#')) {
+    if (!color.includes('#')) {
         return res.status(406).json({ error: "Color must include # at the beginning" });
     }
 
@@ -77,6 +77,7 @@ exports.editCollection = (req, res) => {
 
 exports.removeCollection = async (req, res) => {
     const id = req.params.id;
+    const loggedUser = req.query.user;
 
     try {
         const findCollection = await Collection.findById(id);
@@ -86,7 +87,7 @@ exports.removeCollection = async (req, res) => {
             deleteImage(findCollection.imageUrl)
             const deleteCollection = await Collection.findByIdAndRemove(findCollection._id)
             if (deleteItsPasswords && deleteCollection) {
-                const collection = await Collection.find().populate('passwords')
+                const collection = await Collection.find({ user: loggedUser }).populate('passwords')
                 return res.status(200).json({ message: `Collection and ${passwordCount.length} password(s) are deleted!`, collection })
             }
         } else {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
@@ -80,19 +80,18 @@ export default function Activate() {
 
     return (
         <>
-            <ToastContainer theme='colored' />
             <NavBar />
             <div className='flex-center'>
                 <h1>Password Saver</h1>
                 <p>Set your unique keyPass. With it you can access all your passwords. It has to have at least 10 characters and both numbers and letters.</p>
                 {jwt.decode(token).mode ?
                     <form method='POST' id='editMode' onSubmit={handleEditKey}>
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
+                        <input type='password' className='hide' placeholder='0' maxLength={1} />
+                        <input type='password' className='hide' placeholder='0' maxLength={1} />
+                        <input type='password' className='hide' placeholder='0' maxLength={1} />
+                        <input type='password' className='hide' placeholder='0' maxLength={1} />
+                        <input type='password' className='hide' placeholder='0' maxLength={1} />
+                        <input type='password' className='hide' placeholder='0' maxLength={1} />
 
                         <button type='submit' className='submit-right'>
                             <i className='fa fa-arrow-right'></i>
@@ -103,6 +102,7 @@ export default function Activate() {
                         <input
                             type='password'
                             placeholder='Your keyPass'
+                            className='keyPass'
                             onChange={e => setData(e.target.value)}
                         />
                         <button type='submit' className='submit'>

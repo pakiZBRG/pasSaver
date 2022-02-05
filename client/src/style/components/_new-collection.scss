@@ -122,24 +122,30 @@
     }
 }
 
-.add-enter{
+.coll-enter,
+.pass-enter{
     height: 87px;
 }
-.add-enter-active{
+.coll-enter-active,
+.pass-enter-active{
     height: calc(19rem + 87px);
     transition: 300ms ease-out 100ms;
 }
-.add-enter-done{
+.coll-enter-done,
+.pass-enter-done{
     height: calc(19rem + 87px);
 }
-.add-exit{
+.coll-exit,
+.pass-exit{
     height: calc(19rem + 87px);
 }
-.add-exit-active{
+.coll-exit-active,
+.pass-exit-active{
     height: 87px;
     transition: 300ms ease-out 100ms;
 }
-.add-exit-done{
+.coll-exit-done,
+.pass-exit-done{
     height: 87px;
 }
 

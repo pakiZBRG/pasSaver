@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
@@ -68,18 +68,17 @@ export default function RecoverEditKey() {
 
     return (
         <>
-            <ToastContainer theme='colored' />
             <NavBar />
             <div className='flex-center' style={{minHeight: '87vh'}}>
                 <h1>Password Saver</h1>
-                <p>Reset your unique editKey. With it you can access all your passwords. It has to have at least 10 characters and both numbers and letters.</p>
+                <p>Reset your unique editKey. With it you can access all your passwords. It can contain either numbers and letters.</p>
                 <form method='POST' id='editMode' onSubmit={resetEditKey}>
-                    <input type='password' placeholder='0' maxLength={1} />
-                    <input type='password' placeholder='0' maxLength={1} />
-                    <input type='password' placeholder='0' maxLength={1} />
-                    <input type='password' placeholder='0' maxLength={1} />
-                    <input type='password' placeholder='0' maxLength={1} />
-                    <input type='password' placeholder='0' maxLength={1} />
+                    <input className='hide' type='password' placeholder='0' maxLength={1} />
+                    <input className='hide' type='password' placeholder='0' maxLength={1} />
+                    <input className='hide' type='password' placeholder='0' maxLength={1} />
+                    <input className='hide' type='password' placeholder='0' maxLength={1} />
+                    <input className='hide' type='password' placeholder='0' maxLength={1} />
+                    <input className='hide' type='password' placeholder='0' maxLength={1} />
 
                     <button type='submit' className='submit-right'>
                         <i className='fa fa-arrow-right'></i>

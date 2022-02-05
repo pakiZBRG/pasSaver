@@ -6,16 +6,16 @@ export default function NewCollection({
     handleChange,
     onImageChange
 }) {
-    const [open, setOpen] = useState(false)
+    const [openCollection, setOpenCollection] = useState(false)
 
     return (
-        <CSSTransition in={open} classNames='add' timeout={100}>
+        <CSSTransition in={openCollection} classNames='coll' timeout={100}>
             <div className='collection-flex__collections'>
-                <span className='collection-flex__collections-navigate' onClick={() => setOpen(!open)}>
+                <span className='collection-flex__collections-navigate' onClick={() => setOpenCollection(!openCollection)}>
                     <h2>Create New Collection</h2>
-                    <i className="fa fa-chevron-down" style={{ transform: `${open ? 'rotateX(180deg)' : ""}`, transition: '200ms ease-out' }}></i>
+                    <i className="fa fa-chevron-down" style={{ transform: `${openCollection ? 'rotateX(180deg)' : ""}`, transition: '200ms ease-out' }}></i>
                 </span>
-                <CSSTransition in={open} classNames='form' timeout={100}>
+                <CSSTransition in={openCollection} classNames='form' timeout={100}>
                     <form
                         method='POST'
                         encType='multipart/form-data'

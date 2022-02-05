@@ -48,7 +48,7 @@
         &-passwords {
             display: flex;
             justify-content: space-between;
-            padding: 0.5rem 3rem;
+            padding: .9rem 3rem;
             position: relative;
             &:not(.list-collections__single-passwords:first-child)::before {
                 position: absolute;
@@ -58,8 +58,8 @@
                 content: "";
                 background: $white;
                 width: 95%;
-                height: 1px;
-                opacity: 0.1;
+                height: 2px;
+                opacity: 0.05;
             }
             &:hover .actions {
                 opacity: 1;
@@ -70,6 +70,7 @@
                 color: $white;
                 cursor: default;
                 width: 16rem;
+                font-size: .9rem;
             }
             & .writeMode {
                 background: $white;

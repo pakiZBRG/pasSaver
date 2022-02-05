@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isAuth } from '../helpers/auth';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import NewPasswords from '../components/NewPasswords';
 import NewCollection from '../components/NewCollection';
 import NavBar from '../components/NavBar';
@@ -78,8 +78,9 @@ export default function Collections() {
 
     const deleteCollection = async id => {
         try {
-            const collection = await axios.delete(`http://localhost:5000/collection/${id}`)
+            const collection = await axios.delete(`http://localhost:5000/collection/${id}?user=${loggedUser}`)
             if (collection) {
+                console.log(collection)
                 setCollection(collection.data.collection)
                 toast.success(collection.data.message)
             }
@@ -92,9 +93,8 @@ export default function Collections() {
     const handlePasswordCreation = e => {
         e.preventDefault();
         try {
-            console.log(data)
             if (email && password && collector) {
-                axios.post('http://localhost:5000/password/new', { email, password, collector })
+                axios.post('http://localhost:5000/password/new', { email, password, collector, loggedUser })
                     .then(res => {
                         setCollection(res.data.collections)
                         e.target.reset();
@@ -111,7 +111,7 @@ export default function Collections() {
 
     const removePassword = async pass => {
         try {
-            const remove = await axios.delete(`http://localhost:5000/password/${pass}`);
+            const remove = await axios.delete(`http://localhost:5000/password/${pass}?user=${loggedUser}`);
             if (remove) {
                 setCollection(remove.data.collections)
                 toast.success("Password removed")
@@ -125,11 +125,9 @@ export default function Collections() {
         e.preventDefault();
         const id = e.target.offsetParent.attributes[0].value;
         try {
-            if (password || email) {
-                const update = await axios.put(`http://localhost:5000/password/${id}`, { email, password, collector });
-                setUpdatePass([])
-                setCollection(update.data.collection);
-                toast.success(update.data.message);
+            if (password && email) {
+                await axios.put(`http://localhost:5000/password/${id}`, { email, password, collector, loggedUser });
+                setTimeout(() => window.location.reload(), 200)
             } else {
                 toast.warn('Please insert both email and password')
             }
@@ -143,7 +141,6 @@ export default function Collections() {
             {modal && <div className='overlay'></div>}
             <NavBar />
             <div className='collection'>
-                <ToastContainer theme='colored' />
                 <h1>Collections</h1>
                 <div className='collection-flex'>
                     {editable &&

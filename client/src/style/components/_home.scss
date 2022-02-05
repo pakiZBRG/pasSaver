@@ -18,8 +18,40 @@
     & form {
         position: relative;
         margin-top: 4rem;
-        & input[type='email'],
-        & input[type='password'] {
+        // & input[type='email'],
+        // & input[type='password'] {
+        //     background: $white;
+        //     border: none;
+        //     padding: 1rem 1.2rem;
+        //     border-radius: 2rem;
+        //     font-size: 1rem;
+        //     transition: 200ms ease-in;
+        //     width: 20rem;
+        //     &:hover, &:focus{
+        //         box-shadow: 0 7px 20px 3px rgba(238, 238, 238, .3);
+        //     }
+        // }
+
+        // & input[type='text'],
+        .hide {
+            border: none;
+            background: #333;
+            color: $white;
+            font-size: 2rem;
+            font-family: "Cunia";
+            width: 2rem;
+            text-align: center;
+            padding: 0.5rem;
+            margin: 0 0.5rem;
+            border-radius: 0.5rem;
+            transition: 200ms ease-in;
+            &:focus {
+                box-shadow: 0 0 0 2px rgba(238, 238, 238, 0.3);
+            }
+        }
+
+        .email,
+        .keyPass {
             background: $white;
             border: none;
             padding: 1rem 1.2rem;
@@ -27,26 +59,9 @@
             font-size: 1rem;
             transition: 200ms ease-in;
             width: 20rem;
-            &:hover, &:focus{
-                box-shadow: 0 7px 20px 3px rgba(238, 238, 238, .3);
-            }
-        }
-
-        & input[type='text'],
-        & input[type='password'] {
-            border: none;
-            background: #333;
-            color: $white;
-            font-size: 2rem;
-            font-family: 'Cunia';
-            width: 2rem;
-            text-align: center; 
-            padding: .5rem;
-            margin: 0 0.5rem;
-            border-radius: .5rem;
-            transition: 200ms ease-in;
-            &:focus{
-                box-shadow: 0 0 0 2px rgba(238, 238, 238, .3);
+            &:hover,
+            &:focus {
+                box-shadow: 0 7px 20px 3px rgba(238, 238, 238, 0.3);
             }
         }
 
@@ -63,8 +78,9 @@
             width: 42px;
             height: 42px;
             transition: 200ms ease-in;
-            &:hover, &:focus {
-                box-shadow: 0 7px 25px 5px rgba(20, 20, 20, .5);
+            &:hover,
+            &:focus {
+                box-shadow: 0 7px 25px 5px rgba(20, 20, 20, 0.5);
                 cursor: pointer;
             }
         }
@@ -74,8 +90,9 @@
             right: -3.5rem;
             background: $white;
             color: $black;
-            &:hover, &:focus {
-                box-shadow: 0 3px 15px 5px rgba(200, 200, 200, .5);
+            &:hover,
+            &:focus {
+                box-shadow: 0 3px 15px 5px rgba(200, 200, 200, 0.5);
                 cursor: pointer;
             }
         }
@@ -91,8 +108,9 @@
         border-radius: 2rem;
         font-size: 1.1rem;
         transition: 200ms ease-in;
-        &:hover, &:focus {
-            box-shadow: 0 3px 20px 3px rgba(255, 234, 4, .4);
+        &:hover,
+        &:focus {
+            box-shadow: 0 3px 20px 3px rgba(255, 234, 4, 0.4);
         }
         & i {
             margin-left: 1rem;
@@ -101,7 +119,7 @@
 
     .recovery {
         color: $white;
-        margin-top: .9rem;
+        margin-top: 0.9rem;
         text-decoration: none;
         opacity: 0.7;
         cursor: pointer;
@@ -121,12 +139,12 @@
         margin: 0 0.5rem 0.6rem 0.5rem;
     }
     & p {
-        margin-right: .5rem;
+        margin-right: 0.5rem;
     }
 }
 
 .nav-center {
-    padding-top: .5rem;
+    padding-top: 0.5rem;
     display: flex;
     justify-content: center;
     & a {
@@ -153,7 +171,7 @@
         background: $yellow;
         width: 350px;
         height: 260px;
-        margin: .6rem;
+        margin: 0.6rem;
         border-radius: 2rem;
         padding: 1.4rem;
         color: $black;
@@ -181,12 +199,12 @@
 .divider {
     font-family: "Cunia";
     color: $yellow;
-    font-size: .9rem;
+    font-size: 0.9rem;
     margin: 1.8rem 0;
     position: relative;
     &::after {
         position: absolute;
-        content: '';
+        content: "";
         top: 50%;
         left: 105%;
         height: 1px;
@@ -195,7 +213,7 @@
     }
     &::before {
         position: absolute;
-        content: '';
+        content: "";
         top: 50%;
         right: 105%;
         height: 1px;

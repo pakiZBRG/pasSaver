@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { isAuth, deactivate } from '../helpers/auth';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export default function Filter({ setSearch, modal, setModal, editable, setEditable }) {
     const [editMode, setEditMode] = useState(false);
@@ -89,27 +89,26 @@ export default function Filter({ setSearch, modal, setModal, editable, setEditab
 
     return (
         <>
-            <ToastContainer theme='colored' />
             {modal &&
                 <div className='modal flex-center'>
                     <span onClick={() => setModal(false)}>
                         <i className='fa fa-close'></i>
                     </span>
                     <h2>Enter your EditKey</h2>
-                    <p>With it you can edit, remove and copy your passwords and collections.</p>
+                    <p>With it you can edit, remove and add your passwords and collections.</p>
                     <form method='POST' id='editMode' onSubmit={handleEditKey} style={{ marginTop: '3rem' }}>
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
-                        <input type='password' placeholder='0' maxLength={1} />
+                        <input className='hide' type='password' placeholder='0' maxLength={1} />
+                        <input className='hide' type='password' placeholder='0' maxLength={1} />
+                        <input className='hide' type='password' placeholder='0' maxLength={1} />
+                        <input className='hide' type='password' placeholder='0' maxLength={1} />
+                        <input className='hide' type='password' placeholder='0' maxLength={1} />
+                        <input className='hide' type='password' placeholder='0' maxLength={1} />
 
                         <button type='submit' className='submit-right'>
                             <i className='fa fa-arrow-right'></i>
                         </button>
                     </form>
-                    <div className='recovery' onClick={sendRecoveryEmail}>Forgot editKey? Send recovery email</div>
+                    <div className='recovery' onClick={sendRecoveryEmail}>Don't have it? Send recovery email</div>
                 </div>
             }
             <div className='filter'>

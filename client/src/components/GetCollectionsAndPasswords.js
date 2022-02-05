@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import hashPassword from '../helpers/Hashing'
 
 
@@ -18,9 +18,7 @@ export default function GetCollectionsAndPasswords({
     const [openedColl, setOpenedColl] = useState([]);
     const [edit, setEdit] = useState(false);
     const editable = localStorage.getItem('editable')
-    let isBlack = false;
-
-    useEffect(() => {}, [editable])
+    let isBlack;
 
     const hex2rgb = color => {
         let r, g, b;
@@ -30,12 +28,11 @@ export default function GetCollectionsAndPasswords({
         r = parseInt(r, 16);
         g = parseInt(g, 16);
         b = parseInt(b, 16);
-        if (r > 190 && g > 190 && b > 190) {
-            isBlack = true;
-        }
-        if(r < 45 && g < 45 && b < 45) {
-            isBlack = false;
-        }
+        if (r < 45 && g < 45 && b < 45) {
+            isBlack = 'white';
+        } else if (r > 190 && g > 190 && b > 190) {
+            isBlack = 'black';
+        } else isBlack = ''
         return `rgba(${r}, ${g}, ${b}, .4)`;
     }
 
@@ -60,37 +57,32 @@ export default function GetCollectionsAndPasswords({
         if (toUpdate === updateDiv) {
             setUpdatePass(toUpdate)
             setEdit(!edit)
-            setData({
-                email: e.target.offsetParent.children[0].value,
-                password: hashPassword(e.target.offsetParent.children[1].value)
-            })
+            collections?.forEach(coll => coll.passwords.find(pass => pass._id === toUpdate &&  setData({ email: pass.email, password: hashPassword(pass.password)})));
         }
     }
 
     return (
         <div className='list-collections'>
-            <ToastContainer theme='colored' />
-            {/* <i className='fa fa-minus list-collections__minimize' onClick={() => setOpenedColl([])}></i> */}
             {!loading ?
                 collections.length ? collections?.map(coll => (
                     <div className='list-collections__single' id={coll._id} key={coll._id} onClick={openCollection}>
-                        <div className='list-collections__single-collection'>
+                        <div className='list-collections__single-collection' title={`Open ${coll.name}`}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <img src={coll.imageUrl} alt={coll.name} />
                                 <a
                                     target='_blanc'
                                     href={coll.website}
                                     style={{
-                                        boxShadow: `0 0 8px 4px ${hex2rgb(coll.color.slice(1))}`,
+                                        boxShadow: `0 0 8px 3px ${hex2rgb(coll.color.slice(1))}`,
                                         background: `${coll.color}`,
-                                        color: `${isBlack ? 'black' : 'whitesmoke'}`
+                                        color: `${isBlack === 'black' ? 'black' : 'whitesmoke'}`
                                     }}
                                 >
                                     {coll.name}
                                 </a>
                                 {editable &&
                                     <button
-                                        style={{ color: `${isBlack ? 'whitemsoke' : coll.color}` }}
+                                        style={{ color: `${isBlack === 'white' ? '#eee' : coll.color}` }}
                                         className='remove-collection'
                                         onClick={() => deleteCollection(coll._id)}
                                     >
@@ -100,7 +92,7 @@ export default function GetCollectionsAndPasswords({
                             </div>
                             {coll.passwords.length > 0 &&
                                 <div>
-                                    <span style={{ color: `${coll.color}` }}>
+                                    <span style={{ color: `${isBlack === 'white' ? '#eee' : coll.color}` }}>
                                         {coll.passwords.length}
                                     </span>
                                     <small> passwords</small>
