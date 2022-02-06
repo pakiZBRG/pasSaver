@@ -57,7 +57,7 @@ export default function Collections() {
     const { name, website, color, imageUrl } = data;
     const handleCollectionCreation = e => {
         e.preventDefault();
-        if (name && website && color && imageUrl.name) {
+        if (name && website && color && imageUrl?.name) {
             const form = new FormData();
             form.append("name", name);
             form.append("website", website);
