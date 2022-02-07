@@ -10,10 +10,9 @@ export const authenticate = (res) => {
         users.push(id)
         localStorage.setItem('savedUsers', JSON.stringify(users))
     } else {
-        const inUsers = saveUsers.includes(JSON.stringify(id));
+        const inUsers = saveUsers.includes(id);
         if(!inUsers) {
             saveUsers.push(id)
-            console.log(typeof saveUsers, saveUsers, id)
             localStorage.setItem('savedUsers', JSON.stringify(saveUsers));
         }
     }
