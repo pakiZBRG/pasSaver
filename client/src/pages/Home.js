@@ -10,8 +10,9 @@ import LoggedAccounts from '../components/LoggedAccounts';
 export default function Home() {
     const params = useLocation().search;
     const [login, setLogin] = useState('');
+    const [visible, setVisible] = useState(false);
 
-    if(params === '?token=expired') {
+    if (params === '?token=expired') {
         toast.info('Yout token has expired. Please send another one')
     }
 
@@ -64,7 +65,17 @@ export default function Home() {
                             <span className='divider'>or login with keypass</span>
 
                             <form method='POST' onSubmit={handleLoginSubmit} style={{ margin: 0 }}>
-                                <input className='keyPass' type='password' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
+                                {!visible ?
+                                    <>
+                                        <input className='keyPass' type='password' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
+                                        <img src="/images/non-visible.png" alt='non-visible' className='non-visible' onClick={() => setVisible(true)} />
+                                    </>
+                                    :
+                                    <>
+                                        <input className='keyPass' type='text' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
+                                        <img src="/images/visible.png" alt='visible' className='non-visible' onClick={() => setVisible(false)} />
+                                    </>
+                                }
                                 <button type='submit' className='submit'>
                                     <i className='fa fa-sign-in'></i>
                                 </button>

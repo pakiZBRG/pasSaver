@@ -76,6 +76,7 @@ body {
 
 .flex-center form .email,
 .flex-center form .keyPass {
+  position: relative;
   background: #eeeeee;
   border: none;
   padding: 1rem 1.2rem;
@@ -83,7 +84,8 @@ body {
   font-size: 1rem;
   -webkit-transition: 200ms ease-in;
   transition: 200ms ease-in;
-  width: 20rem;
+  width: 15rem;
+  padding-right: 6rem;
 }
 
 .flex-center form .email:hover, .flex-center form .email:focus,
@@ -333,6 +335,14 @@ body {
   cursor: pointer;
   -webkit-box-shadow: 0 2px 10px 3px rgba(238, 238, 238, 0.3);
           box-shadow: 0 2px 10px 3px rgba(238, 238, 238, 0.3);
+}
+
+.non-visible {
+  position: absolute;
+  right: 3.7rem;
+  top: .8rem;
+  height: 1.5rem;
+  cursor: pointer;
 }
 
 .collection {
@@ -947,7 +957,7 @@ body {
 }
 
 .reset-form div input {
-  padding: 0.7rem;
+  padding: 0.8rem;
   border: 0;
   width: 20rem;
   font-size: 1rem;

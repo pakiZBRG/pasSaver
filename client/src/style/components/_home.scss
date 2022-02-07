@@ -38,13 +38,15 @@
 
         .email,
         .keyPass {
+            position: relative;
             background: $white;
             border: none;
             padding: 1rem 1.2rem;
             border-radius: 2rem;
             font-size: 1rem;
             transition: 200ms ease-in;
-            width: 20rem;
+            width: 15rem;
+            padding-right: 6rem;
             &:hover,
             &:focus {
                 box-shadow: 0 7px 20px 3px rgba(238, 238, 238, 0.3);
@@ -242,4 +244,12 @@
             }
         }
     }
+}
+
+.non-visible {
+    position: absolute;
+    right: 3.7rem;
+    top: .8rem;
+    height: 1.5rem;
+    cursor: pointer;
 }
