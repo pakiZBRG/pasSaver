@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 import UseCase from '../components/UseCase';
 import { authenticate, isAuth } from '../helpers/auth';
 import { Link, useLocation } from 'react-router-dom';
+import LoggedAccounts from '../components/LoggedAccounts';
 
 export default function Home() {
     const params = useLocation().search;
@@ -80,6 +81,7 @@ export default function Home() {
                         </Link>
                     }
                 </div>
+                {!isAuth() && <LoggedAccounts />}
                 <UseCase />
             </div>
             <div className='flex-links'>
