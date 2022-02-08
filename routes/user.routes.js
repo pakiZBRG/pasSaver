@@ -20,8 +20,6 @@ router.post('/reset/edit-mode', controller.resetEditKey);
 
 router.post('/login', controller.login);
 
-router.get('/login-saved/:email', controller.loginSaveUser);
-
 router.post('/forgot-password', controller.forgotPassword);
 
 router.post('/reset-password', controller.resetPassword);

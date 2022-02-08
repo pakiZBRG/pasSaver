@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ScrollContainer from 'react-indiana-drag-scroll'
-import { authenticate, isAuth } from '../helpers/auth';
 
-export default function LoggedAccounts() {
+export default function LoggedAccounts({ setLogin }) {
   const [loggedUsers, setLoggedUsers] = useState();
-  const [userToLogin, setUserToLogin] = useState();
   const savedUsers = localStorage.getItem('savedUsers');
 
   const getLoggedUsers = async () => {
@@ -18,25 +16,8 @@ export default function LoggedAccounts() {
   }
 
   useEffect(() => {
-    getLoggedUsers();
-    if (userToLogin) {
-      loginUser();
-    }
-  }, [userToLogin]);
-
-  const loginUser = async () => {
-    try {
-      const login = await axios.get(`/auth/login-saved/${userToLogin}`)
-      if (login) {
-        authenticate(login);
-        if (isAuth()) {
-          window.location.href = '/collections';
-        }
-      }
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
+    if(JSON.parse(savedUsers)) getLoggedUsers();
+  }, []);
 
   const clearLoggedUsers = () => {
     localStorage.removeItem('savedUsers')
@@ -51,7 +32,7 @@ export default function LoggedAccounts() {
         <p onClick={() => clearLoggedUsers()}>clear</p>
         <ScrollContainer hideScrollbars={false} className='loggedUsers-flex'>
           {loggedUsers?.map(user => (
-            <div onClick={() => setUserToLogin(user.email)}>{user.email}</div>
+            <div key={user._id} onClick={() => setLogin({email: user.email})}>{user.email}</div>
           ))}
         </ScrollContainer>
       </>

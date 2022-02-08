@@ -56,7 +56,7 @@ export default function Home() {
                         ?
                         <>
                             <form method='POST' onSubmit={handleEmailSubmit}>
-                                <input className='email' type='email' placeholder='Your email' onChange={handleChange('email')} />
+                                <input className='email' type='email' placeholder='Your email' defaultValue={login.email} onChange={handleChange('email')} />
                                 <button type='submit' className='submit'>
                                     <i className="fa fa-envelope"></i>
                                 </button>
@@ -65,16 +65,11 @@ export default function Home() {
                             <span className='divider'>or login with keypass</span>
 
                             <form method='POST' onSubmit={handleLoginSubmit} style={{ margin: 0 }}>
+                                <input className='keyPass' type={visible ? 'text' : 'password'} placeholder='Your keyPass' onChange={handleChange('keyPass')} />
                                 {!visible ?
-                                    <>
-                                        <input className='keyPass' type='password' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
-                                        <img src="/images/non-visible.png" alt='non-visible' className='non-visible' onClick={() => setVisible(true)} />
-                                    </>
+                                    <img src="/images/non-visible.png" alt='non-visible' className='non-visible' onClick={() => setVisible(true)} />
                                     :
-                                    <>
-                                        <input className='keyPass' type='text' placeholder='Your keyPass' onChange={handleChange('keyPass')} />
-                                        <img src="/images/visible.png" alt='visible' className='non-visible' onClick={() => setVisible(false)} />
-                                    </>
+                                    <img src="/images/visible.png" alt='visible' className='non-visible' onClick={() => setVisible(false)} />
                                 }
                                 <button type='submit' className='submit'>
                                     <i className='fa fa-sign-in'></i>
@@ -92,7 +87,7 @@ export default function Home() {
                         </Link>
                     }
                 </div>
-                {!isAuth() && <LoggedAccounts />}
+                {!isAuth() && <LoggedAccounts setLogin={setLogin} />}
                 <UseCase />
             </div>
             <div className='flex-links'>

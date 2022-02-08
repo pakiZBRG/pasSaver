@@ -108,17 +108,6 @@ exports.login = async (req, res) => {
     }
 }
 
-exports.loginSaveUser = async (req, res) => {
-    try {
-        const email = req.params.email;
-        const user = await User.findOne({email})
-        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '30d' })
-        return res.status(200).json({ token })
-    } catch (err) {
-        return res.status(500).json({ error: err.message })
-    }
-}
-
 exports.findEditModeKey = async (req, res) => {
     try {
         const emailExists = await User.findById(req.params.id);
