@@ -32,7 +32,7 @@ exports.getKeyPass = async (req, res) => {
                     </div>
                     <div className='black-card-content'>
                         <p>Click on the link below to continue with setting up you keyPass, in order to view your passwords and collections.</p>
-                        <a href='${process.env.PUBLIC_URL}/activate/${token}'>Setup keyPass</a>
+                        <a href='${process.env.CLIENT_URL}/activate/${token}'>Setup keyPass</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
@@ -90,23 +90,30 @@ exports.login = async (req, res) => {
 
     try {
         const findKeyPass = await User.findOne({ email });
-        const hashPwd = await bcrypt.compare(keyPass, findKeyPass.keyPass);
-        
-        if (!findKeyPass || !hashPwd) {
-            return res.status(403).json({ error: 'Invalid credentails.' });
+        if (findKeyPass === null) {
+            return res.status(403).json({ error: 'Invalid credentials.' });
         }
 
+        const hashPwd = await bcrypt.compare(keyPass, findKeyPass.keyPass);
 
         if (hashPwd) {
             const token = jwt.sign({ id: findKeyPass._id, email: findKeyPass.email }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '30d' })
 
-            return res.json({
-                message: "Successful login",
-                token
-            })
+            return res.status(200).json({ token })
         } else {
             return res.status(403).json({ error: 'Invalid credentails.' });
         }
+    } catch (err) {
+        return res.status(500).json({ error: err.message })
+    }
+}
+
+exports.loginSaveUser = async (req, res) => {
+    try {
+        const email = req.params.email;
+        const user = await User.findOne({email})
+        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_ACCOUNT_ACTIVATION, { expiresIn: '30d' })
+        return res.status(200).json({ token })
     } catch (err) {
         return res.status(500).json({ error: err.message })
     }
@@ -148,7 +155,7 @@ exports.getEditModeKey = async (req, res) => {
                     </div>
                     <div className='black-card-content'>
                         <p>Click on the link below to continue with setting up you editKeyPass, in order to create, update and remove passwords and collections.</p>
-                        <a href='${process.env.PUBLIC_URL}/activate/${token}'>Setup EditKey</a>
+                        <a href='${process.env.CLIENT_URL}/activate/${token}'>Setup EditKey</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
@@ -228,7 +235,7 @@ exports.forgotPassword = async (req, res) => {
                     </div>
                     <div className='black-card-content'>
                         <p>Click on the link below to proceed with recovering your password.</p>
-                        <a href='${process.env.PUBLIC_URL}/reset/${token}'>Reset Password</a>
+                        <a href='${process.env.CLIENT_URL}/reset/${token}'>Reset Password</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
@@ -279,7 +286,7 @@ exports.recoverEditKey = async (req, res) => {
                     </div>
                     <div className='black-card-content'>
                         <p>Click on the link below to proceed with reseting your editKey.</p>
-                        <a href='${process.env.PUBLIC_URL}/recover/${token}'>Recover editKey</a>
+                        <a href='${process.env.CLIENT_URL}/recover/${token}'>Recover editKey</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
@@ -304,6 +311,25 @@ exports.resetEditKey = async (req, res) => {
         );
 
         return res.status(200).json({ message: "EditKey successfully reseted!" })
+    } catch (error) {
+        return res.status(500).json({ error: error.message })
+    }
+}
+
+exports.getLoggedUsers = async (req, res) => {
+    let data = []
+    let loggedUsers;
+
+    try {
+        const users = req.body.users;
+        if (users.includes(',')) {
+            users.split(',').forEach(user => data.push(user))
+            loggedUsers = await User.find({ _id: { $in: data } }).select('email')
+        } else {
+            loggedUsers = await User.find({_id: users}).select('email')
+        }
+
+        return res.status(200).json(loggedUsers)
     } catch (error) {
         return res.status(500).json({ error: error.message })
     }
