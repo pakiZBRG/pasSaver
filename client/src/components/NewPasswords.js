@@ -41,7 +41,7 @@ export default function NewPasswords({
                         <div className='form-input'>
                             <label htmlFor='collector'>Collection</label>
                             <select onChange={handleSelect} >
-                                <option selected hidden>Pick a collection</option>
+                                <option value='Pick a collection' hidden>Pick a collection</option>
                                 {collections?.map(coll => (
                                     <option key={coll._id} value={coll._id}>{coll.name}</option>
                                 ))}

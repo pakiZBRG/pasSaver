@@ -9,13 +9,6 @@ import jwt from 'jsonwebtoken';
 export default function RecoverEditKey() {
     const token = useParams().token;
 
-    const now = new Date()
-    const seconds = Math.round(now.getTime() / 1000)
-
-    if (jwt.decode(token).exp < seconds) {
-        window.location.href = '/?token=expired'
-    }
-
     useEffect(() => {
         OTPInput();
     }, [])

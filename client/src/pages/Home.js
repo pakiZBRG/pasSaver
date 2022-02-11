@@ -4,17 +4,12 @@ import axios from 'axios';
 import NavBar from '../components/NavBar';
 import UseCase from '../components/UseCase';
 import { authenticate, isAuth } from '../helpers/auth';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoggedAccounts from '../components/LoggedAccounts';
 
 export default function Home() {
-    const params = useLocation().search;
     const [login, setLogin] = useState('');
     const [visible, setVisible] = useState(false);
-
-    if (params === '?token=expired') {
-        toast.info('Yout token has expired. Please send another one')
-    }
 
     const handleChange = text => e => setLogin({ ...login, [text]: e.target.value });
 

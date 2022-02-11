@@ -1,0 +1,36 @@
+.picker {
+    width: 80%;
+    margin: 2rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    &-collection {
+        cursor: pointer;
+        background: rgb(15, 15, 15);
+        margin: 1.2rem;
+        height: 11rem;
+        width: 11rem;
+        border: 2px solid transparent;
+        border-radius: 1.5rem;
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        i {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 1.5rem;
+        }
+        img {
+            height: 4.5rem;
+            object-fit: contain;
+        }
+        p {
+            text-transform: uppercase;
+            margin-top: 2.5rem;
+        }
+    }
+}

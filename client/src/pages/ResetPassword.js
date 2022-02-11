@@ -11,13 +11,6 @@ export default function ResetPassword() {
 
     const handleChange = text => e => setData({ ...data, [text]: e.target.value });
 
-    const now = new Date()
-    const seconds = Math.round(now.getTime() / 1000);
-
-    if (jwt.decode(token).exp < seconds) {
-        window.location.href = '/?token=expired'
-    }
-
     const handleResetPassword = e => {
         e.preventDefault();
         if (!data.password && !data.confirmPassword) {

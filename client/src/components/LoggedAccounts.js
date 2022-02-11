@@ -26,7 +26,7 @@ export default function LoggedAccounts({ setLogin }) {
 
   return (
     <div className='loggedUsers'>
-      {loggedUsers?.length && 
+      {loggedUsers?.length ? 
       <>
         <span>all logged sessions</span>
         <p onClick={() => clearLoggedUsers()}>clear</p>
@@ -35,7 +35,7 @@ export default function LoggedAccounts({ setLogin }) {
             <div key={user._id} onClick={() => setLogin({email: user.email})}>{user.email}</div>
           ))}
         </ScrollContainer>
-      </>
+      </> : null
       }
     </div>
   );

@@ -80,7 +80,6 @@ export default function Collections() {
         try {
             const collection = await axios.delete(`/collection/${id}?user=${loggedUser}`)
             if (collection) {
-                console.log(collection)
                 setCollection(collection.data.collection)
                 toast.success(collection.data.message)
             }

@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { sendEmail } = require('../helpers/emailSender')
 const { validationResult } = require('express-validator');
+const Collection = require('../models/Collection');
 
 exports.getKeyPass = async (req, res) => {
     const email = req.body.email;
@@ -67,10 +68,17 @@ exports.activateKeyPass = (req, res) => {
                 }
 
                 const keyPass = await bcrypt.hash(req.body.keyPass, 10)
-
                 const user = new User({ email, keyPass });
+
+                const collections = req.body.collections.map(col => {
+                    col.imageUrl = `images/default/${col.name}.png`
+                    col.user = user._id
+                    return col
+                })
+                await Collection.insertMany(collections)
+
                 user.save()
-                    .then(() => res.status(201).json({ message: "User registered" }))
+                    .then(() => res.status(201).json({ message: `User registered with ${collections.length} collections` }))
                     .catch(err => res.status(500).json({ error: err.message }))
             }
         } catch (err) {
@@ -315,7 +323,7 @@ exports.getLoggedUsers = async (req, res) => {
             users.split(',').forEach(user => data.push(user))
             loggedUsers = await User.find({ _id: { $in: data } }).select('email')
         } else {
-            loggedUsers = await User.find({_id: users}).select('email')
+            loggedUsers = await User.find({ _id: users }).select('email')
         }
 
         return res.status(200).json(loggedUsers)

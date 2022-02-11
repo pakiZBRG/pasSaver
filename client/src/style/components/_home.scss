@@ -15,6 +15,14 @@
         font-size: 1.1rem;
     }
 
+    & .counter {
+        text-align: center;
+        font-family: 'Cunia';
+        & span {
+            color: $yellow;
+        }
+    }
+
     & form {
         position: relative;
         margin-top: 4rem;
