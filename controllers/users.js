@@ -25,6 +25,8 @@ exports.getKeyPass = async (req, res) => {
             { expiresIn: 900 }
         )
 
+        const address = `${process.env.PUBLIC_URL}/activate/${token}`
+
         const html = `
             <div className='center'>
                 <div className='black-card'>
@@ -33,7 +35,8 @@ exports.getKeyPass = async (req, res) => {
                     </div>
                     <div className='black-card-content'>
                         <p>Click on the link below to continue with setting up you keyPass, in order to view your passwords and collections.</p>
-                        <a href='${process.env.PUBLIC_URL}/activate/${token}'>Setup keyPass</a>
+                        <a href='${address}'>Setup keyPass</a>
+                        <a href='${address}'>${address}</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
@@ -144,6 +147,8 @@ exports.getEditModeKey = async (req, res) => {
             { expiresIn: 900 }
         )
 
+        const address = `${process.env.PUBLIC_URL}/activate/${token}`
+
         const html = `
             <div className='center'>
                 <div className='black-card'>
@@ -152,7 +157,8 @@ exports.getEditModeKey = async (req, res) => {
                     </div>
                     <div className='black-card-content'>
                         <p>Click on the link below to continue with setting up you editKeyPass, in order to create, update and remove passwords and collections.</p>
-                        <a href='${process.env.PUBLIC_URL}/activate/${token}'>Setup EditKey</a>
+                        <a href='${address}'>Setup EditKey</a>
+                        <a href='${address}'>${address}</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
@@ -224,6 +230,8 @@ exports.forgotPassword = async (req, res) => {
             { expiresIn: 900 }
         )
 
+        const address = `${process.env.PUBLIC_URL}/reset/${token}`
+
         const html = `
             <div className='center'>
                 <div className='black-card'>
@@ -232,7 +240,8 @@ exports.forgotPassword = async (req, res) => {
                     </div>
                     <div className='black-card-content'>
                         <p>Click on the link below to proceed with recovering your password.</p>
-                        <a href='${process.env.PUBLIC_URL}/reset/${token}'>Reset Password</a>
+                        <a href='${address}'>Reset Password</a>
+                        <a href='${address}'>${address}</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
@@ -275,6 +284,8 @@ exports.recoverEditKey = async (req, res) => {
             { expiresIn: 900 }
         )
 
+        const address = `${process.env.PUBLIC_URL}/recover/${token}`
+
         const html = `
             <div className='center'>
                 <div className='black-card'>
@@ -283,7 +294,8 @@ exports.recoverEditKey = async (req, res) => {
                     </div>
                     <div className='black-card-content'>
                         <p>Click on the link below to proceed with reseting your editKey.</p>
-                        <a href='${process.env.PUBLIC_URL}/recover/${token}'>Recover editKey</a>
+                        <a href='${address}'>Recover editKey</a>
+                        <a href='${address}'>${address}</a>
                         <small>Password Collector</small>
                     </div>
                 </div>

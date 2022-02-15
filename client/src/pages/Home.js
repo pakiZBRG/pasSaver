@@ -11,6 +11,8 @@ export default function Home() {
     const [login, setLogin] = useState('');
     const [visible, setVisible] = useState(false);
 
+    if(localStorage.getItem('id')) window.location.href = '/collections';
+
     const handleChange = text => e => setLogin({ ...login, [text]: e.target.value });
 
     const handleEmailSubmit = e => {
