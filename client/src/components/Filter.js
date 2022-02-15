@@ -5,14 +5,12 @@ import { toast } from 'react-toastify';
 import OTPInput from '../helpers/OTPInput'
 
 export default function Filter({ setSearch, modal, setModal, editable, setEditable }) {
-    const [editMode, setEditMode] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const doesEditModeExists = async () => {
         try {
-            const doesExist = await axios.get(`/auth/find/edit-mode/${isAuth()}`);
+            await axios.get(`/auth/find/edit-mode/${isAuth()}`);
             setLoading(false);
-            setEditMode(doesExist.data.exists)
         } catch (err) {
             console.log(err.message)
         }
@@ -41,14 +39,8 @@ export default function Filter({ setSearch, modal, setModal, editable, setEditab
                     localStorage.setItem('editable', res.data.editable);
                     setEditable(res.data.editable)
                 })
-                .catch(err => console.log(err.response));
+                .catch(err => toast.warn(err.response.data.error));
         }
-    }
-
-    const sendEditKey = async () => {
-        axios.post(`/auth/edit-mode`, { id: isAuth() })
-            .then(res => toast.info(res.data.message))
-            .catch(err => toast.warn(err.message))
     }
 
     const sendRecoveryEmail = async () => {
