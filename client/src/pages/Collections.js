@@ -25,7 +25,7 @@ export default function Collections() {
 
     const getCollections = async () => {
         try {
-            if (search.trim() === '') {
+            if (search === '') {
                 const collectionData = await axios.get(`/collection/${loggedUser}`);
                 setCollection(collectionData.data.collections);
                 setLoading(false)

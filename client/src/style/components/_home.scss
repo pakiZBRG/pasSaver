@@ -83,7 +83,8 @@
 
         & .submit-right {
             @extend .submit;
-            right: -3.5rem;
+            top: 1rem;
+            right: -1.5rem;
             background: $white;
             color: $black;
             &:hover,

@@ -128,7 +128,8 @@ body {
 }
 
 .flex-center form .submit-right {
-  right: -3.5rem;
+  top: 1rem;
+  right: -1.5rem;
   background: #eeeeee;
   color: #141414;
 }
@@ -352,6 +353,33 @@ body {
   top: .8rem;
   height: 1.5rem;
   cursor: pointer;
+}
+
+.submit, .flex-center form .submit-right {
+  position: relative;
+  z-index: 10;
+}
+
+.submit .tooltip, .flex-center form .submit-right .tooltip {
+  background: #141414;
+  color: #eeeeee;
+  position: absolute;
+  top: 3.5rem;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  padding: .5rem 1rem;
+  font-size: .8rem;
+  font-family: 'Cunia';
+  -webkit-box-shadow: 0 0 10px 2px #000;
+          box-shadow: 0 0 10px 2px #000;
+  border-radius: .1rem;
+  cursor: context-menu;
+  display: none;
+}
+
+.submit:hover .tooltip, .flex-center form .submit-right:hover .tooltip {
+  display: inline;
 }
 
 .picker {

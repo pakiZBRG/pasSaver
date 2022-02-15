@@ -11,13 +11,13 @@ export default function Home() {
     const [login, setLogin] = useState('');
     const [visible, setVisible] = useState(false);
 
-    if(localStorage.getItem('id')) window.location.href = '/collections';
+    if (localStorage.getItem('id')) window.location.href = '/collections';
 
     const handleChange = text => e => setLogin({ ...login, [text]: e.target.value });
 
     const handleEmailSubmit = e => {
         e.preventDefault();
-        if (login.email.trim() === '') {
+        if (login.email === '') {
             toast.warning('Input your email, please.')
         } else {
             axios.post('/auth/keypass', { email: login.email })
@@ -55,6 +55,7 @@ export default function Home() {
                             <form method='POST' onSubmit={handleEmailSubmit}>
                                 <input className='email' type='email' placeholder='Your email' defaultValue={login.email} onChange={handleChange('email')} />
                                 <button type='submit' className='submit'>
+                                    <span className='tooltip' style={{width: '11rem'}}>Send activation email</span>
                                     <i className="fa fa-envelope"></i>
                                 </button>
                             </form>
@@ -69,6 +70,7 @@ export default function Home() {
                                     <img src="/images/visible.png" alt='visible' className='non-visible' onClick={() => setVisible(false)} />
                                 }
                                 <button type='submit' className='submit'>
+                                    <span className='tooltip' style={{width: '4rem'}}>login</span>
                                     <i className='fa fa-sign-in'></i>
                                 </button>
                             </form>

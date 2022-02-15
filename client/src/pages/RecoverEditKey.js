@@ -48,6 +48,7 @@ export default function RecoverEditKey() {
                     <input className='hide' type='password' placeholder='0' maxLength={1} />
 
                     <button type='submit' className='submit-right'>
+                        <span className='tooltip' style={{ width: '5rem' }}>setup</span>
                         <i className='fa fa-arrow-right'></i>
                     </button>
                 </form>

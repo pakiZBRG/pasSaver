@@ -78,6 +78,7 @@ export default function Filter({ setSearch, modal, setModal, editable, setEditab
                         <input className='hide' type='password' placeholder='0' maxLength={1} />
 
                         <button type='submit' className='submit-right'>
+                        <span className='tooltip' style={{ width: '6rem' }}>activate</span>
                             <i className='fa fa-arrow-right'></i>
                         </button>
                     </form>

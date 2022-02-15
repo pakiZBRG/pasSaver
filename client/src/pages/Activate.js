@@ -15,7 +15,7 @@ export default function Activate() {
 
     const handleKeyPass = e => {
         e.preventDefault();
-        if (data.trim() === '') {
+        if (data === '') {
             toast.warning('Input your keyPass, please.')
         } else if (selected.length < 1) {
             toast.warn('Please select at least 1 collection')
