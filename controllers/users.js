@@ -25,25 +25,9 @@ exports.getKeyPass = async (req, res) => {
             { expiresIn: 900 }
         )
 
-        const address = `${process.env.PUBLIC_URL}/activate/${token}`
+        const url = `${process.env.PUBLIC_URL}/activate/${token}`
 
-        const html = `
-            <div className="center">
-                <div className="black-card">
-                    <div className="black-card-header">
-                        <h3>Link for keyPass</h3>
-                    </div>
-                    <div className="black-card-content">
-                        <p>Click on the link below to continue with setting up you keyPass, in order to view your passwords and collections.</p>
-                        <a href="${address}">Setup keyPass</a>
-                        <a href="${address}">${address}</a>
-                        <small>Password Collector</small>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        sendEmail(email, html, res);
+        sendEmail(email, url, res, 'activate');
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
@@ -133,45 +117,6 @@ exports.findEditModeKey = async (req, res) => {
     }
 }
 
-exports.getEditModeKey = async (req, res) => {
-    try {
-        const emailExists = await User.findById(req.body.id)
-
-        if (!emailExists) {
-            return res.status(409).json({ error: 'This email doesn\'t exist. Please, take another one.' })
-        }
-
-        const token = jwt.sign(
-            { email: emailExists.email, mode: 'editMode' },
-            process.env.JWT_ACCOUNT_ACTIVATION,
-            { expiresIn: 900 }
-        )
-
-        const address = `${process.env.PUBLIC_URL}/activate/${token}`
-
-        const html = `
-            <div className="center">
-                <div className="black-card">
-                    <div className="black-card-header">
-                        <h3>Link for editKeyPass</h3>
-                    </div>
-                    <div className="black-card-content">
-                        <p>Click on the link below to continue with setting up you editKeyPass, in order to create, update and remove passwords and collections.</p>
-                        <a href="${address}">Setup EditKey</a>
-                        <a href="${address}">${address}</a>
-                        <small>Password Collector</small>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        sendEmail(emailExists.email, html, res)
-
-    } catch (err) {
-        return res.status(500).json({ error: err.message })
-    }
-}
-
 exports.activateEditMode = async (req, res) => {
     const token = req.params.token;
     jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, async (err, decoded) => {
@@ -230,25 +175,9 @@ exports.forgotPassword = async (req, res) => {
             { expiresIn: 900 }
         )
 
-        const address = `${process.env.PUBLIC_URL}/reset/${token}`
+        const url = `${process.env.PUBLIC_URL}/reset/${token}`
 
-        const html = `
-            <div className='center'>
-                <div className='black-card'>
-                    <div className='black-card-header'>
-                        <h3>Recover your password</h3>
-                    </div>
-                    <div className='black-card-content'>
-                        <p>Click on the link below to proceed with recovering your password.</p>
-                        <a href='${address}'>Reset Password</a>
-                        <a href='${address}'>${address}</a>
-                        <small>Password Collector</small>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        sendEmail(emailExists.email, html, res)
+        sendEmail(emailExists.email, url, res, 'forgotPassword')
     } catch (err) {
         return res.status(500).json({ error: err.message })
     }
@@ -284,25 +213,9 @@ exports.recoverEditKey = async (req, res) => {
             { expiresIn: 900 }
         )
 
-        const address = `${process.env.PUBLIC_URL}/recover/${token}`
+        const url = `${process.env.PUBLIC_URL}/recover/${token}`
 
-        const html = `
-            <div className='center'>
-                <div className='black-card'>
-                    <div className='black-card-header'>
-                        <h3>Recover your editKey</h3>
-                    </div>
-                    <div className='black-card-content'>
-                        <p>Click on the link below to proceed with reseting your editKey.</p>
-                        <a href='${address}'>Recover editKey</a>
-                        <a href='${address}'>${address}</a>
-                        <small>Password Collector</small>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        sendEmail(emailExists.email, html, res)
+        sendEmail(emailExists.email, url, res, 'setupEditKey')
     } catch (err) {
         return res.status(500).json({ error: err.message })
     }

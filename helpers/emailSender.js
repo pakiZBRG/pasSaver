@@ -1,6 +1,15 @@
 const nodemailer = require('nodemailer');
+const fs = require('fs');
+const path = require('path');
+const handlebars = require('handlebars')
 
-exports.sendEmail = (email, html, res) => {
+exports.sendEmail = (email, URL, res, file) => {
+    const filePath = path.join(__dirname, `../templates/${file}.handlebars`);
+    const source = fs.readFileSync(filePath, 'utf-8').toString();
+    const template = handlebars.compile(source);
+    const replacements = { URL };
+    const html = template(replacements);
+
     const emailData = {
         from: process.env.EMAIL_FROM,
         to: email,

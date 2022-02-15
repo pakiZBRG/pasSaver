@@ -20,7 +20,7 @@ export default function Filter({ setSearch, modal, setModal, editable, setEditab
 
     useEffect(() => {
         doesEditModeExists();
-        if(modal){
+        if (modal) {
             OTPInput();
         }
     }, [modal])
@@ -55,7 +55,7 @@ export default function Filter({ setSearch, modal, setModal, editable, setEditab
         try {
             const sendEmail = await axios.post('/auth/recover/edit-mode', { id: isAuth() })
             toast.info(sendEmail.data.message)
-        } catch(error) {
+        } catch (error) {
             toast.error(error.message)
         }
     }
@@ -90,19 +90,14 @@ export default function Filter({ setSearch, modal, setModal, editable, setEditab
                     <i className='fa fa-search'></i>
                 </div>
                 {!loading ?
-                    !editMode ?
-                        <div className='filter-button'>
-                            <button onClick={sendEditKey}>Send EditKey</button>
-                        </div>
+                    editable ?
+                        <button className='activated' onClick={() => deactivate(() => setEditable(false))}>
+                            <h3>deactivate</h3>
+                        </button>
                         :
-                        editable ?
-                            <button className='activated' onClick={() => deactivate(() => setEditable(false))}>
-                                <h3>deactivate</h3>
-                            </button>
-                            :
-                            <div className='filter-button'>
-                                <button onClick={() => setModal(!modal)}>Activate EditKey</button>
-                            </div>
+                        <div className='filter-button'>
+                            <button onClick={() => setModal(!modal)}>Activate EditKey</button>
+                        </div>
                     :
                     <h3 className='no-password'>Loading ...</h3>
                 }
