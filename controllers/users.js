@@ -28,15 +28,15 @@ exports.getKeyPass = async (req, res) => {
         const address = `${process.env.PUBLIC_URL}/activate/${token}`
 
         const html = `
-            <div className='center'>
-                <div className='black-card'>
-                    <div className='black-card-header'>
+            <div className="center">
+                <div className="black-card">
+                    <div className="black-card-header">
                         <h3>Link for keyPass</h3>
                     </div>
-                    <div className='black-card-content'>
+                    <div className="black-card-content">
                         <p>Click on the link below to continue with setting up you keyPass, in order to view your passwords and collections.</p>
-                        <a href='${address}'>Setup keyPass</a>
-                        <a href='${address}'>${address}</a>
+                        <a href="${address}">Setup keyPass</a>
+                        <a href="${address}">${address}</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
@@ -150,15 +150,15 @@ exports.getEditModeKey = async (req, res) => {
         const address = `${process.env.PUBLIC_URL}/activate/${token}`
 
         const html = `
-            <div className='center'>
-                <div className='black-card'>
-                    <div className='black-card-header'>
+            <div className="center">
+                <div className="black-card">
+                    <div className="black-card-header">
                         <h3>Link for editKeyPass</h3>
                     </div>
-                    <div className='black-card-content'>
+                    <div className="black-card-content">
                         <p>Click on the link below to continue with setting up you editKeyPass, in order to create, update and remove passwords and collections.</p>
-                        <a href='${address}'>Setup EditKey</a>
-                        <a href='${address}'>${address}</a>
+                        <a href="${address}">Setup EditKey</a>
+                        <a href="${address}">${address}</a>
                         <small>Password Collector</small>
                     </div>
                 </div>
